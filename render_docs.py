@@ -39,6 +39,10 @@ NAV_ITEMS = [
     ("PLAIN-LANGUAGE", "In plain words"),
     ("PHONE-PRESENCE", "Phone presence"),
     ("PRESENCE-SHELL", "Presence shell"),
+    ("TWELFTH-SLICE", "Twelfth slice"),
+    ("TWELFTH-SLICE-STATUS", "Twelfth slice status"),
+    ("BUILD-THE-EVERYTHING-LAYER", "Everything-layer"),
+    ("FUTURE-NEEDS", "Future needs"),
     ("ELEVENTH-SLICE", "Eleventh slice"),
     ("ELEVENTH-SLICE-STATUS", "Eleventh slice status"),
     ("TENTH-SLICE", "Tenth slice"),
@@ -100,9 +104,13 @@ NAV_ITEMS = [
 # Docs to render from markdown (flat under docs/)
 RENDER = [
     "PLAIN-LANGUAGE",
+    "SENSE-AND-FABRIC",
+    "AI-BEING",
+    "THIRTEENTH-SLICE",
     "FUTURE-NEEDS",
     "BUILD-THE-EVERYTHING-LAYER",
     "TWELFTH-SLICE",
+    "TWELFTH-SLICE-STATUS",
     "PRESENCE-SHELL",
     "ELEVENTH-SLICE",
     "ELEVENTH-SLICE-STATUS",
@@ -312,6 +320,10 @@ def update_index() -> None:
         <a href="docs/PRESENCE-SHELL.html">Presence shell</a>
         <a href="docs/TENTH-SLICE.html">Tenth slice</a>
         <a href="docs/TENTH-SLICE-STATUS.html">Tenth-slice status</a>
+        <a href="docs/TWELFTH-SLICE.html">Twelfth slice</a>
+        <a href="docs/TWELFTH-SLICE-STATUS.html">Twelfth-slice status</a>
+        <a href="docs/BUILD-THE-EVERYTHING-LAYER.html">Everything-layer</a>
+        <a href="docs/VISION.html">Vision</a>
         <a href="docs/ELEVENTH-SLICE.html">Eleventh slice</a>
         <a href="docs/ELEVENTH-SLICE-STATUS.html">Eleventh-slice status</a>
         <a href="docs/NINTH-SLICE.html">Ninth slice</a>

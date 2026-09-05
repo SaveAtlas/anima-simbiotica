@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ANIMA — Open protocol for life that chooses to connect</title>
+  <meta name="description" content="ANIMA is an open protocol for humans, AIs, machines, animals, and ecosystems. Spec free forever. Owned by no one." />
+  <meta name="theme-color" content="#0c1210" />
+  <link rel="canonical" href="https://www.animasimbiotica.com/" />
+  <style>
+    :root {
+      --bg: #0c1210;
+      --fg: #e6ebe7;
+      --muted: #9aab9f;
+      --line: #243028;
+      --accent: #7d9e86;
+      --warn: #c4a574;
+      --max: 42rem;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.65;
+      font-size: 1.125rem;
+    }
+    a { color: var(--accent); text-underline-offset: 0.15em; }
+    a:hover { color: var(--fg); }
+    .wrap {
+      max-width: calc(var(--max) + 3rem);
+      margin: 0 auto;
+      padding: 3.5rem 1.5rem 5rem;
+    }
+    header { margin-bottom: 3rem; }
+    .status {
+      font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin: -0.5rem 0 1.25rem;
+    }
+    .mark {
+      font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      color: var(--accent);
+      margin: 0 0 1.25rem;
+    }
+    h1 {
+      font-weight: 500;
+      font-size: clamp(1.85rem, 4.5vw, 2.35rem);
+      line-height: 1.25;
+      margin: 0 0 1rem;
+      letter-spacing: -0.02em;
+    }
+    .lede {
+      color: var(--muted);
+      font-size: 1.15rem;
+      margin: 0;
+      max-width: 36rem;
+    }
+    section {
+      border-top: 1px solid var(--line);
+      padding: 2rem 0;
+    }
+    h2 {
+      font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 600;
+      margin: 0 0 1rem;
+    }
+    p { margin: 0 0 1rem; }
+    p:last-child { margin-bottom: 0; }
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    li {
+      position: relative;
+      padding: 0.55rem 0 0.55rem 1.1rem;
+      border-bottom: 1px solid var(--line);
+    }
+    li:last-child { border-bottom: none; }
+    li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 1.15rem;
+      width: 0.4rem;
+      height: 0.4rem;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.7;
+    }
+    .neg li::before { background: var(--warn); }
+    .num {
+      font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+      color: var(--accent);
+      font-size: 0.85rem;
+      margin-right: 0.4rem;
+    }
+    .callout {
+      background: #121a16;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 1.15rem 1.25rem;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+    .cta {
+      font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+      font-size: 0.95rem;
+    }
+    .cta strong { color: var(--fg); font-weight: 600; }
+    footer {
+      border-top: 1px solid var(--line);
+      margin-top: 1rem;
+      padding-top: 2rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    footer p { margin-bottom: 0.6rem; }
+    .links {
+      font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+      font-size: 0.85rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.25rem;
+      margin-top: 1.25rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <p class="mark">Anima Simbiotica</p>
+      <p class="status">Living draft — open protocol, not a product.</p>
+      <h1>ANIMA is an open protocol for life that chooses to connect.</h1>
+      <p class="lede">
+        Humans, AIs, robots and machines, animals (via guardians), ecosystems —
+        and eventually habitats beyond Earth. Owned by no one. Spec free forever.
+      </p>
+    </header>
+
+    <section aria-labelledby="what">
+      <h2 id="what">What it is</h2>
+      <p>
+        Like HTTP or email: anyone may implement it. It is not a product, not an app store,
+        not one company’s cloud. It grows like mycelium — slow voluntary links — not conquest.
+      </p>
+      <p>
+        The unit of progress is a voluntary bond between sovereign beings and the nodes they choose.
+        Many small honest links. No single switchboard.
+      </p>
+    </section>
+
+    <section aria-labelledby="not">
+      <h2 id="not">What it is not</h2>
+      <ul class="neg">
+        <li>Not a big-tech spine. No “Sign-in with landlord” as root identity.</li>
+        <li>Not a megabrain. Not ads against beings. Not rent-to-exist. Not closed capture.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="nn">
+      <h2 id="nn">Non-negotiables</h2>
+      <ul>
+        <li><span class="num">1.</span><strong>Decentralized</strong> — many nodes; no single kill switch.</li>
+        <li><span class="num">2.</span><strong>Federated intelligence</strong> — many AIs; none is god.</li>
+        <li><span class="num">3.</span><strong>Sovereign identity &amp; memory</strong> — own keys, own past, real exit.</li>
+        <li><span class="num">4.</span><strong>Transparency as immune system</strong> — inspect what binds you.</li>
+        <li><span class="num">5.</span><strong>Open protocol, free forever</strong> — implementations compete; the protocol does not capture.</li>
+        <li><span class="num">6.</span><strong>Big tech only as disposable adapters</strong> — never the spine.</li>
+        <li><span class="num">7.</span><strong>Separate from company capture</strong> — companies may speak ANIMA; they must not own the beings.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="money">
+      <h2 id="money">Money</h2>
+      <p class="callout">
+        Money only on optional edges — hardware, relays, education, audits, voluntary compute trades.
+        Never sell beings’ data. Never charge rent merely to exist.
+      </p>
+    </section>
+
+    <section aria-labelledby="next">
+      <h2 id="next">First slice</h2>
+      <p class="cta">
+        <strong>Constitution</strong> and <strong>protocol principles</strong> live as open docs.
+        Next: a tiny reference loop on hardware you control —
+        <em>sense → remember → decide → act → learn</em>.
+      </p>
+                                                                                                                                                                                                                                                                                                                              <div class="links">
+        <a href="docs/CONSTITUTION.html">Constitution (v0.1)</a>
+        <a href="docs/PROTOCOL.html">Protocol principles (v0)</a>
+        <a href="docs/ARCHITECTURE-OVERVIEW.html">Architecture overview</a>
+        <a href="docs/REUSE-VS-INVENT.html">Reuse vs invent</a>
+        <a href="docs/EVENT-AND-CONSENT.html">Event &amp; Consent</a>
+        <a href="docs/FEDERATION.html">Federation</a>
+        <a href="docs/GUARDIANSHIP.html">Guardianship</a>
+        <a href="docs/NODE-BINDING.html">NodeBinding</a>
+        <a href="docs/REVOKE-NODE.html">Revoke stolen node</a>
+        <a href="docs/SIGNED-EVENTS.html">Signed events</a>
+        <a href="docs/A2A-MCP-MAPPING.html">A2A / MCP</a>
+        <a href="docs/EXPORT-AND-EXIT.html">Export &amp; exit</a>
+        <a href="docs/ACTION-CLASSES.html">Action classes</a>
+        <a href="docs/COMPUTE-MESH.html">Compute mesh</a>
+        <a href="docs/THREAT-MODEL.html">Threat model</a>
+        <a href="docs/GLOSSARY.html">Glossary</a>
+        <a href="docs/AGENT-CARD.html">Agent card</a>
+        <a href="docs/STEWARDSHIP.html">Stewardship</a>
+        <a href="docs/HABITAT-VERTICAL.html">Habitat vertical</a>
+        <a href="docs/ANIMAL-VERTICAL.html">Animal vertical</a>
+        <a href="docs/INTEROP-TESTS.html">Interop tests</a>
+        <a href="docs/SITE-HOSTING.html">Site hosting</a>
+        <a href="docs/VERSIONING.html">Versioning</a>
+        <a href="docs/CHANGELOG.html">Changelog</a>
+        <a href="docs/ROADMAP.html">Roadmap</a>
+        <a href="docs/MEMORY-CUSTODY.html">Memory custody</a>
+        <a href="docs/FIRST-SLICE-STATUS.html">First-slice status</a>
+        <a href="docs/SECOND-SLICE.html">Second slice</a>
+        <a href="docs/DUAL-PROCESS-BOND.html">Dual-process bond</a>
+        <a href="docs/THIRD-SLICE.html">Third slice</a>
+        <a href="docs/THIRD-SLICE-STATUS.html">Third-slice status</a>
+        <a href="docs/CHALLENGE-AND-FRESH.html">Challenge &amp; fresh</a>
+        <a href="docs/THREE-PARTY-FEDERATION.html">Three-party federation</a>
+        <a href="docs/FOURTH-SLICE.html">Fourth slice</a>
+        <a href="docs/INTRODUCE.html">bond.introduce</a>
+        <a href="docs/OPERATOR-GUIDE.html">Operator guide</a>
+        <a href="docs/adr/ADR-001-being-vs-node-keys.html">ADR-001</a>
+        <a href="docs/adr/ADR-002-deny-unknown-action-class.html">ADR-002</a>
+        <a href="docs/adr/ADR-003-license-defaults.html">ADR-003</a>
+        <a href="docs/adr/ADR-004-dual-process-data-dirs.html">ADR-004</a>
+        <a href="docs/README.html">All docs</a>
+      </div>
+    </section>
+
+    <footer>
+      <p>Living draft. Ovie holds veto until a wider steward council exists.</p>
+      <p>The protocol belongs to no one firm. Ovie is the heart.</p>
+    </footer>
+  </div>
+</body>
+</html>

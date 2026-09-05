@@ -150,7 +150,7 @@
   </style>
 </head>
 <body>
-  <p class="mark">Ask me · living place</p>
+  <p class="mark">Ask me · everything-layer</p>
   <h1>Something wants a clear yes.</h1>
   <p class="lede">You’re the guardian for this care. Big or irreversible steps wait here — not a workplace approval queue, just your yes or no.</p>
 
@@ -159,7 +159,7 @@
     <p class="prompt" id="prompt">Allow an irreversible change to the watershed garden?</p>
     <p class="meta">Action: <code id="actionClass">habitat.irreversible.change</code></p>
     <p class="meta" id="modeLine">Mode: demo · later wires to your node’s challenge flow</p>
-    <span class="demo-tag">Demo · phone-first · no store</span>
+    <span class="demo-tag" id="modeTag">Demo · phone-first · no store</span>
 
     <div class="actions">
       <button type="button" class="no" id="btnNo">No</button>
@@ -168,43 +168,104 @@
     <div class="result" id="result" role="status" aria-live="polite"></div>
   </div>
 
-  <a class="back" href="index.html">← Back to your world</a>
+  <a class="back" href="index.html">← Back to everything</a>
 
   <script>
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("./sw.js").catch(function () {});
     }
     (function () {
+      var NODE_KEY = "anima-refnode-base";
       var params = new URLSearchParams(location.search);
       var label = params.get("label");
       var prompt = params.get("prompt");
       var action = params.get("action");
-      var node = params.get("node") || "";
-      try {
-        if (node) localStorage.setItem("anima-refnode-base", node);
-        else node = localStorage.getItem("anima-refnode-base") || "";
-      } catch (e) {}
-      node = (node || "").replace(/\/$/, "");
       if (label) document.getElementById("label").textContent = label;
       if (prompt) document.getElementById("prompt").textContent = prompt;
       if (action) document.getElementById("actionClass").textContent = action;
       var actionClass = (action || "habitat.irreversible.change");
+
+      function getNodeBase() {
+        var q = params.get("node");
+        if (q) {
+          try { localStorage.setItem(NODE_KEY, q); } catch (e) {}
+          return q.replace(/\/$/, "");
+        }
+        try {
+          var stored = localStorage.getItem(NODE_KEY);
+          if (stored) return stored.replace(/\/$/, "");
+        } catch (e) {}
+        return "";
+      }
+
+      var nodeBase = getNodeBase();
       var modeLine = document.getElementById("modeLine");
-      var mode = "demo";
-      if (node) {
-        modeLine.textContent = "Mode: probing node " + node + " …";
-        fetch(node + "/anima/health", { method: "GET", mode: "cors" })
+      var modeTag = document.getElementById("modeTag");
+      var nodeReachable = false;
+
+      function setMode(text, tag, ok) {
+        modeLine.textContent = text;
+        modeTag.textContent = tag;
+        if (ok) modeTag.style.borderColor = "rgba(107, 207, 142, 0.45)";
+      }
+
+      if (nodeBase) {
+        setMode("Mode: probing node " + nodeBase + " …", "Node hook · probing", false);
+        fetch(nodeBase + "/anima/health", { method: "GET", mode: "cors" })
           .then(function (r) {
-            if (!r.ok) throw new Error("health");
-            mode = "node";
-            modeLine.textContent = "Mode: node hook · " + node + " · Yes/No posts a challenge sketch";
+            if (!r.ok) throw new Error("health " + r.status);
+            nodeReachable = true;
+            setMode(
+              "Mode: node reachable · yes/no posts a challenge-response sketch",
+              "Node hook · live sketch",
+              true
+            );
           })
           .catch(function () {
-            mode = "demo";
-            modeLine.textContent = "Mode: demo · node unreachable · local sketch only";
+            setMode(
+              "Mode: node set but unreachable · demo decision (local only)",
+              "Demo · node offline",
+              false
+            );
           });
       } else {
-        modeLine.textContent = "Mode: demo · set ?node= or presence node URL to hook refnode";
+        setMode("Mode: demo · set a node URL on the home screen to hook Ask me", "Demo · phone-first · no store", false);
+      }
+
+      function postSketch(allow) {
+        if (!nodeBase || !nodeReachable) return Promise.resolve({ mode: "local" });
+        var challengeId = "pres-" + Math.random().toString(36).slice(2, 10);
+        var envelope = {
+          kind: "consent.challenge.response",
+          event_id: "evt-" + Math.random().toString(36).slice(2, 10),
+          emitted_at: new Date().toISOString(),
+          source: "presence-ask-me",
+          mode: "sketch",
+          payload: {
+            challenge_id: challengeId,
+            decision: allow ? "allow" : "deny",
+            action_class: actionClass,
+            fresh: true,
+            note: "presence Ask-me sketch — not a full Being-signed response yet",
+          },
+        };
+        return fetch(nodeBase + "/anima/event", {
+          method: "POST",
+          mode: "cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(envelope),
+        })
+          .then(function (r) {
+            return r.json().catch(function () {
+              return { ok: r.ok, status: r.status };
+            });
+          })
+          .then(function (body) {
+            return { mode: "node", body: body };
+          })
+          .catch(function () {
+            return { mode: "local-fallback" };
+          });
       }
 
       var yes = document.getElementById("btnYes");
@@ -213,51 +274,35 @@
       function decide(allow) {
         yes.disabled = true;
         no.disabled = true;
-        var record = {
-          decision: allow ? "allow" : "deny",
-          action_class: actionClass,
-          at: new Date().toISOString(),
-          mode: mode,
-          kind: "consent.challenge.response.sketch",
-        };
+        out.className = "result show " + (allow ? "allow" : "deny");
+        out.textContent = allow
+          ? "Yes recorded… posting sketch if node is up."
+          : "No recorded… posting sketch if node is up.";
         try {
-          localStorage.setItem("anima-presence-last-challenge", JSON.stringify(record));
-        } catch (e) {}
-        function finish(extra) {
-          out.className = "result show " + (allow ? "allow" : "deny");
-          out.textContent = allow
-            ? ("Yes recorded (" + mode + "). " + (extra || "Care step may run once when a live grant is bound."))
-            : ("No recorded (" + mode + "). " + (extra || "The step stays blocked."));
-        }
-        if (mode === "node" && node) {
-          var envelope = {
-            kind: "consent.challenge.response",
-            event_id: "chal-" + Math.random().toString(36).slice(2, 10),
-            emitted_at: record.at,
-            payload: {
-              decision: record.decision,
+          localStorage.setItem(
+            "anima-presence-last-challenge",
+            JSON.stringify({
+              decision: allow ? "allow" : "deny",
               action_class: actionClass,
-              fresh: true,
-              source: "presence-ask-me",
-            },
-            source: "presence-shell",
-            mode: "sketch",
-          };
-          fetch(node + "/anima/event", {
-            method: "POST",
-            mode: "cors",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(envelope),
-          })
-            .then(function (r) {
-              finish(r.ok ? "Posted challenge response sketch to node." : "Node returned " + r.status + "; kept local sketch.");
+              at: new Date().toISOString(),
+              mode: nodeReachable ? "node-sketch" : "demo",
+              node: nodeBase || null,
             })
-            .catch(function () {
-              finish("Node post failed; kept local sketch.");
-            });
-        } else {
-          finish("On a live node this becomes a signed guardian allow.");
-        }
+          );
+        } catch (e) {}
+        postSketch(allow).then(function (res) {
+          if (allow) {
+            out.textContent =
+              res.mode === "node"
+                ? "Yes · sketch posted to node. On a fully wired node this becomes a signed guardian allow — then the care step can run once."
+                : "Yes recorded (demo). On a live node this becomes a signed guardian allow — then the care step can run once.";
+          } else {
+            out.textContent =
+              res.mode === "node"
+                ? "No · sketch posted to node. The step stays blocked. A new challenge can ask again later."
+                : "No recorded (demo). The step stays blocked. A new challenge can ask again later.";
+          }
+        });
       }
       yes.addEventListener("click", function () { decide(true); });
       no.addEventListener("click", function () { decide(false); });
