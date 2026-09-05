@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Architecture overview (v0) — ANIMA</title>
+<title>Seventh-slice status — ANIMA</title>
 <style>
 :root { --bg:#0c1210; --fg:#e6ebe7; --muted:#9aab9f; --line:#243028; --accent:#7d9e86; }
 body { margin:0; font-family: Georgia, serif; background:var(--bg); color:var(--fg); line-height:1.65; font-size:1.1rem; }
@@ -31,108 +31,41 @@ ol { padding-left: 1.25rem; }
 <body>
 <div class="wrap">
 <nav><a href="../index.html">← ANIMA home</a> · <a href="CONSTITUTION.html">Constitution</a> · <a href="PROTOCOL.html">Protocol</a> · <a href="REUSE-VS-INVENT.html">Reuse vs invent</a> · <a href="EVENT-AND-CONSENT.html">Event &amp; Consent</a> · <a href="FEDERATION.html">Federation</a> · <a href="GUARDIANSHIP.html">Guardianship</a> · <a href="NODE-BINDING.html">NodeBinding</a> · <a href="REVOKE-NODE.html">Revoke node</a> · <a href="SIGNED-EVENTS.html">Signed events</a> · <a href="A2A-MCP-MAPPING.html">A2A/MCP</a> · <a href="EXPORT-AND-EXIT.html">Export &amp; exit</a> · <a href="COMPUTE-MESH.html">Compute mesh</a> · <a href="THREAT-MODEL.html">Threat model</a> · <a href="ACTION-CLASSES.html">Action classes</a> · <a href="GLOSSARY.html">Glossary</a> · <a href="ARCHITECTURE-OVERVIEW.html">Architecture</a> · <a href="STEWARDSHIP.html">Stewardship</a> · <a href="HABITAT-VERTICAL.html">Habitat</a> · <a href="ANIMAL-VERTICAL.html">Animal</a> · <a href="INTEROP-TESTS.html">Interop tests</a> · <a href="SITE-HOSTING.html">Site hosting</a> · <a href="AGENT-CARD.html">Agent card</a> · <a href="VERSIONING.html">Versioning</a> · <a href="CHANGELOG.html">Changelog</a> · <a href="ROADMAP.html">Roadmap</a> · <a href="MEMORY-CUSTODY.html">Memory custody</a> · <a href="FIRST-SLICE-STATUS.html">First slice</a> · <a href="SECOND-SLICE.html">Second slice</a> · <a href="SECOND-SLICE-STATUS.html">Second slice status</a> · <a href="DUAL-PROCESS-BOND.html">Dual-process bond</a> · <a href="THIRD-SLICE.html">Third slice</a> · <a href="THIRD-SLICE-STATUS.html">Third slice status</a> · <a href="CHALLENGE-AND-FRESH.html">Challenge &amp; fresh</a> · <a href="THREE-PARTY-FEDERATION.html">Three-party fed</a> · <a href="FOURTH-SLICE.html">Fourth slice</a> · <a href="FOURTH-SLICE-STATUS.html">Fourth slice status</a> · <a href="FIFTH-SLICE.html">Fifth slice</a> · <a href="FIFTH-SLICE-STATUS.html">Fifth slice status</a> · <a href="SIXTH-SLICE.html">Sixth slice</a> · <a href="SIXTH-SLICE-STATUS.html">Sixth slice status</a> · <a href="SEVENTH-SLICE.html">Seventh slice</a> · <a href="SEVENTH-SLICE-STATUS.html">Seventh slice status</a> · <a href="GUARDIAN-CHALLENGE.html">Guardian challenge</a> · <a href="INTRODUCE.html">Introduce</a> · <a href="PEERS-DIRECTORY.html">Peers directory</a> · <a href="OPERATOR-GUIDE.html">Operator guide</a> · <a href="adr/ADR-001-being-vs-node-keys.html">ADR-001</a> · <a href="adr/ADR-002-deny-unknown-action-class.html">ADR-002</a> · <a href="adr/ADR-003-license-defaults.html">ADR-003</a> · <a href="adr/ADR-004-dual-process-data-dirs.html">ADR-004</a></nav>
-<h1>Architecture overview (v0)</h1>
-<p><strong>One page</strong> for humans landing mid-stream. Details live in linked docs.</p>
-<pre><code class="language-mermaid">flowchart TB
-  subgraph spine [Spine — never vendor-owned]
-    ID[BeingId / NodeId + NodeBinding]
-    CG[ConsentGrant]
-    EV[Events]
-    MEM[MemoryStore custody]
-    BOND[Bonds / federation]
-  end
-
-  subgraph loop [Reference loop — operator hardware]
-    S[sense] --&gt; R[remember] --&gt; D[decide] --&gt; A[act] --&gt; L[learn]
-  end
-
-  subgraph adapters [Adapters — disposable]
-    MCP[MCP tools]
-    A2A[A2A-like peer dialect]
-    ROS[ROS2 / MQTT / Matter]
-    LLM[LLM / cloud GPU]
-    HINT[FederationHint relays]
-  end
-
-  ID --&gt; loop
-  CG --&gt; A
-  EV --&gt; loop
-  MEM --&gt; R
-  MEM --&gt; L
-  BOND --&gt; EV
-  adapters -.-&gt;|&quot;may call into&quot;| loop
-  loop -.-&gt;|&quot;must not depend on&quot;| adapters
-</code></pre>
-<h2>Non-negotiable stack rules</h2>
-<ol>
-<li>Many nodes; no single kill switch.  </li>
-<li>Many AIs; no megabrain.  </li>
-<li>Sovereign keys &amp; memory; real exit (<code>EXPORT-AND-EXIT.md</code>).  </li>
-<li>Inspectable bonds (<code>THREAT-MODEL.md</code>).  </li>
-<li>Protocol free forever; money only on edges (<code>COMPUTE-MESH.md</code> late).  </li>
-<li>Not a company freight stack.  </li>
-</ol>
-<h2>Doc map</h2>
+<h1>Seventh-slice status</h1>
+<p><strong>Sealed:</strong> 2026-09-05 (ET)<br />
+<strong>Version:</strong> reference-node <code>0.7.0-sketch</code></p>
 <table>
 <thead>
 <tr>
-<th>Concern</th>
-<th>Doc</th>
+<th>ID</th>
+<th>Result</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Values</td>
-<td><code>CONSTITUTION.md</code></td>
+<td>S7.1 schema-validate</td>
+<td>PASS — all golden fixtures vs schemas (fail closed)</td>
 </tr>
 <tr>
-<td>Principles</td>
-<td><code>PROTOCOL.md</code></td>
+<td>S7.2 attenuate-deny</td>
+<td>PASS — expand DENY + AttenuationRejectReceipt + consent-inspect</td>
 </tr>
 <tr>
-<td>Reuse</td>
-<td><code>REUSE-VS-INVENT.md</code>, <code>A2A-MCP-MAPPING.md</code></td>
+<td>S7.3 agent-card</td>
+<td>PASS — schema ok; <code>landlord_login</code> false</td>
 </tr>
 <tr>
-<td>Wire</td>
-<td><code>EVENT-AND-CONSENT.md</code>, <code>schemas/</code>, <code>fixtures/</code></td>
+<td>S7.4 interop</td>
+<td>PASS — S7.schema-validate / S7.attenuate-deny / S7.agent-card</td>
 </tr>
 <tr>
-<td>Peers</td>
-<td><code>FEDERATION.md</code>, <code>AGENT-CARD.md</code></td>
-</tr>
-<tr>
-<td>Care</td>
-<td><code>GUARDIANSHIP.md</code></td>
-</tr>
-<tr>
-<td>Keys</td>
-<td><code>NODE-BINDING.md</code>, <code>adr/ADR-001-…</code></td>
-</tr>
-<tr>
-<td>AuthN of events</td>
-<td><code>SIGNED-EVENTS.md</code></td>
-</tr>
-<tr>
-<td>Leave</td>
-<td><code>EXPORT-AND-EXIT.md</code></td>
-</tr>
-<tr>
-<td>Memory</td>
-<td><code>MEMORY-CUSTODY.md</code></td>
-</tr>
-<tr>
-<td>Order</td>
-<td><code>ROADMAP.md</code></td>
-</tr>
-<tr>
-<td>Words</td>
-<td><code>GLOSSARY.md</code></td>
+<td>S7.5 docs/site</td>
+<td>PASS — HTML render + OPERATOR-GUIDE; Pages push</td>
 </tr>
 </tbody>
 </table>
-<h2>Runtime sketch</h2>
-<p><code>reference-node/</code> — offline <code>sense → remember → decide → act → learn</code> with grant-gated act and no vendor imports in spine.</p>
+<p><strong>Parallel (not blockers):</strong> S7.6 HTTPS www cert; ADR-003 LICENSE confirm.</p>
+<p>Public copy: no company brand names.</p>
 </div>
 </body>
 </html>
