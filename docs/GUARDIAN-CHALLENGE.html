@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Stewardship notes (intent) — ANIMA</title>
+<title>Guardian + fresh challenge (S5.3) — ANIMA</title>
 <style>
 :root { --bg:#0c1210; --fg:#e6ebe7; --muted:#9aab9f; --line:#243028; --accent:#7d9e86; }
 body { margin:0; font-family: Georgia, serif; background:var(--bg); color:var(--fg); line-height:1.65; font-size:1.1rem; }
@@ -31,32 +31,10 @@ ol { padding-left: 1.25rem; }
 <body>
 <div class="wrap">
 <nav><a href="../index.html">← ANIMA home</a> · <a href="CONSTITUTION.html">Constitution</a> · <a href="PROTOCOL.html">Protocol</a> · <a href="REUSE-VS-INVENT.html">Reuse vs invent</a> · <a href="EVENT-AND-CONSENT.html">Event &amp; Consent</a> · <a href="FEDERATION.html">Federation</a> · <a href="GUARDIANSHIP.html">Guardianship</a> · <a href="NODE-BINDING.html">NodeBinding</a> · <a href="REVOKE-NODE.html">Revoke node</a> · <a href="SIGNED-EVENTS.html">Signed events</a> · <a href="A2A-MCP-MAPPING.html">A2A/MCP</a> · <a href="EXPORT-AND-EXIT.html">Export &amp; exit</a> · <a href="COMPUTE-MESH.html">Compute mesh</a> · <a href="THREAT-MODEL.html">Threat model</a> · <a href="ACTION-CLASSES.html">Action classes</a> · <a href="GLOSSARY.html">Glossary</a> · <a href="ARCHITECTURE-OVERVIEW.html">Architecture</a> · <a href="STEWARDSHIP.html">Stewardship</a> · <a href="HABITAT-VERTICAL.html">Habitat</a> · <a href="ANIMAL-VERTICAL.html">Animal</a> · <a href="INTEROP-TESTS.html">Interop tests</a> · <a href="SITE-HOSTING.html">Site hosting</a> · <a href="AGENT-CARD.html">Agent card</a> · <a href="VERSIONING.html">Versioning</a> · <a href="CHANGELOG.html">Changelog</a> · <a href="ROADMAP.html">Roadmap</a> · <a href="MEMORY-CUSTODY.html">Memory custody</a> · <a href="FIRST-SLICE-STATUS.html">First slice</a> · <a href="SECOND-SLICE.html">Second slice</a> · <a href="SECOND-SLICE-STATUS.html">Second slice status</a> · <a href="DUAL-PROCESS-BOND.html">Dual-process bond</a> · <a href="THIRD-SLICE.html">Third slice</a> · <a href="THIRD-SLICE-STATUS.html">Third slice status</a> · <a href="CHALLENGE-AND-FRESH.html">Challenge &amp; fresh</a> · <a href="THREE-PARTY-FEDERATION.html">Three-party fed</a> · <a href="FOURTH-SLICE.html">Fourth slice</a> · <a href="FOURTH-SLICE-STATUS.html">Fourth slice status</a> · <a href="FIFTH-SLICE.html">Fifth slice</a> · <a href="GUARDIAN-CHALLENGE.html">Guardian challenge</a> · <a href="INTRODUCE.html">Introduce</a> · <a href="PEERS-DIRECTORY.html">Peers directory</a> · <a href="OPERATOR-GUIDE.html">Operator guide</a> · <a href="adr/ADR-001-being-vs-node-keys.html">ADR-001</a> · <a href="adr/ADR-002-deny-unknown-action-class.html">ADR-002</a> · <a href="adr/ADR-003-license-defaults.html">ADR-003</a> · <a href="adr/ADR-004-dual-process-data-dirs.html">ADR-004</a></nav>
-<h1>Stewardship notes (intent)</h1>
-<p><strong>Status:</strong> Non-legal intent for later counsel. Ovie veto.<br />
-<strong>Companions:</strong> <code>CONSTITUTION.md</code> revenue &amp; stewardship</p>
-<hr />
-<h2>Goals</h2>
-<ol>
-<li>Protocol text &amp; trademark stewarded as <strong>commons</strong> — not owned by a freight company.  </li>
-<li>Optional companies sell <strong>edges</strong> (hardware, relays, audits, education).  </li>
-<li>Profits may fund the commons; they must not own beings or redefine existence as a product.  </li>
-<li>Reference implementations stay open.</li>
-</ol>
-<hr />
-<h2>Near-term (no lawyers required to keep shipping)</h2>
-<ul>
-<li>Keep copyright/license headers clear on docs + reference-node (recommend later: CC for prose, Apache-2.0/MIT for code — pick with Ovie).  </li>
-<li>Site states: living draft, open protocol, not Ovie Logistics.  </li>
-<li>No waitlist-capture theater.</li>
-</ul>
-<hr />
-<h2>Later</h2>
-<ul>
-<li>Exact legal vehicle (foundation / association / other)  </li>
-<li>Trademark filing for ANIMA / Anima Simbiotica  </li>
-<li>Steward council beyond Ovie veto  </li>
-</ul>
-<p>Until then: Ovie is heart and veto <strong>after review</strong>, not a gate before each commit.</p>
+<h1>Guardian + fresh challenge (S5.3)</h1>
+<p><strong>Companions:</strong> <code>CHALLENGE-AND-FRESH.md</code>, <code>GUARDIANSHIP.md</code>, <code>ANIMAL-VERTICAL.md</code></p>
+<p>When a grant carries <code>guardian_link</code> <strong>and</strong> <code>fresh_required</code> (or action_class is high-stakes), <code>consent.challenge.response</code> must be signed by the <strong>Guardian Being</strong> (issuer), not only the node.</p>
+<p>Demo sketch: <code>python3 -m refnode guardian-challenge-demo</code> — attempt <code>robot.act.high</code> under animal guardian grant → deny without challenge → guardian allow → act → second deny.</p>
 </div>
 </body>
 </html>
