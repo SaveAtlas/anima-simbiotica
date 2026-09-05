@@ -100,6 +100,8 @@ NAV_ITEMS = [
 # Docs to render from markdown (flat under docs/)
 RENDER = [
     "PLAIN-LANGUAGE",
+    "FUTURE-NEEDS",
+    "BUILD-THE-EVERYTHING-LAYER",
     "TWELFTH-SLICE",
     "PRESENCE-SHELL",
     "ELEVENTH-SLICE",
