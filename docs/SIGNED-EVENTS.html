@@ -114,6 +114,20 @@ ol { padding-left: 1.25rem; }
 </ul>
 <hr />
 <p><em>Transparency without authenticity is theater. Sign across trust boundaries.</em></p>
+<h2>7. Replay cache (S4.3)</h2>
+<p>Each node keeps a bounded set of seen <code>(emitter, event_id)</code> pairs.</p>
+<ul>
+<li>Duplicate id from same emitter → <strong>reject</strong> (replay).  </li>
+<li>Default retention: 7 days or 10k entries (implementation choice; document in README).  </li>
+<li>Persist under <code>REFNODE_HOME/seen/</code> so restarts still fail closed.</li>
+</ul>
+<h2>8. Clock skew (S4.3)</h2>
+<ul>
+<li>Default accept window: <strong>±5 minutes</strong> vs local UTC for inbound signed events.  </li>
+<li><code>consent.revoke</code> / <code>bond.exit</code> / <code>consent.challenge.response</code>: still verify sig first; skew may be looser for revoke (v0: same ±5m, log warning).  </li>
+<li>Configurable via env <code>ANIMA_SKEW_SECONDS</code> (default 300).</li>
+</ul>
+<p>Builder: <code>python3 -m refnode replay-demo</code> — deliver same event twice → second reject; skew-tampered <code>ts</code> → reject.</p>
 </div>
 </body>
 </html>
