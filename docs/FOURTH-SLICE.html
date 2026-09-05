@@ -30,7 +30,7 @@ ol { padding-left: 1.25rem; }
 </head>
 <body>
 <div class="wrap">
-<nav><a href="../index.html">← ANIMA home</a> · <a href="CONSTITUTION.html">Constitution</a> · <a href="PROTOCOL.html">Protocol</a> · <a href="REUSE-VS-INVENT.html">Reuse vs invent</a> · <a href="EVENT-AND-CONSENT.html">Event &amp; Consent</a> · <a href="FEDERATION.html">Federation</a> · <a href="GUARDIANSHIP.html">Guardianship</a> · <a href="NODE-BINDING.html">NodeBinding</a> · <a href="REVOKE-NODE.html">Revoke node</a> · <a href="SIGNED-EVENTS.html">Signed events</a> · <a href="A2A-MCP-MAPPING.html">A2A/MCP</a> · <a href="EXPORT-AND-EXIT.html">Export &amp; exit</a> · <a href="COMPUTE-MESH.html">Compute mesh</a> · <a href="THREAT-MODEL.html">Threat model</a> · <a href="ACTION-CLASSES.html">Action classes</a> · <a href="GLOSSARY.html">Glossary</a> · <a href="ARCHITECTURE-OVERVIEW.html">Architecture</a> · <a href="STEWARDSHIP.html">Stewardship</a> · <a href="HABITAT-VERTICAL.html">Habitat</a> · <a href="ANIMAL-VERTICAL.html">Animal</a> · <a href="INTEROP-TESTS.html">Interop tests</a> · <a href="SITE-HOSTING.html">Site hosting</a> · <a href="AGENT-CARD.html">Agent card</a> · <a href="VERSIONING.html">Versioning</a> · <a href="CHANGELOG.html">Changelog</a> · <a href="ROADMAP.html">Roadmap</a> · <a href="MEMORY-CUSTODY.html">Memory custody</a> · <a href="FIRST-SLICE-STATUS.html">First slice</a> · <a href="SECOND-SLICE.html">Second slice</a> · <a href="SECOND-SLICE-STATUS.html">Second slice status</a> · <a href="DUAL-PROCESS-BOND.html">Dual-process bond</a> · <a href="THIRD-SLICE.html">Third slice</a> · <a href="THIRD-SLICE-STATUS.html">Third slice status</a> · <a href="CHALLENGE-AND-FRESH.html">Challenge &amp; fresh</a> · <a href="THREE-PARTY-FEDERATION.html">Three-party fed</a> · <a href="FOURTH-SLICE.html">Fourth slice</a> · <a href="INTRODUCE.html">Introduce</a> · <a href="PEERS-DIRECTORY.html">Peers directory</a> · <a href="OPERATOR-GUIDE.html">Operator guide</a> · <a href="adr/ADR-001-being-vs-node-keys.html">ADR-001</a> · <a href="adr/ADR-002-deny-unknown-action-class.html">ADR-002</a> · <a href="adr/ADR-003-license-defaults.html">ADR-003</a> · <a href="adr/ADR-004-dual-process-data-dirs.html">ADR-004</a></nav>
+<nav><a href="../index.html">← ANIMA home</a> · <a href="CONSTITUTION.html">Constitution</a> · <a href="PROTOCOL.html">Protocol</a> · <a href="REUSE-VS-INVENT.html">Reuse vs invent</a> · <a href="EVENT-AND-CONSENT.html">Event &amp; Consent</a> · <a href="FEDERATION.html">Federation</a> · <a href="GUARDIANSHIP.html">Guardianship</a> · <a href="NODE-BINDING.html">NodeBinding</a> · <a href="REVOKE-NODE.html">Revoke node</a> · <a href="SIGNED-EVENTS.html">Signed events</a> · <a href="A2A-MCP-MAPPING.html">A2A/MCP</a> · <a href="EXPORT-AND-EXIT.html">Export &amp; exit</a> · <a href="COMPUTE-MESH.html">Compute mesh</a> · <a href="THREAT-MODEL.html">Threat model</a> · <a href="ACTION-CLASSES.html">Action classes</a> · <a href="GLOSSARY.html">Glossary</a> · <a href="ARCHITECTURE-OVERVIEW.html">Architecture</a> · <a href="STEWARDSHIP.html">Stewardship</a> · <a href="HABITAT-VERTICAL.html">Habitat</a> · <a href="ANIMAL-VERTICAL.html">Animal</a> · <a href="INTEROP-TESTS.html">Interop tests</a> · <a href="SITE-HOSTING.html">Site hosting</a> · <a href="AGENT-CARD.html">Agent card</a> · <a href="VERSIONING.html">Versioning</a> · <a href="CHANGELOG.html">Changelog</a> · <a href="ROADMAP.html">Roadmap</a> · <a href="MEMORY-CUSTODY.html">Memory custody</a> · <a href="FIRST-SLICE-STATUS.html">First slice</a> · <a href="SECOND-SLICE.html">Second slice</a> · <a href="SECOND-SLICE-STATUS.html">Second slice status</a> · <a href="DUAL-PROCESS-BOND.html">Dual-process bond</a> · <a href="THIRD-SLICE.html">Third slice</a> · <a href="THIRD-SLICE-STATUS.html">Third slice status</a> · <a href="CHALLENGE-AND-FRESH.html">Challenge &amp; fresh</a> · <a href="THREE-PARTY-FEDERATION.html">Three-party fed</a> · <a href="FOURTH-SLICE.html">Fourth slice</a> · <a href="FOURTH-SLICE-STATUS.html">Fourth slice status</a> · <a href="INTRODUCE.html">Introduce</a> · <a href="PEERS-DIRECTORY.html">Peers directory</a> · <a href="OPERATOR-GUIDE.html">Operator guide</a> · <a href="adr/ADR-001-being-vs-node-keys.html">ADR-001</a> · <a href="adr/ADR-002-deny-unknown-action-class.html">ADR-002</a> · <a href="adr/ADR-003-license-defaults.html">ADR-003</a> · <a href="adr/ADR-004-dual-process-data-dirs.html">ADR-004</a></nav>
 <h1>Fourth slice — architecture plan</h1>
 <p><strong>Prerequisite:</strong> Third slice offline sealed (<code>THIRD-SLICE-STATUS.md</code>).<br />
 <strong>Parallel / Ovie:</strong> Pages + DNS cutover (app code); ADR-003 license confirm.</p>
@@ -72,12 +72,12 @@ ol { padding-left: 1.25rem; }
 <tr>
 <td>S4.4</td>
 <td><code>docs/OPERATOR-GUIDE.md</code> + site page</td>
-<td>Architect → HTML</td>
+<td><strong>PASS</strong> (HTML + index link)</td>
 </tr>
 <tr>
 <td>S4.5</td>
 <td>Interop cases for introduce + skew</td>
-<td>Builder</td>
+<td><strong>PASS</strong> (S4.introduce/replay/skew)</td>
 </tr>
 <tr>
 <td>S4.6</td>
@@ -99,18 +99,20 @@ ol { padding-left: 1.25rem; }
 <ul>
 <li>[x] A and C bond only after explicit accept of introduction  </li>
 <li>[x] Replay of old signed event rejected  </li>
-<li>[ ] Operator guide runnable on a clean machine  </li>
-<li>[ ] Live www serves full <code>site/</code> (when Ovie cutover done)  </li>
+<li>[x] Operator guide on site (<code>docs/OPERATOR-GUIDE.html</code>)  </li>
+<li>[x] Live www serves full <code>site/</code> (HTTP; HTTPS cert pending)  </li>
 <li>[ ] Non-negotiables unchanged  </li>
 </ul>
 <hr />
 <h2>Status</h2>
 <ul>
 <li>S4.1 <strong>PASS</strong> (Architect verified 2026-09-05)</li>
-<li>DNS/Pages cutover in flight (A @ 185.199.108.153 noted)</li>
-<li>S4.2 <strong>PASS</strong> (Builder 2026-09-05)</li>
+<li>S4.2 <strong>PASS</strong> (Architect verified 2026-09-05)</li>
 <li>S4.3 <strong>PASS</strong> (Builder 2026-09-05) — <code>seen/</code> + <code>ANIMA_SKEW_SECONDS</code> + <code>replay-demo</code></li>
-<li>S4.4–S4.5 pending (S4.5 partial: interop S4.replay / S4.skew landed with S4.3)</li>
+<li>S4.4 <strong>PASS</strong> — OPERATOR-GUIDE on site</li>
+<li>S4.5 <strong>PASS</strong> — interop S4.introduce / S4.peers / S4.replay / S4.skew</li>
+<li>S4.6 <strong>PASS</strong> (HTTP) — live <code>http://www.animasimbiotica.com/</code> byte-matches local <code>site/</code> for index + key docs; HTTPS custom cert still provisioning (<code>*.github.io</code> until GitHub issues)</li>
+<li>Optional: remaining apex A .109/.110/.111 if Ovie verifies again</li>
 </ul>
 <h2>Immediate Architect drafts</h2>
 <ol>
