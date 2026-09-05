@@ -90,6 +90,7 @@ python3 -m refnode consent-inspect      # grants / challenges / receipts / revok
 python3 -m refnode version              # expect 0.6.0-sketch
 </code></pre>
 <p>History of bindings lands under <code>{REFNODE_HOME}/identity/bindings/</code>; live gate remains <code>identity/keys/node-binding.json</code>.</p>
+<p><strong>Note:</strong> <code>bindings-list</code> may show a <code>demo-peer</code> (or similar) binding with <code>sig=FAIL</code> when that peer’s Being private key is not present in the current <code>REFNODE_HOME</code>. Expected for synthetic demo peers — not a compromised operator binding. Operator bindings from <code>bindings-issue</code> should verify <code>sig=PASS</code>.</p>
 <h2>Isolation (ADR-004)</h2>
 <pre><code class="language-bash">REFNODE_HOME=/tmp/anima-a python3 -m refnode serve --party A --port 7401 --peer http://127.0.0.1:7402
 REFNODE_HOME=/tmp/anima-b python3 -m refnode serve --party B --port 7402 --peer http://127.0.0.1:7401
@@ -98,13 +99,6 @@ REFNODE_HOME=/tmp/anima-b python3 -m refnode serve --party B --port 7402 --peer 
 <p>Open <code>docs/</code> or published <code>site/</code> on animasimbiotica.com (after Pages cutover).</p>
 <h2>Non-negotiables</h2>
 <p>Many nodes · many AIs · own keys/memory · transparency · open protocol · big tech only as adapters · not a company ops stack.</p>
-<h2>Node bindings (S6.1)</h2>
-<pre><code class="language-bash">python3 -m refnode bindings-list
-python3 -m refnode bindings-issue --label home-edge-2
-python3 -m refnode revoke-node   # then issue a replacement
-python3 -m refnode verify-binding
-</code></pre>
-<p><strong>Note:</strong> <code>bindings-list</code> may show a <code>demo-peer</code> (or similar) binding with <code>sig=FAIL</code> when that peer’s Being private key is not present in the current <code>REFNODE_HOME</code>. That is expected for synthetic demo peers — not a compromised local operator binding. Operator bindings issued via <code>bindings-issue</code> should verify <code>sig=PASS</code>.</p>
 </div>
 </body>
 </html>
