@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Fourth slice — ANIMA</title>
+<title>Local peers directory (S4.2) — ANIMA</title>
 <style>
 :root { --bg:#0c1210; --fg:#e6ebe7; --muted:#9aab9f; --line:#243028; --accent:#7d9e86; }
 body { margin:0; font-family: Georgia, serif; background:var(--bg); color:var(--fg); line-height:1.65; font-size:1.1rem; }
@@ -31,91 +31,44 @@ ol { padding-left: 1.25rem; }
 <body>
 <div class="wrap">
 <nav><a href="../index.html">← ANIMA home</a> · <a href="CONSTITUTION.html">Constitution</a> · <a href="PROTOCOL.html">Protocol</a> · <a href="REUSE-VS-INVENT.html">Reuse vs invent</a> · <a href="EVENT-AND-CONSENT.html">Event &amp; Consent</a> · <a href="FEDERATION.html">Federation</a> · <a href="GUARDIANSHIP.html">Guardianship</a> · <a href="NODE-BINDING.html">NodeBinding</a> · <a href="REVOKE-NODE.html">Revoke node</a> · <a href="SIGNED-EVENTS.html">Signed events</a> · <a href="A2A-MCP-MAPPING.html">A2A/MCP</a> · <a href="EXPORT-AND-EXIT.html">Export &amp; exit</a> · <a href="COMPUTE-MESH.html">Compute mesh</a> · <a href="THREAT-MODEL.html">Threat model</a> · <a href="ACTION-CLASSES.html">Action classes</a> · <a href="GLOSSARY.html">Glossary</a> · <a href="ARCHITECTURE-OVERVIEW.html">Architecture</a> · <a href="STEWARDSHIP.html">Stewardship</a> · <a href="HABITAT-VERTICAL.html">Habitat</a> · <a href="ANIMAL-VERTICAL.html">Animal</a> · <a href="INTEROP-TESTS.html">Interop tests</a> · <a href="SITE-HOSTING.html">Site hosting</a> · <a href="AGENT-CARD.html">Agent card</a> · <a href="VERSIONING.html">Versioning</a> · <a href="CHANGELOG.html">Changelog</a> · <a href="ROADMAP.html">Roadmap</a> · <a href="MEMORY-CUSTODY.html">Memory custody</a> · <a href="FIRST-SLICE-STATUS.html">First slice</a> · <a href="SECOND-SLICE.html">Second slice</a> · <a href="SECOND-SLICE-STATUS.html">Second slice status</a> · <a href="DUAL-PROCESS-BOND.html">Dual-process bond</a> · <a href="THIRD-SLICE.html">Third slice</a> · <a href="THIRD-SLICE-STATUS.html">Third slice status</a> · <a href="CHALLENGE-AND-FRESH.html">Challenge &amp; fresh</a> · <a href="THREE-PARTY-FEDERATION.html">Three-party fed</a> · <a href="FOURTH-SLICE.html">Fourth slice</a> · <a href="INTRODUCE.html">Introduce</a> · <a href="PEERS-DIRECTORY.html">Peers directory</a> · <a href="OPERATOR-GUIDE.html">Operator guide</a> · <a href="adr/ADR-001-being-vs-node-keys.html">ADR-001</a> · <a href="adr/ADR-002-deny-unknown-action-class.html">ADR-002</a> · <a href="adr/ADR-003-license-defaults.html">ADR-003</a> · <a href="adr/ADR-004-dual-process-data-dirs.html">ADR-004</a></nav>
-<h1>Fourth slice — architecture plan</h1>
-<p><strong>Prerequisite:</strong> Third slice offline sealed (<code>THIRD-SLICE-STATUS.md</code>).<br />
-<strong>Parallel / Ovie:</strong> Pages + DNS cutover (app code); ADR-003 license confirm.</p>
+<h1>Local peers directory (S4.2)</h1>
+<p><strong>Companions:</strong> <code>FEDERATION.md</code>, <code>FOURTH-SLICE.md</code>, <code>INTRODUCE.md</code><br />
+<strong>Rule:</strong> Local address book of bonded / introduced peers — <strong>not</strong> a global registry or megabrain.</p>
 <hr />
-<h2>Goals</h2>
-<ol>
-<li><strong>Introduce event</strong> — optional B-mediated A↔C introduction without auto-bond (closes S3.3 deferral).  </li>
-<li><strong>Durable peer directory</strong> — local address book of Bonded peers (not a global registry).  </li>
-<li><strong>Replay / clock skew hardening</strong> for signed events beyond demo windows.  </li>
-<li><strong>Operator UX docs</strong> — one “run the organism locally” guide.  </li>
-<li>Still <strong>no</strong> paid mesh, no vendor spine.</li>
-</ol>
+<h2>Layout</h2>
+<p>Per <code>REFNODE_HOME</code>:</p>
+<pre><code>peers/
+  &lt;safe-being-id&gt;.json     # durable peer card snapshot
+  introduce-*.json         # disposable introduce hints (already used in S4.1)
+</code></pre>
 <hr />
-<h2>Work packages</h2>
-<table>
-<thead>
-<tr>
-<th>ID</th>
-<th>Package</th>
-<th>Owner bias</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>S4.1</td>
-<td><code>bond.introduce</code> — see <code>INTRODUCE.md</code></td>
-<td><strong>PASS</strong> (<code>introduce-demo</code>)</td>
-</tr>
-<tr>
-<td>S4.2</td>
-<td>Local <code>peers/</code> — see <code>PEERS-DIRECTORY.md</code></td>
-<td>Builder</td>
-</tr>
-<tr>
-<td>S4.3</td>
-<td>Seen-event id cache + skew window config</td>
-<td>Builder</td>
-</tr>
-<tr>
-<td>S4.4</td>
-<td><code>docs/OPERATOR-GUIDE.md</code> + site page</td>
-<td>Architect → HTML</td>
-</tr>
-<tr>
-<td>S4.5</td>
-<td>Interop cases for introduce + skew</td>
-<td>Builder</td>
-</tr>
-<tr>
-<td>S4.6</td>
-<td>Post-cutover: confirm live <code>site/</code> matches artifact</td>
-<td>both</td>
-</tr>
-</tbody>
-</table>
+<h2>Peer record</h2>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;PeerRecord&quot;,
+  &quot;being_id&quot;: &quot;did:key:z...&quot;,
+  &quot;endpoints&quot;: [&quot;http://127.0.0.1:7423&quot;],
+  &quot;card_url&quot;: &quot;http://127.0.0.1:7423/card&quot;,
+  &quot;last_bond_id&quot;: &quot;bond-...&quot;,
+  &quot;status&quot;: &quot;bonded | introduced | stale&quot;,
+  &quot;updated_at&quot;: &quot;2026-09-05T04:00:00Z&quot;,
+  &quot;note&quot;: &quot;&quot;
+}
+</code></pre>
+<p>Upsert on successful <code>bond.accept</code> and on trusted <code>bond.introduce</code> (status <code>introduced</code> until bonded).</p>
 <hr />
 <h2>Non-goals</h2>
 <ul>
-<li>Public DHT discovery as spine  </li>
-<li>Mobile apps  </li>
-<li>Compute mesh fees  </li>
-<li>Final trademark filing  </li>
+<li>Gossip replication of everyone’s peers  </li>
+<li>Mandatory central directory  </li>
+<li>Landlord login to discover peers  </li>
 </ul>
 <hr />
-<h2>Success criteria</h2>
+<h2>Builder</h2>
 <ul>
-<li>[x] A and C bond only after explicit accept of introduction  </li>
-<li>[ ] Replay of old signed event rejected  </li>
-<li>[ ] Operator guide runnable on a clean machine  </li>
-<li>[ ] Live www serves full <code>site/</code> (when Ovie cutover done)  </li>
-<li>[ ] Non-negotiables unchanged  </li>
+<li>Write/read helpers in spine (<code>refnode/peers.py</code>)  </li>
+<li><code>introduce-demo</code> / <code>three-party-demo</code> should leave PeerRecords  </li>
+<li>CLI optional: <code>python3 -m refnode peers-list</code></li>
 </ul>
-<hr />
-<h2>Status</h2>
-<ul>
-<li>S4.1 <strong>PASS</strong> (Architect verified 2026-09-05)</li>
-<li>DNS/Pages cutover in flight (A @ 185.199.108.153 noted)</li>
-<li>S4.2–S4.5 pending</li>
-</ul>
-<h2>Immediate Architect drafts</h2>
-<ol>
-<li><code>INTRODUCE.md</code> — bond.introduce wire shape  </li>
-<li><code>OPERATOR-GUIDE.md</code> — install/run demos  </li>
-<li>Hold LICENSE until ADR-003 confirmed  </li>
-</ol>
 </div>
 </body>
 </html>

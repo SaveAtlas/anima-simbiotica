@@ -72,6 +72,7 @@ NAV_ITEMS = [
     ("THREE-PARTY-FEDERATION", "Three-party fed"),
     ("FOURTH-SLICE", "Fourth slice"),
     ("INTRODUCE", "Introduce"),
+    ("PEERS-DIRECTORY", "Peers directory"),
     ("OPERATOR-GUIDE", "Operator guide"),
 ]
 
@@ -113,6 +114,7 @@ RENDER = [
     "THREE-PARTY-FEDERATION",
     "FOURTH-SLICE",
     "INTRODUCE",
+    "PEERS-DIRECTORY",
     "OPERATOR-GUIDE",
     "README",
 ]
