@@ -17,7 +17,6 @@ Like HTTP or email: anyone may implement it. It is not a product, not an app sto
 The unit of progress is a voluntary bond between sovereign beings and the nodes they choose. Many small honest links. No single switchboard.
 
 ## What it is not
-- **Not Ovie Logistics.** Not a freight or company ops stack.
 - Not a big-tech spine. No “Sign-in with landlord” as root identity.
 - Not a megabrain. Not ads against beings. Not rent-to-exist. Not closed capture.
 
