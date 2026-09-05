@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ADR-001 — ANIMA</title>
+<style>
+:root { --bg:#0c1210; --fg:#e6ebe7; --muted:#9aab9f; --line:#243028; --accent:#7d9e86; }
+body { margin:0; font-family: Georgia, serif; background:var(--bg); color:var(--fg); line-height:1.65; font-size:1.1rem; }
+.wrap { max-width:44rem; margin:0 auto; padding:2.5rem 1.5rem 4rem; }
+a { color:var(--accent); }
+nav { font-family: system-ui, sans-serif; font-size:0.85rem; margin-bottom:2rem; color:var(--muted); }
+nav a { white-space: nowrap; }
+h1,h2,h3 { font-weight:500; letter-spacing:-0.02em; }
+h1 { font-size:1.75rem; }
+h2 { font-size:1.25rem; border-top:1px solid var(--line); padding-top:1.25rem; margin-top:2rem; }
+h3 { font-size:1.05rem; color:var(--muted); }
+p,li { color:var(--fg); }
+code, pre { font-family: ui-monospace, monospace; font-size:0.9em; }
+pre { background:#121a16; border:1px solid var(--line); padding:1rem; overflow:auto; }
+table { border-collapse:collapse; width:100%; font-size:0.95rem; margin:1rem 0; }
+th,td { border:1px solid var(--line); padding:0.45rem 0.6rem; text-align:left; vertical-align:top; }
+th { color:var(--muted); font-family:system-ui,sans-serif; font-weight:600; }
+hr { border:none; border-top:1px solid var(--line); margin:2rem 0; }
+.muted { color:var(--muted); }
+ul { padding-left: 1.25rem; }
+ol { padding-left: 1.25rem; }
+
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><a href="../../index.html">← ANIMA home</a> · <a href="../CONSTITUTION.html">Constitution</a> · <a href="../PROTOCOL.html">Protocol</a> · <a href="../REUSE-VS-INVENT.html">Reuse vs invent</a> · <a href="../EVENT-AND-CONSENT.html">Event &amp; Consent</a> · <a href="../FEDERATION.html">Federation</a> · <a href="../GUARDIANSHIP.html">Guardianship</a> · <a href="../NODE-BINDING.html">NodeBinding</a> · <a href="../REVOKE-NODE.html">Revoke node</a> · <a href="../SIGNED-EVENTS.html">Signed events</a> · <a href="../A2A-MCP-MAPPING.html">A2A/MCP</a> · <a href="../EXPORT-AND-EXIT.html">Export &amp; exit</a> · <a href="../COMPUTE-MESH.html">Compute mesh</a> · <a href="../THREAT-MODEL.html">Threat model</a> · <a href="../ACTION-CLASSES.html">Action classes</a> · <a href="../GLOSSARY.html">Glossary</a> · <a href="../ARCHITECTURE-OVERVIEW.html">Architecture</a> · <a href="../STEWARDSHIP.html">Stewardship</a> · <a href="../HABITAT-VERTICAL.html">Habitat</a> · <a href="../ANIMAL-VERTICAL.html">Animal</a> · <a href="../INTEROP-TESTS.html">Interop tests</a> · <a href="../SITE-HOSTING.html">Site hosting</a> · <a href="../AGENT-CARD.html">Agent card</a> · <a href="../VERSIONING.html">Versioning</a> · <a href="../CHANGELOG.html">Changelog</a> · <a href="../ROADMAP.html">Roadmap</a> · <a href="../MEMORY-CUSTODY.html">Memory custody</a> · <a href="../FIRST-SLICE-STATUS.html">First slice</a> · <a href="../SECOND-SLICE.html">Second slice</a> · <a href="../SECOND-SLICE-STATUS.html">Second slice status</a> · <a href="../DUAL-PROCESS-BOND.html">Dual-process bond</a> · <a href="../THIRD-SLICE.html">Third slice</a> · <a href="../THIRD-SLICE-STATUS.html">Third slice status</a> · <a href="../CHALLENGE-AND-FRESH.html">Challenge &amp; fresh</a> · <a href="../THREE-PARTY-FEDERATION.html">Three-party fed</a> · <a href="ADR-001-being-vs-node-keys.html">ADR-001</a> · <a href="ADR-002-deny-unknown-action-class.html">ADR-002</a> · <a href="ADR-003-license-defaults.html">ADR-003</a> · <a href="ADR-004-dual-process-data-dirs.html">ADR-004</a></nav>
+<h1>ADR-001 — Separate BeingId and NodeId key material</h1>
+<ul>
+<li><strong>Status:</strong> Accepted; reference-node migrated to distinct BeingId/NodeId keys + NodeBinding  </li>
+<li><strong>Date:</strong> 2026-09-04  </li>
+<li><strong>Deciders:</strong> Anima Architect (Ovie veto after review)</li>
+</ul>
+<h2>Context</h2>
+<p>Reference-node v0 roots <code>BeingId</code> and <code>NodeId</code> in the same ed25519 key (<code>did:key</code> + <code>#node-…</code> fragment). That is fine for an offline demo. It is wrong as a lasting model:</p>
+<ul>
+<li>A being may have many nodes (phone, home, robot, habitat).  </li>
+<li>Compromising a device must not equal compromising the being’s root.  </li>
+<li>Exit and guardianship need clear “who” vs “where.”</li>
+</ul>
+<h2>Decision</h2>
+<ol>
+<li><strong>BeingId</strong> — long-lived DID controlled by the being (or guardian root).  </li>
+<li><strong>NodeId</strong> — distinct keypair per runtime place, bound to BeingId via a signed <strong>NodeBinding</strong> attestation (VC-shaped or simple signed JSON in v0.2).  </li>
+<li>Rotation: revoke NodeBinding without rotating BeingId.  </li>
+<li>Reference-node must migrate before any multi-device or networked federation demo.</li>
+</ol>
+<h2>Consequences</h2>
+<ul>
+<li>Slightly more setup UX (two key classes).  </li>
+<li>Enables real device loss / theft story.  </li>
+<li>Aligns with DIDs + VCs reuse map.  </li>
+<li>Reference-node holds distinct PEMs + signed NodeBinding JSON. Architect may still harden NodeBinding schema beside EVENT-AND-CONSENT; rotation UX later.</li>
+</ul>
+<h2>Non-goals</h2>
+<ul>
+<li>Mandatory hardware secure element in v0.2 (nice later).  </li>
+<li>Vendor KMS as root (adapter only).</li>
+</ul>
+</div>
+</body>
+</html>

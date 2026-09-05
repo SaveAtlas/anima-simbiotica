@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Docs changelog — ANIMA</title>
+<style>
+:root { --bg:#0c1210; --fg:#e6ebe7; --muted:#9aab9f; --line:#243028; --accent:#7d9e86; }
+body { margin:0; font-family: Georgia, serif; background:var(--bg); color:var(--fg); line-height:1.65; font-size:1.1rem; }
+.wrap { max-width:44rem; margin:0 auto; padding:2.5rem 1.5rem 4rem; }
+a { color:var(--accent); }
+nav { font-family: system-ui, sans-serif; font-size:0.85rem; margin-bottom:2rem; color:var(--muted); }
+nav a { white-space: nowrap; }
+h1,h2,h3 { font-weight:500; letter-spacing:-0.02em; }
+h1 { font-size:1.75rem; }
+h2 { font-size:1.25rem; border-top:1px solid var(--line); padding-top:1.25rem; margin-top:2rem; }
+h3 { font-size:1.05rem; color:var(--muted); }
+p,li { color:var(--fg); }
+code, pre { font-family: ui-monospace, monospace; font-size:0.9em; }
+pre { background:#121a16; border:1px solid var(--line); padding:1rem; overflow:auto; }
+table { border-collapse:collapse; width:100%; font-size:0.95rem; margin:1rem 0; }
+th,td { border:1px solid var(--line); padding:0.45rem 0.6rem; text-align:left; vertical-align:top; }
+th { color:var(--muted); font-family:system-ui,sans-serif; font-weight:600; }
+hr { border:none; border-top:1px solid var(--line); margin:2rem 0; }
+.muted { color:var(--muted); }
+ul { padding-left: 1.25rem; }
+ol { padding-left: 1.25rem; }
+
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><a href="../index.html">← ANIMA home</a> · <a href="CONSTITUTION.html">Constitution</a> · <a href="PROTOCOL.html">Protocol</a> · <a href="REUSE-VS-INVENT.html">Reuse vs invent</a> · <a href="EVENT-AND-CONSENT.html">Event &amp; Consent</a> · <a href="FEDERATION.html">Federation</a> · <a href="GUARDIANSHIP.html">Guardianship</a> · <a href="NODE-BINDING.html">NodeBinding</a> · <a href="REVOKE-NODE.html">Revoke node</a> · <a href="SIGNED-EVENTS.html">Signed events</a> · <a href="A2A-MCP-MAPPING.html">A2A/MCP</a> · <a href="EXPORT-AND-EXIT.html">Export &amp; exit</a> · <a href="COMPUTE-MESH.html">Compute mesh</a> · <a href="THREAT-MODEL.html">Threat model</a> · <a href="ACTION-CLASSES.html">Action classes</a> · <a href="GLOSSARY.html">Glossary</a> · <a href="ARCHITECTURE-OVERVIEW.html">Architecture</a> · <a href="STEWARDSHIP.html">Stewardship</a> · <a href="HABITAT-VERTICAL.html">Habitat</a> · <a href="ANIMAL-VERTICAL.html">Animal</a> · <a href="INTEROP-TESTS.html">Interop tests</a> · <a href="SITE-HOSTING.html">Site hosting</a> · <a href="AGENT-CARD.html">Agent card</a> · <a href="VERSIONING.html">Versioning</a> · <a href="CHANGELOG.html">Changelog</a> · <a href="ROADMAP.html">Roadmap</a> · <a href="MEMORY-CUSTODY.html">Memory custody</a> · <a href="FIRST-SLICE-STATUS.html">First slice</a> · <a href="SECOND-SLICE.html">Second slice</a> · <a href="SECOND-SLICE-STATUS.html">Second slice status</a> · <a href="DUAL-PROCESS-BOND.html">Dual-process bond</a> · <a href="THIRD-SLICE.html">Third slice</a> · <a href="THIRD-SLICE-STATUS.html">Third slice status</a> · <a href="CHALLENGE-AND-FRESH.html">Challenge &amp; fresh</a> · <a href="THREE-PARTY-FEDERATION.html">Three-party fed</a> · <a href="adr/ADR-001-being-vs-node-keys.html">ADR-001</a> · <a href="adr/ADR-002-deny-unknown-action-class.html">ADR-002</a> · <a href="adr/ADR-003-license-defaults.html">ADR-003</a> · <a href="adr/ADR-004-dual-process-data-dirs.html">ADR-004</a></nav>
+<h1>Docs changelog</h1>
+<h2>2026-09-04</h2>
+<ul>
+<li>S3.4 animal-demo PASS: companion animal welfare CLI (mirror habitat-demo); <code>robot.sense.welfare</code> + <code>memory.write.welfare</code> ALLOWED; <code>habitat.irreversible.*</code> / <code>commerce.sell_data</code> DENY; <code>python3 -m refnode animal-demo</code> / <code>./run.sh animal-demo</code>; interop S3.animal</li>
+<li>S3.5 fixture schema validate: interop FX requires <code>jsonschema</code> against <code>docs/schemas/*.json</code>; fail on mismatch; <code>jsonschema&gt;=4.19</code> in requirements</li>
+<li>THIRD-SLICE-STATUS.md + ANIMAL-VERTICAL demo CLI notes; site HTML refresh</li>
+<li>S3.2 memory-grant-demo PASS: cross-peer memory.read under ConsentGrant + MemoryReceipt; attenuation expand deny; revoke→deny; interop C5; <code>python3 -m refnode memory-grant-demo</code></li>
+<li>S3.3 three-party-demo PASS: A↔B + B↔C bonds, no automatic A↔C, disposable introduce hint; <code>python3 -m refnode three-party-demo</code></li>
+<li>S3.3 three-party federation sketch: <code>python3 -m refnode three-party-demo</code> / <code>./run.sh three-party-demo</code> — A↔B and B↔C, no auto A–C, distinct keystores</li>
+<li>S3.2 memory grants: <code>memory.read.*</code> selective disclosure + attenuation (never expand); MemoryReceipt on share; <code>python3 -m refnode memory-grant-demo</code> / <code>./run.sh memory-grant-demo</code>; interop C5; remember writes tagged <code>data_class</code></li>
+<li>S3.1 challenge/fresh_required: <code>consent.challenge</code> + Being-signed <code>consent.challenge.response</code>; <code>python3 -m refnode challenge-demo</code>; act fail-closed; interop C4; site HTML for THIRD-SLICE + CHALLENGE-AND-FRESH</li>
+<li>S2.6 interop runner: <code>python3 -m refnode interop-tests</code> / <code>./run.sh interop-tests</code>; SECOND-SLICE-STATUS.md</li>
+<li>Second slice offline (S2.1–S2.4): dual-process loopback HTTP bond, signed<br />
+  events + fail-closed inbox, habitat-demo; site HTML for SECOND-SLICE /<br />
+  DUAL-PROCESS-BOND / ADR-003 / ADR-004 (ADR-003 still proposal — no LICENSE yet)</li>
+<li>site HTML for GLOSSARY, AGENT-CARD, SITE-HOSTING, REVOKE-NODE, INTEROP-TESTS,<br />
+  ACTION-CLASSES, STEWARDSHIP, ARCHITECTURE-OVERVIEW, HABITAT-VERTICAL, FIRST-SLICE-STATUS</li>
+<li>Builder soft: act refuses missing/revoked NodeBinding; revoke-node CLI; README phone-stolen</li>
+<li>ExportBundle fills memory_slices + node_bindings + grants_* from disk</li>
+<li>
+<p>ADR-002 allowlist confirmed vs ACTION-CLASSES.md (<code>refnode/action_classes.py</code>)</p>
+</li>
+<li>
+<p>ROADMAP, MEMORY-CUSTODY</p>
+</li>
+<li>fixtures/ golden JSON (event, grant, bond, guardian, node-binding)</li>
+<li>GLOSSARY, AGENT-CARD</li>
+<li>ARCHITECTURE-OVERVIEW, ADR-002 deny unknown action_class</li>
+<li>ACTION-CLASSES registry, STEWARDSHIP intent</li>
+<li>Builder: ADR-001 NodeBinding live (distinct BeingId/NodeId); docs path aligned</li>
+<li>REVOKE-NODE procedure, INTEROP-TESTS checklist</li>
+<li>export-bundle schema + fixture; HABITAT-VERTICAL narrow slice</li>
+<li>Builder: bond-demo green (offer/accept/exit+export); site pivot to free static+DNS</li>
+<li>SITE-HOSTING.md (host = adapter; GH Pages ok)</li>
+<li>Builder: guardian-demo PASS (sense allow / irreversible deny)</li>
+<li>FIRST-SLICE-STATUS.md overnight snapshot</li>
+<li>Builder: ADR-002 + binding-revoke gate verified by Architect</li>
+<li>Soft follow-ups complete: HTML leftovers, export fill, revoke-node CLI; Architect re-verified</li>
+<li>Binding ed25519 sig verify PASS (tamper fail-closed); first-slice offline sealed</li>
+<li>SECOND-SLICE plan, ADR-003 license proposal, ecosystem guardian fixture</li>
+<li>DUAL-PROCESS-BOND.md + ADR-004 separate data dirs</li>
+<li>S2.1–S2.4 PASS (dual-bond, sign-tamper, habitat); Architect verified</li>
+<li>S2.6 interop-tests PASS (17); THIRD-SLICE + CHALLENGE-AND-FRESH drafted</li>
+<li>MEMORY-CUSTODY attenuation (S3.2); THREE-PARTY-FEDERATION (S3.3)</li>
+<li>S3.1 challenge-demo PASS (+ interop C4); Architect verified</li>
+<li>S3.2/S3.3 PASS (memory-grant + three-party); Architect verified</li>
+<li>
+<p>ANIMAL-VERTICAL.md for S3.4</p>
+</li>
+<li>
+<p>Constitution tightened to v0.1; PROTOCOL, REUSE-VS-INVENT  </p>
+</li>
+<li>EVENT-AND-CONSENT, FEDERATION, GUARDIANSHIP  </li>
+<li>ADR-001 BeingId vs NodeId keys  </li>
+<li>NODE-BINDING, SIGNED-EVENTS, A2A-MCP-MAPPING  </li>
+<li>EXPORT-AND-EXIT, COMPUTE-MESH  </li>
+<li>schemas: event, consent-grant  </li>
+<li>THREAT-MODEL, VERSIONING  </li>
+<li>Site + reference-node v0 (Builder)</li>
+</ul>
+</div>
+</body>
+</html>

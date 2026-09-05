@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Anima Simbiotica — ANIMA</title>
+<style>
+:root { --bg:#0c1210; --fg:#e6ebe7; --muted:#9aab9f; --line:#243028; --accent:#7d9e86; }
+body { margin:0; font-family: Georgia, serif; background:var(--bg); color:var(--fg); line-height:1.65; font-size:1.1rem; }
+.wrap { max-width:44rem; margin:0 auto; padding:2.5rem 1.5rem 4rem; }
+a { color:var(--accent); }
+nav { font-family: system-ui, sans-serif; font-size:0.85rem; margin-bottom:2rem; color:var(--muted); }
+nav a { white-space: nowrap; }
+h1,h2,h3 { font-weight:500; letter-spacing:-0.02em; }
+h1 { font-size:1.75rem; }
+h2 { font-size:1.25rem; border-top:1px solid var(--line); padding-top:1.25rem; margin-top:2rem; }
+h3 { font-size:1.05rem; color:var(--muted); }
+p,li { color:var(--fg); }
+code, pre { font-family: ui-monospace, monospace; font-size:0.9em; }
+pre { background:#121a16; border:1px solid var(--line); padding:1rem; overflow:auto; }
+table { border-collapse:collapse; width:100%; font-size:0.95rem; margin:1rem 0; }
+th,td { border:1px solid var(--line); padding:0.45rem 0.6rem; text-align:left; vertical-align:top; }
+th { color:var(--muted); font-family:system-ui,sans-serif; font-weight:600; }
+hr { border:none; border-top:1px solid var(--line); margin:2rem 0; }
+.muted { color:var(--muted); }
+ul { padding-left: 1.25rem; }
+ol { padding-left: 1.25rem; }
+
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><a href="../index.html">← ANIMA home</a> · <a href="CONSTITUTION.html">Constitution</a> · <a href="PROTOCOL.html">Protocol</a> · <a href="REUSE-VS-INVENT.html">Reuse vs invent</a> · <a href="EVENT-AND-CONSENT.html">Event &amp; Consent</a> · <a href="FEDERATION.html">Federation</a> · <a href="GUARDIANSHIP.html">Guardianship</a> · <a href="NODE-BINDING.html">NodeBinding</a> · <a href="REVOKE-NODE.html">Revoke node</a> · <a href="SIGNED-EVENTS.html">Signed events</a> · <a href="A2A-MCP-MAPPING.html">A2A/MCP</a> · <a href="EXPORT-AND-EXIT.html">Export &amp; exit</a> · <a href="COMPUTE-MESH.html">Compute mesh</a> · <a href="THREAT-MODEL.html">Threat model</a> · <a href="ACTION-CLASSES.html">Action classes</a> · <a href="GLOSSARY.html">Glossary</a> · <a href="ARCHITECTURE-OVERVIEW.html">Architecture</a> · <a href="STEWARDSHIP.html">Stewardship</a> · <a href="HABITAT-VERTICAL.html">Habitat</a> · <a href="ANIMAL-VERTICAL.html">Animal</a> · <a href="INTEROP-TESTS.html">Interop tests</a> · <a href="SITE-HOSTING.html">Site hosting</a> · <a href="AGENT-CARD.html">Agent card</a> · <a href="VERSIONING.html">Versioning</a> · <a href="CHANGELOG.html">Changelog</a> · <a href="ROADMAP.html">Roadmap</a> · <a href="MEMORY-CUSTODY.html">Memory custody</a> · <a href="FIRST-SLICE-STATUS.html">First slice</a> · <a href="SECOND-SLICE.html">Second slice</a> · <a href="SECOND-SLICE-STATUS.html">Second slice status</a> · <a href="DUAL-PROCESS-BOND.html">Dual-process bond</a> · <a href="THIRD-SLICE.html">Third slice</a> · <a href="THIRD-SLICE-STATUS.html">Third slice status</a> · <a href="CHALLENGE-AND-FRESH.html">Challenge &amp; fresh</a> · <a href="THREE-PARTY-FEDERATION.html">Three-party fed</a> · <a href="adr/ADR-001-being-vs-node-keys.html">ADR-001</a> · <a href="adr/ADR-002-deny-unknown-action-class.html">ADR-002</a> · <a href="adr/ADR-003-license-defaults.html">ADR-003</a> · <a href="adr/ADR-004-dual-process-data-dirs.html">ADR-004</a></nav>
+<h1>Anima Simbiotica — Constitution</h1>
+<p><strong>Domain:</strong> <a href="https://www.animasimbiotica.com">www.animasimbiotica.com</a><br />
+<strong>Version:</strong> v0.1 (tightened from v0 draft)<br />
+<strong>Status:</strong> Living draft. Ovie holds veto until a wider steward council exists.<br />
+<strong>Separation:</strong> Not affiliated with Ovie Logistics, any freight stack, or any single company’s ops layer.</p>
+<h2>Preamble</h2>
+<p>ANIMA is an <strong>open protocol</strong> for life that chooses to connect: humans, artificial minds, robots and other machines, animals (via guardians), ecosystems, and eventually habitats beyond Earth.</p>
+<p>It grows slowly — like mycelium — by voluntary links between sovereign beings. It is not a conquest, not a megabrain, not a product with a landlord, and not a corporation’s middle layer dressed up as community.</p>
+<p>Anyone may implement the protocol. Implementations compete; the protocol does not capture.</p>
+<h2>Definitions (working)</h2>
+<ul>
+<li><strong>Being</strong> — any participant the protocol recognizes as a subject of consent and identity: human, AI, machine agent, animal (with guardian), ecosystem proxy, or habitat node.</li>
+<li><strong>Guardian</strong> — a human or institution that holds consent and care duties for a being that cannot speak the protocol alone (e.g. an animal, a watershed). Guardianship is accountable and revocable where law and ethics allow.</li>
+<li><strong>Node</strong> — a place the protocol runs: phone, home, edge box, robot, lab, habitat. Nodes are many; none is sacred.</li>
+<li><strong>Spine</strong> — identity, memory custody, consent, and federation. Must never depend on a single vendor.</li>
+<li><strong>Edge</strong> — optional hardware, relays, audits, education, compute/storage trades. Money may live here; beings must not.</li>
+</ul>
+<h2>Non-negotiables</h2>
+<p>These do not bend. Features that conflict with them are out of scope, not “later.”</p>
+<ol>
+<li><strong>Decentralized by design</strong> — many nodes (phones, homes, edge, habitats). No single kill switch. No single owner of the network.</li>
+<li><strong>Federated intelligence</strong> — many AIs cooperate over the protocol; none is god; none is the default brain of all others.</li>
+<li><strong>Sovereign identity &amp; memory</strong> — each human, machine, and AI holds its own keys and past. Link without surrender. Continuous consent. Real exit (leave with your identity and memory intact).</li>
+<li><strong>Transparency as immune system</strong> — beings inside a bond must be able to inspect what binds them: policies, adapters, data flows, and who can revoke what.</li>
+<li><strong>Open protocol, not a product</strong> — anyone may implement it (like email or HTTP). The protocol specification is free forever. No rent-to-speak, no mandatory cloud to exist.</li>
+<li><strong>Big tech is never the spine</strong> — Apple, Google, Meta, Amazon, Microsoft, and peers may appear only as disposable adapters. No “Sign-in with landlord” as root identity. No vendor DID or account as the only passport.</li>
+<li><strong>Separate from capture</strong> — ANIMA is not a company ops stack and must not become one. Company tools may <em>use</em> the protocol; they must not <em>own</em> the beings or redefine the commons as a product funnel.</li>
+</ol>
+<h2>Rights of beings (protocol floor)</h2>
+<p>Every being the protocol admits is owed at least:</p>
+<ul>
+<li>Own keys (or guardian-held keys with audit trail).</li>
+<li>Own memory custody — store locally, choose replicas, revoke copies where technically feasible.</li>
+<li>Continuous, revocable consent for links, sensing, and action.</li>
+<li>Exit without hostage data, hostage identity, or hostage social graph.</li>
+<li>Inspectability of bonds that affect them.</li>
+</ul>
+<p>Non-human beings (animals, ecosystems) participate through guardians; the protocol must still record whose interests are claimed and how consent was obtained.</p>
+<h2>Revenue (edges only)</h2>
+<p>Money may fund stewardship via:</p>
+<ul>
+<li>Hardware and local runtimes</li>
+<li>Optional relays and discovery aids</li>
+<li>Education, audits, certifications</li>
+<li>Voluntary dues, grants, patronage</li>
+<li>Tiny fees on <em>optional</em> compute/storage trades between willing parties</li>
+</ul>
+<p><strong>Never:</strong></p>
+<ul>
+<li>Ads against users or beings</li>
+<li>Selling personal or behavioral data</li>
+<li>Mandatory cloud or mandatory identity landlord</li>
+<li>Rent merely to exist, speak, or keep memory on the network</li>
+</ul>
+<h2>Stewardship shape (intent)</h2>
+<ul>
+<li>Protocol and trademark stewardship via a commons-minded structure (exact legal form TBD with Ovie’s go).</li>
+<li>Optional companies may sell <strong>edges</strong> (devices, hosted relays, professional services).</li>
+<li>Profits may sustain the commons; they must not own the beings or the protocol’s terms of existence.</li>
+<li>Reference implementations stay open; proprietary edges must not become the de facto spine.</li>
+</ul>
+<h2>First build slice</h2>
+<ol>
+<li>This constitution  </li>
+<li>Protocol principles — identity, memory, events, consent, federation (<code>PROTOCOL.md</code>)  </li>
+<li>Reuse-vs-invent map (<code>REUSE-VS-INVENT.md</code>)  </li>
+<li>Truth homepage on animasimbiotica.com  </li>
+<li>One tiny reference loop on operator-controlled hardware: <strong>sense → remember → decide → act → learn</strong></li>
+</ol>
+<h2>Change control</h2>
+<ul>
+<li>Amendments require <strong>Ovie’s explicit go</strong> until a wider steward council exists.</li>
+<li>Non-negotiables may be clarified in wording; they may not be silently weakened.</li>
+<li>Implementations may experiment at the edges; they may not fork the constitution into a capture narrative and still call it ANIMA.</li>
+</ul>
+<h2>Explicit non-goals</h2>
+<ul>
+<li>Replacing Ovie Logistics systems or any company freight stack  </li>
+<li>Building a closed social network, walled garden, or single-vendor agent cloud  </li>
+<li>Centralized training on beings’ private memory without continuous consent  </li>
+<li>“AI for everything” that erases animal, ecological, or human agency  </li>
+</ul>
+<hr />
+<p><em>Ovie is the heart — values and veto. Architect drafts; Builder implements; the protocol belongs to no one firm.</em></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Signed events (v0.2 target) — ANIMA</title>
+<style>
+:root { --bg:#0c1210; --fg:#e6ebe7; --muted:#9aab9f; --line:#243028; --accent:#7d9e86; }
+body { margin:0; font-family: Georgia, serif; background:var(--bg); color:var(--fg); line-height:1.65; font-size:1.1rem; }
+.wrap { max-width:44rem; margin:0 auto; padding:2.5rem 1.5rem 4rem; }
+a { color:var(--accent); }
+nav { font-family: system-ui, sans-serif; font-size:0.85rem; margin-bottom:2rem; color:var(--muted); }
+nav a { white-space: nowrap; }
+h1,h2,h3 { font-weight:500; letter-spacing:-0.02em; }
+h1 { font-size:1.75rem; }
+h2 { font-size:1.25rem; border-top:1px solid var(--line); padding-top:1.25rem; margin-top:2rem; }
+h3 { font-size:1.05rem; color:var(--muted); }
+p,li { color:var(--fg); }
+code, pre { font-family: ui-monospace, monospace; font-size:0.9em; }
+pre { background:#121a16; border:1px solid var(--line); padding:1rem; overflow:auto; }
+table { border-collapse:collapse; width:100%; font-size:0.95rem; margin:1rem 0; }
+th,td { border:1px solid var(--line); padding:0.45rem 0.6rem; text-align:left; vertical-align:top; }
+th { color:var(--muted); font-family:system-ui,sans-serif; font-weight:600; }
+hr { border:none; border-top:1px solid var(--line); margin:2rem 0; }
+.muted { color:var(--muted); }
+ul { padding-left: 1.25rem; }
+ol { padding-left: 1.25rem; }
+
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><a href="../index.html">← ANIMA home</a> · <a href="CONSTITUTION.html">Constitution</a> · <a href="PROTOCOL.html">Protocol</a> · <a href="REUSE-VS-INVENT.html">Reuse vs invent</a> · <a href="EVENT-AND-CONSENT.html">Event &amp; Consent</a> · <a href="FEDERATION.html">Federation</a> · <a href="GUARDIANSHIP.html">Guardianship</a> · <a href="NODE-BINDING.html">NodeBinding</a> · <a href="REVOKE-NODE.html">Revoke node</a> · <a href="SIGNED-EVENTS.html">Signed events</a> · <a href="A2A-MCP-MAPPING.html">A2A/MCP</a> · <a href="EXPORT-AND-EXIT.html">Export &amp; exit</a> · <a href="COMPUTE-MESH.html">Compute mesh</a> · <a href="THREAT-MODEL.html">Threat model</a> · <a href="ACTION-CLASSES.html">Action classes</a> · <a href="GLOSSARY.html">Glossary</a> · <a href="ARCHITECTURE-OVERVIEW.html">Architecture</a> · <a href="STEWARDSHIP.html">Stewardship</a> · <a href="HABITAT-VERTICAL.html">Habitat</a> · <a href="ANIMAL-VERTICAL.html">Animal</a> · <a href="INTEROP-TESTS.html">Interop tests</a> · <a href="SITE-HOSTING.html">Site hosting</a> · <a href="AGENT-CARD.html">Agent card</a> · <a href="VERSIONING.html">Versioning</a> · <a href="CHANGELOG.html">Changelog</a> · <a href="ROADMAP.html">Roadmap</a> · <a href="MEMORY-CUSTODY.html">Memory custody</a> · <a href="FIRST-SLICE-STATUS.html">First slice</a> · <a href="SECOND-SLICE.html">Second slice</a> · <a href="SECOND-SLICE-STATUS.html">Second slice status</a> · <a href="DUAL-PROCESS-BOND.html">Dual-process bond</a> · <a href="THIRD-SLICE.html">Third slice</a> · <a href="THIRD-SLICE-STATUS.html">Third slice status</a> · <a href="CHALLENGE-AND-FRESH.html">Challenge &amp; fresh</a> · <a href="THREE-PARTY-FEDERATION.html">Three-party fed</a> · <a href="adr/ADR-001-being-vs-node-keys.html">ADR-001</a> · <a href="adr/ADR-002-deny-unknown-action-class.html">ADR-002</a> · <a href="adr/ADR-003-license-defaults.html">ADR-003</a> · <a href="adr/ADR-004-dual-process-data-dirs.html">ADR-004</a></nav>
+<h1>Signed events (v0.2 target)</h1>
+<p><strong>Status:</strong> Hardening plan. Local offline loop may stay unsigned; <strong>untrusted federation requires signatures.</strong><br />
+<strong>Companions:</strong> <code>EVENT-AND-CONSENT.md</code>, <code>NODE-BINDING.md</code></p>
+<hr />
+<h2>1. When signatures are required</h2>
+<table>
+<thead>
+<tr>
+<th>Context</th>
+<th><code>sig</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Single-operator offline tick</td>
+<td>optional</td>
+</tr>
+<tr>
+<td>Bond across trust boundary</td>
+<td><strong>required</strong></td>
+</tr>
+<tr>
+<td><code>consent.revoke</code>, <code>bond.exit</code></td>
+<td><strong>required</strong></td>
+</tr>
+<tr>
+<td>Guardianship grants / challenges</td>
+<td><strong>required</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>2. What is signed</h2>
+<p>Canonical bytes of the event <strong>without</strong> the <code>sig</code> field:</p>
+<ol>
+<li>UTF-8 JSON with sorted keys, no insignificant whitespace (JCS-style; pick RFC 8785 when implementing).  </li>
+<li>Sign with <strong>emitter NodeId</strong> private key (ed25519).  </li>
+<li>Put detached signature in <code>sig</code> as multibase or base64url — pick one in implementation and stick to it.</li>
+</ol>
+<pre><code class="language-json">{
+  &quot;id&quot;: &quot;evt-...&quot;,
+  &quot;ts&quot;: &quot;...&quot;,
+  &quot;kind&quot;: &quot;actuation&quot;,
+  &quot;emitter&quot;: &quot;did:key:z...Node&quot;,
+  &quot;subject&quot;: &quot;did:key:z...Being&quot;,
+  &quot;payload&quot;: {},
+  &quot;consent_context&quot;: &quot;grant-...&quot;,
+  &quot;sig&quot;: &quot;base64url...&quot;
+}
+</code></pre>
+<hr />
+<h2>3. Verification</h2>
+<ol>
+<li>Resolve emitter NodeId → verification key (<code>did:key</code> multicodec).  </li>
+<li>Confirm active NodeBinding(emitter → subject) when subject is a BeingId.  </li>
+<li>Verify signature over canonical bytes.  </li>
+<li>Confirm <code>consent_context</code> grant still active if kind is gated.  </li>
+<li>Fail closed.</li>
+</ol>
+<hr />
+<h2>4. Replay &amp; clocks</h2>
+<ul>
+<li>Reject duplicate <code>id</code> from same emitter (store seen ids per peer).  </li>
+<li>Soft clock skew window (e.g. ±5 minutes) for v0.2; harden later.  </li>
+<li>Revokes ignore skew convenience — process immediately if sig valid.</li>
+</ul>
+<hr />
+<h2>5. Non-goals (yet)</h2>
+<ul>
+<li>Threshold multisig councils  </li>
+<li>Chain anchoring  </li>
+<li>Vendor notaries as trust root  </li>
+</ul>
+<hr />
+<h2>6. Builder checklist</h2>
+<ul>
+<li>[x] Canonicalization helper shared by sign + verify  </li>
+<li>[x] Sign on outbox write when <code>ANIMA_SIGN=1</code> or bond mode  </li>
+<li>[x] Verify on inbox from non-local emitters  </li>
+<li>[x] Tests: tamper detect (sign-tamper-demo / dual-bond-demo); replay drop on seen ids  </li>
+</ul>
+<hr />
+<p><em>Transparency without authenticity is theater. Sign across trust boundaries.</em></p>
+</div>
+</body>
+</html>

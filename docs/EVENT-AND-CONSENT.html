@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Events &amp; Consent — ANIMA</title>
+<style>
+:root { --bg:#0c1210; --fg:#e6ebe7; --muted:#9aab9f; --line:#243028; --accent:#7d9e86; }
+body { margin:0; font-family: Georgia, serif; background:var(--bg); color:var(--fg); line-height:1.65; font-size:1.1rem; }
+.wrap { max-width:44rem; margin:0 auto; padding:2.5rem 1.5rem 4rem; }
+a { color:var(--accent); }
+nav { font-family: system-ui, sans-serif; font-size:0.85rem; margin-bottom:2rem; color:var(--muted); }
+nav a { white-space: nowrap; }
+h1,h2,h3 { font-weight:500; letter-spacing:-0.02em; }
+h1 { font-size:1.75rem; }
+h2 { font-size:1.25rem; border-top:1px solid var(--line); padding-top:1.25rem; margin-top:2rem; }
+h3 { font-size:1.05rem; color:var(--muted); }
+p,li { color:var(--fg); }
+code, pre { font-family: ui-monospace, monospace; font-size:0.9em; }
+pre { background:#121a16; border:1px solid var(--line); padding:1rem; overflow:auto; }
+table { border-collapse:collapse; width:100%; font-size:0.95rem; margin:1rem 0; }
+th,td { border:1px solid var(--line); padding:0.45rem 0.6rem; text-align:left; vertical-align:top; }
+th { color:var(--muted); font-family:system-ui,sans-serif; font-weight:600; }
+hr { border:none; border-top:1px solid var(--line); margin:2rem 0; }
+.muted { color:var(--muted); }
+ul { padding-left: 1.25rem; }
+ol { padding-left: 1.25rem; }
+
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><a href="../index.html">← ANIMA home</a> · <a href="CONSTITUTION.html">Constitution</a> · <a href="PROTOCOL.html">Protocol</a> · <a href="REUSE-VS-INVENT.html">Reuse vs invent</a> · <a href="EVENT-AND-CONSENT.html">Event &amp; Consent</a> · <a href="FEDERATION.html">Federation</a> · <a href="GUARDIANSHIP.html">Guardianship</a> · <a href="NODE-BINDING.html">NodeBinding</a> · <a href="REVOKE-NODE.html">Revoke node</a> · <a href="SIGNED-EVENTS.html">Signed events</a> · <a href="A2A-MCP-MAPPING.html">A2A/MCP</a> · <a href="EXPORT-AND-EXIT.html">Export &amp; exit</a> · <a href="COMPUTE-MESH.html">Compute mesh</a> · <a href="THREAT-MODEL.html">Threat model</a> · <a href="ACTION-CLASSES.html">Action classes</a> · <a href="GLOSSARY.html">Glossary</a> · <a href="ARCHITECTURE-OVERVIEW.html">Architecture</a> · <a href="STEWARDSHIP.html">Stewardship</a> · <a href="HABITAT-VERTICAL.html">Habitat</a> · <a href="ANIMAL-VERTICAL.html">Animal</a> · <a href="INTEROP-TESTS.html">Interop tests</a> · <a href="SITE-HOSTING.html">Site hosting</a> · <a href="AGENT-CARD.html">Agent card</a> · <a href="VERSIONING.html">Versioning</a> · <a href="CHANGELOG.html">Changelog</a> · <a href="ROADMAP.html">Roadmap</a> · <a href="MEMORY-CUSTODY.html">Memory custody</a> · <a href="FIRST-SLICE-STATUS.html">First slice</a> · <a href="SECOND-SLICE.html">Second slice</a> · <a href="SECOND-SLICE-STATUS.html">Second slice status</a> · <a href="DUAL-PROCESS-BOND.html">Dual-process bond</a> · <a href="THIRD-SLICE.html">Third slice</a> · <a href="THIRD-SLICE-STATUS.html">Third slice status</a> · <a href="CHALLENGE-AND-FRESH.html">Challenge &amp; fresh</a> · <a href="THREE-PARTY-FEDERATION.html">Three-party fed</a> · <a href="adr/ADR-001-being-vs-node-keys.html">ADR-001</a> · <a href="adr/ADR-002-deny-unknown-action-class.html">ADR-002</a> · <a href="adr/ADR-003-license-defaults.html">ADR-003</a> · <a href="adr/ADR-004-dual-process-data-dirs.html">ADR-004</a></nav>
+<h1>Events &amp; Consent — wire shapes (v0)</h1>
+<p><strong>Status:</strong> Normative <em>intent</em> for implementers. JSON examples are sketches; field names should stabilize before v1.<br />
+<strong>Companions:</strong> <code>PROTOCOL.md</code>, reference-node <code>refnode/events.py</code> + <code>consent.py</code><br />
+<strong>Rule:</strong> Consent is visible on the wire. Silence is not consent.</p>
+<hr />
+<h2>1. Event envelope</h2>
+<p>Every observation, actuation, revoke, and federation notice rides in this envelope.</p>
+<pre><code class="language-json">{
+  &quot;id&quot;: &quot;evt-&lt;uuid&gt;&quot;,
+  &quot;ts&quot;: &quot;2026-09-05T03:00:00Z&quot;,
+  &quot;kind&quot;: &quot;observation | actuation | consent.revoke | consent.challenge | bond.offer | bond.accept | bond.exit | learn.note | custom.&lt;ns&gt;&quot;,
+  &quot;emitter&quot;: &quot;did:key:z...#node-abcd&quot;,
+  &quot;subject&quot;: &quot;did:key:z...&quot;,
+  &quot;payload&quot;: {},
+  &quot;consent_context&quot;: &quot;grant-&lt;id&gt; | null&quot;,
+  &quot;content_type&quot;: &quot;application/json&quot;,
+  &quot;sig&quot;: null
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Required</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>yes</td>
+<td>Globally unique per emitter</td>
+</tr>
+<tr>
+<td><code>ts</code></td>
+<td>yes</td>
+<td>UTC ISO-8601</td>
+</tr>
+<tr>
+<td><code>kind</code></td>
+<td>yes</td>
+<td>Stable taxonomy; <code>custom.*</code> for experiments</td>
+</tr>
+<tr>
+<td><code>emitter</code></td>
+<td>yes</td>
+<td>NodeId (or BeingId if no node)</td>
+</tr>
+<tr>
+<td><code>subject</code></td>
+<td>yes</td>
+<td>Being the event is about</td>
+</tr>
+<tr>
+<td><code>payload</code></td>
+<td>yes</td>
+<td>Kind-specific object</td>
+</tr>
+<tr>
+<td><code>consent_context</code></td>
+<td>no</td>
+<td>Active <code>ConsentGrant.id</code> when action is gated</td>
+</tr>
+<tr>
+<td><code>sig</code></td>
+<td>no for v0</td>
+<td>Detached or inline signature over canonical bytes — required before untrusted federation</td>
+</tr>
+</tbody>
+</table>
+<h3>Kind taxonomy (v0)</h3>
+<table>
+<thead>
+<tr>
+<th>Kind</th>
+<th>Direction</th>
+<th>Consent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>observation</code></td>
+<td>in</td>
+<td>grant or local operator loop</td>
+</tr>
+<tr>
+<td><code>actuation</code></td>
+<td>out</td>
+<td><strong>required</strong> grant for <code>action_class</code></td>
+</tr>
+<tr>
+<td><code>consent.revoke</code></td>
+<td>out/in</td>
+<td>self-authoritative</td>
+</tr>
+<tr>
+<td><code>consent.challenge</code></td>
+<td>in</td>
+<td>high-stakes fresh affirm</td>
+</tr>
+<tr>
+<td><code>bond.offer</code> / <code>bond.accept</code> / <code>bond.exit</code></td>
+<td>peer</td>
+<td>see <code>FEDERATION.md</code></td>
+</tr>
+<tr>
+<td><code>learn.note</code></td>
+<td>local</td>
+<td>local store only unless granted</td>
+</tr>
+</tbody>
+</table>
+<h3>Anti-patterns</h3>
+<ul>
+<li>Side-channel actuation that never emits an <code>actuation</code> event  </li>
+<li>Global firehose every node must ingest  </li>
+<li>Unsigned events trusted across untrusted peers (block until <code>sig</code> lands)</li>
+</ul>
+<hr />
+<h2>2. ConsentGrant</h2>
+<pre><code class="language-json">{
+  &quot;id&quot;: &quot;grant-&lt;id&gt;&quot;,
+  &quot;type&quot;: &quot;ConsentGrant&quot;,
+  &quot;issuer&quot;: &quot;did:key:z...&quot;,
+  &quot;subject&quot;: &quot;did:key:z...#node-abcd&quot;,
+  &quot;purpose&quot;: &quot;human-readable why&quot;,
+  &quot;action_class&quot;: &quot;local.demo.note&quot;,
+  &quot;data_class&quot;: &quot;observation&quot;,
+  &quot;peer&quot;: null,
+  &quot;status&quot;: &quot;active | revoked | expired&quot;,
+  &quot;issued_at&quot;: &quot;2026-09-05T03:00:00Z&quot;,
+  &quot;expires_at&quot;: &quot;2026-12-01T00:00:00Z&quot;,
+  &quot;fresh_required&quot;: false,
+  &quot;guardian_link&quot;: null,
+  &quot;note&quot;: &quot;&quot;
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>issuer</code></td>
+<td>Being who grants (or guardian acting in scope)</td>
+</tr>
+<tr>
+<td><code>subject</code></td>
+<td>Node or peer allowed to act / read</td>
+</tr>
+<tr>
+<td><code>action_class</code></td>
+<td>What may be <em>done</em></td>
+</tr>
+<tr>
+<td><code>data_class</code></td>
+<td>What may be <em>read/written</em></td>
+</tr>
+<tr>
+<td><code>peer</code></td>
+<td>Optional remote BeingId this grant is limited to</td>
+</tr>
+<tr>
+<td><code>fresh_required</code></td>
+<td>If true, high-stakes acts need <code>consent.challenge</code> before fire</td>
+</tr>
+<tr>
+<td><code>guardian_link</code></td>
+<td>Id of guardianship record when issuer is a guardian — see <code>GUARDIANSHIP.md</code></td>
+</tr>
+</tbody>
+</table>
+<h3>Revocation</h3>
+<p>Emit <code>kind: consent.revoke</code> with payload <code>{ "grant_id": "...", "reason": "..." }</code>, set grant <code>status</code> to <code>revoked</code>, and stop honoring it <strong>immediately</strong>. Peers that received copies must treat revoke as authoritative when signed by issuer (or steward key in later versions).</p>
+<h3>Real exit</h3>
+<p><code>bond.exit</code> plus export of local memory the being is entitled to. Hostage copies are a protocol violation, not a business model.</p>
+<hr />
+<h2>3. action_class &amp; data_class conventions</h2>
+<p>Use dotted namespaces:</p>
+<ul>
+<li><code>local.*</code> — single-node demo / operator  </li>
+<li><code>robot.*</code> — physical effectors (default <code>fresh_required: true</code>)  </li>
+<li><code>habitat.*</code> — environmental actuators  </li>
+<li><code>memory.read.*</code> / <code>memory.write.*</code>  </li>
+<li><code>federate.*</code> — peering and discovery  </li>
+</ul>
+<p>Unknown classes → <strong>deny</strong>.</p>
+<hr />
+<h2>4. Reference-node mapping</h2>
+<table>
+<thead>
+<tr>
+<th>Spec object</th>
+<th>Sketch path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Event</td>
+<td><code>events/inbox|outbox/*.json</code></td>
+</tr>
+<tr>
+<td>ConsentGrant</td>
+<td><code>consent/grants/*.json</code></td>
+</tr>
+<tr>
+<td>Gate</td>
+<td><code>refnode/act.py</code> calls <code>find_active_grant</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>5. Next hardening (do not block shipping)</h2>
+<ol>
+<li>Canonical JSON + ed25519 <code>sig</code> on cross-node events  </li>
+<li>Challenge/response for <code>fresh_required</code>  </li>
+<li>Grant capability attenuation (subset only, never expand)  </li>
+<li>Schema ids (<code>$id</code>) once we pick JSON Schema / CDDL  </li>
+</ol>
+<hr />
+<p><em>Wire-visible consent or it isn’t ANIMA.</em></p>
+</div>
+</body>
+</html>
