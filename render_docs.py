@@ -288,6 +288,9 @@ def update_index() -> None:
     # Replace the links div contents
     new_links = """            <div class="links">
         <a href="docs/PLAIN-LANGUAGE.html">In plain words (start here)</a>
+        <a href="docs/ANIMAL-PLAIN.html">Pet care (plain words)</a>
+        <a href="docs/NINTH-SLICE.html">Ninth slice</a>
+        <a href="docs/NINTH-SLICE-STATUS.html">Ninth-slice status</a>
         <a href="docs/PROTOCOL.html">Protocol principles (v0)</a>
         <a href="docs/ARCHITECTURE-OVERVIEW.html">Architecture overview</a>
         <a href="docs/REUSE-VS-INVENT.html">Reuse vs invent</a>
@@ -307,6 +310,8 @@ def update_index() -> None:
         <a href="docs/STEWARDSHIP.html">Stewardship</a>
         <a href="docs/HABITAT-VERTICAL.html">Habitat vertical</a>
         <a href="docs/ANIMAL-VERTICAL.html">Animal vertical</a>
+        <a href="docs/GUARDIAN-CHALLENGE.html">Guardian challenge</a>
+        <a href="docs/EIGHTH-SLICE-STATUS.html">Eighth-slice status</a>
         <a href="docs/INTEROP-TESTS.html">Interop tests</a>
         <a href="docs/SITE-HOSTING.html">Site hosting</a>
         <a href="docs/VERSIONING.html">Versioning</a>
