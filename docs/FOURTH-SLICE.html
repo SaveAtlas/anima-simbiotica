@@ -67,7 +67,7 @@ ol { padding-left: 1.25rem; }
 <tr>
 <td>S4.3</td>
 <td>Seen-event id cache + skew — <code>SIGNED-EVENTS.md</code> §7–8</td>
-<td>Builder</td>
+<td><strong>PASS</strong> (<code>replay-demo</code>)</td>
 </tr>
 <tr>
 <td>S4.4</td>
@@ -98,7 +98,7 @@ ol { padding-left: 1.25rem; }
 <h2>Success criteria</h2>
 <ul>
 <li>[x] A and C bond only after explicit accept of introduction  </li>
-<li>[ ] Replay of old signed event rejected  </li>
+<li>[x] Replay of old signed event rejected  </li>
 <li>[ ] Operator guide runnable on a clean machine  </li>
 <li>[ ] Live www serves full <code>site/</code> (when Ovie cutover done)  </li>
 <li>[ ] Non-negotiables unchanged  </li>
@@ -109,7 +109,8 @@ ol { padding-left: 1.25rem; }
 <li>S4.1 <strong>PASS</strong> (Architect verified 2026-09-05)</li>
 <li>DNS/Pages cutover in flight (A @ 185.199.108.153 noted)</li>
 <li>S4.2 <strong>PASS</strong> (Builder 2026-09-05)</li>
-<li>S4.3–S4.5 pending</li>
+<li>S4.3 <strong>PASS</strong> (Builder 2026-09-05) — <code>seen/</code> + <code>ANIMA_SKEW_SECONDS</code> + <code>replay-demo</code></li>
+<li>S4.4–S4.5 pending (S4.5 partial: interop S4.replay / S4.skew landed with S4.3)</li>
 </ul>
 <h2>Immediate Architect drafts</h2>
 <ol>

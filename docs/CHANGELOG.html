@@ -34,6 +34,7 @@ ol { padding-left: 1.25rem; }
 <h1>Docs changelog</h1>
 <h2>2026-09-05</h2>
 <ul>
+<li>S4.3 seen-event cache + clock skew PASS: <code>refnode/seen.py</code> bounded <code>(emitter, event_id)</code> under <code>{REFNODE_HOME}/seen/</code> (max 10k, prune oldest); inbound verify replay→sig→skew before apply; <code>ANIMA_SKEW_SECONDS</code> (default 300); <code>python3 -m refnode replay-demo</code>; interop S4.replay / S4.skew</li>
 <li>S4.2 local peers directory PASS: <code>refnode/peers.py</code> PeerRecords under <code>{REFNODE_HOME}/peers/&lt;safe-being-id&gt;.json</code>; upsert on bond.accept (bonded) + trusted bond.introduce (introduced); stale on exit; CLI <code>python3 -m refnode peers-list</code>; introduce-demo / three-party-demo leave PeerRecords; interop S4.peers</li>
 </ul>
 <h2>2026-09-04</h2>

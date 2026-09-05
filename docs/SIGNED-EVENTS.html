@@ -110,7 +110,7 @@ ol { padding-left: 1.25rem; }
 <li>[x] Canonicalization helper shared by sign + verify  </li>
 <li>[x] Sign on outbox write when <code>ANIMA_SIGN=1</code> or bond mode  </li>
 <li>[x] Verify on inbox from non-local emitters  </li>
-<li>[x] Tests: tamper detect (sign-tamper-demo / dual-bond-demo); replay drop on seen ids  </li>
+<li>[x] Tests: tamper detect (sign-tamper-demo / dual-bond-demo); replay drop on seen ids (<code>replay-demo</code> S4.3)  </li>
 </ul>
 <hr />
 <p><em>Transparency without authenticity is theater. Sign across trust boundaries.</em></p>
@@ -118,7 +118,7 @@ ol { padding-left: 1.25rem; }
 <p>Each node keeps a bounded set of seen <code>(emitter, event_id)</code> pairs.</p>
 <ul>
 <li>Duplicate id from same emitter → <strong>reject</strong> (replay).  </li>
-<li>Default retention: 7 days or 10k entries (implementation choice; document in README).  </li>
+<li>Default retention: <strong>10k entries</strong> (prune oldest by mtime; documented in <code>reference-node/README.md</code>).  </li>
 <li>Persist under <code>REFNODE_HOME/seen/</code> so restarts still fail closed.</li>
 </ul>
 <h2>8. Clock skew (S4.3)</h2>
@@ -128,6 +128,7 @@ ol { padding-left: 1.25rem; }
 <li>Configurable via env <code>ANIMA_SKEW_SECONDS</code> (default 300).</li>
 </ul>
 <p>Builder: <code>python3 -m refnode replay-demo</code> — deliver same event twice → second reject; skew-tampered <code>ts</code> → reject.</p>
+<p><strong>Builder status (S4.3):</strong> <code>refnode/seen.py</code> + skew via <code>ANIMA_SKEW_SECONDS</code>; wired in <code>verify_inbound</code> before apply; <code>python3 -m refnode replay-demo</code>.</p>
 </div>
 </body>
 </html>
