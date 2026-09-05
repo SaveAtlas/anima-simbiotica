@@ -37,6 +37,8 @@ ol { padding-left: 1.25rem; }
 # (stem, nav label) — order for shared nav
 NAV_ITEMS = [
     ("PLAIN-LANGUAGE", "In plain words"),
+    ("PHONE-PRESENCE", "Phone presence"),
+    ("ELEVENTH-SLICE", "Eleventh slice"),
     ("TENTH-SLICE", "Tenth slice"),
     ("ECOSYSTEM-PLAIN", "Place care (plain)"),
     ("VISION", "Vision"),
@@ -95,6 +97,8 @@ NAV_ITEMS = [
 # Docs to render from markdown (flat under docs/)
 RENDER = [
     "PLAIN-LANGUAGE",
+    "ELEVENTH-SLICE",
+    "PHONE-PRESENCE",
     "TENTH-SLICE",
     "ECOSYSTEM-PLAIN",
     "VISION",
