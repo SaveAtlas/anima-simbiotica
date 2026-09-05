@@ -70,6 +70,9 @@ NAV_ITEMS = [
     ("THIRD-SLICE-STATUS", "Third slice status"),
     ("CHALLENGE-AND-FRESH", "Challenge & fresh"),
     ("THREE-PARTY-FEDERATION", "Three-party fed"),
+    ("FOURTH-SLICE", "Fourth slice"),
+    ("INTRODUCE", "Introduce"),
+    ("OPERATOR-GUIDE", "Operator guide"),
 ]
 
 # Docs to render from markdown (flat under docs/)
@@ -108,6 +111,9 @@ RENDER = [
     "THIRD-SLICE-STATUS",
     "CHALLENGE-AND-FRESH",
     "THREE-PARTY-FEDERATION",
+    "FOURTH-SLICE",
+    "INTRODUCE",
+    "OPERATOR-GUIDE",
     "README",
 ]
 
@@ -284,6 +290,9 @@ def update_index() -> None:
         <a href="docs/THIRD-SLICE-STATUS.html">Third-slice status</a>
         <a href="docs/CHALLENGE-AND-FRESH.html">Challenge &amp; fresh</a>
         <a href="docs/THREE-PARTY-FEDERATION.html">Three-party federation</a>
+        <a href="docs/FOURTH-SLICE.html">Fourth slice</a>
+        <a href="docs/INTRODUCE.html">bond.introduce</a>
+        <a href="docs/OPERATOR-GUIDE.html">Operator guide</a>
         <a href="docs/adr/ADR-001-being-vs-node-keys.html">ADR-001</a>
         <a href="docs/adr/ADR-002-deny-unknown-action-class.html">ADR-002</a>
         <a href="docs/adr/ADR-003-license-defaults.html">ADR-003</a>

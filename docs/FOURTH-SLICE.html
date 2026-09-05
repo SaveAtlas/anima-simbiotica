@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>action_class registry (v0) — ANIMA</title>
+<title>Fourth slice — ANIMA</title>
 <style>
 :root { --bg:#0c1210; --fg:#e6ebe7; --muted:#9aab9f; --line:#243028; --accent:#7d9e86; }
 body { margin:0; font-family: Georgia, serif; background:var(--bg); color:var(--fg); line-height:1.65; font-size:1.1rem; }
@@ -31,198 +31,85 @@ ol { padding-left: 1.25rem; }
 <body>
 <div class="wrap">
 <nav><a href="../index.html">← ANIMA home</a> · <a href="CONSTITUTION.html">Constitution</a> · <a href="PROTOCOL.html">Protocol</a> · <a href="REUSE-VS-INVENT.html">Reuse vs invent</a> · <a href="EVENT-AND-CONSENT.html">Event &amp; Consent</a> · <a href="FEDERATION.html">Federation</a> · <a href="GUARDIANSHIP.html">Guardianship</a> · <a href="NODE-BINDING.html">NodeBinding</a> · <a href="REVOKE-NODE.html">Revoke node</a> · <a href="SIGNED-EVENTS.html">Signed events</a> · <a href="A2A-MCP-MAPPING.html">A2A/MCP</a> · <a href="EXPORT-AND-EXIT.html">Export &amp; exit</a> · <a href="COMPUTE-MESH.html">Compute mesh</a> · <a href="THREAT-MODEL.html">Threat model</a> · <a href="ACTION-CLASSES.html">Action classes</a> · <a href="GLOSSARY.html">Glossary</a> · <a href="ARCHITECTURE-OVERVIEW.html">Architecture</a> · <a href="STEWARDSHIP.html">Stewardship</a> · <a href="HABITAT-VERTICAL.html">Habitat</a> · <a href="ANIMAL-VERTICAL.html">Animal</a> · <a href="INTEROP-TESTS.html">Interop tests</a> · <a href="SITE-HOSTING.html">Site hosting</a> · <a href="AGENT-CARD.html">Agent card</a> · <a href="VERSIONING.html">Versioning</a> · <a href="CHANGELOG.html">Changelog</a> · <a href="ROADMAP.html">Roadmap</a> · <a href="MEMORY-CUSTODY.html">Memory custody</a> · <a href="FIRST-SLICE-STATUS.html">First slice</a> · <a href="SECOND-SLICE.html">Second slice</a> · <a href="SECOND-SLICE-STATUS.html">Second slice status</a> · <a href="DUAL-PROCESS-BOND.html">Dual-process bond</a> · <a href="THIRD-SLICE.html">Third slice</a> · <a href="THIRD-SLICE-STATUS.html">Third slice status</a> · <a href="CHALLENGE-AND-FRESH.html">Challenge &amp; fresh</a> · <a href="THREE-PARTY-FEDERATION.html">Three-party fed</a> · <a href="FOURTH-SLICE.html">Fourth slice</a> · <a href="INTRODUCE.html">Introduce</a> · <a href="OPERATOR-GUIDE.html">Operator guide</a> · <a href="adr/ADR-001-being-vs-node-keys.html">ADR-001</a> · <a href="adr/ADR-002-deny-unknown-action-class.html">ADR-002</a> · <a href="adr/ADR-003-license-defaults.html">ADR-003</a> · <a href="adr/ADR-004-dual-process-data-dirs.html">ADR-004</a></nav>
-<h1>action_class registry (v0)</h1>
-<p><strong>Companions:</strong> <code>EVENT-AND-CONSENT.md</code>, <code>adr/ADR-002-deny-unknown-action-class.md</code><br />
-<strong>Rule:</strong> Exact match only in spine. Unknown → deny.</p>
-<p>Implementations SHOULD keep a code allowlist mirroring this table. Demo/experimental classes live under <code>local.*</code> only.</p>
+<h1>Fourth slice — architecture plan</h1>
+<p><strong>Prerequisite:</strong> Third slice offline sealed (<code>THIRD-SLICE-STATUS.md</code>).<br />
+<strong>Parallel / Ovie:</strong> Pages + DNS cutover (app code); ADR-003 license confirm.</p>
 <hr />
-<h2>local.* — single-node demos</h2>
-<table>
-<thead>
-<tr>
-<th>Class</th>
-<th>Meaning</th>
-<th>fresh_required</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>local.demo.note</code></td>
-<td>Write a demo actuation note to outbox</td>
-<td>no</td>
-</tr>
-<tr>
-<td><code>local.demo.observe</code></td>
-<td>Demo observation path</td>
-<td>no</td>
-</tr>
-<tr>
-<td><code>local.operator.export</code></td>
-<td>Build ExportBundle on this node</td>
-<td>no</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2>memory.*</h2>
-<table>
-<thead>
-<tr>
-<th>Class</th>
-<th>Meaning</th>
-<th>fresh_required</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>memory.read.observation</code></td>
-<td>Read observation slices</td>
-<td>no</td>
-</tr>
-<tr>
-<td><code>memory.write.observation</code></td>
-<td>Write observation slices</td>
-<td>no</td>
-</tr>
-<tr>
-<td><code>memory.read.welfare</code></td>
-<td>Read welfare/animal slices</td>
-<td>no</td>
-</tr>
-<tr>
-<td><code>memory.write.welfare</code></td>
-<td>Write welfare slices</td>
-<td>no</td>
-</tr>
-<tr>
-<td><code>memory.export.self</code></td>
-<td>Include slices in ExportBundle</td>
-<td>no</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2>federate.*</h2>
-<table>
-<thead>
-<tr>
-<th>Class</th>
-<th>Meaning</th>
-<th>fresh_required</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>federate.bond.offer</code></td>
-<td>Propose a Bond</td>
-<td>no</td>
-</tr>
-<tr>
-<td><code>federate.bond.accept</code></td>
-<td>Accept a Bond</td>
-<td>no</td>
-</tr>
-<tr>
-<td><code>federate.bond.exit</code></td>
-<td>Exit a Bond</td>
-<td>no</td>
-</tr>
-<tr>
-<td><code>federate.mesh.job</code></td>
-<td>Submit voluntary mesh job (late)</td>
-<td>yes</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2>robot.*</h2>
-<table>
-<thead>
-<tr>
-<th>Class</th>
-<th>Meaning</th>
-<th>fresh_required</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>robot.sense.welfare</code></td>
-<td>Read-only welfare sensors</td>
-<td>no</td>
-</tr>
-<tr>
-<td><code>robot.sense.env</code></td>
-<td>Environmental sensors</td>
-<td>no</td>
-</tr>
-<tr>
-<td><code>robot.act.low</code></td>
-<td>Low-stakes actuator (lights, non-harm)</td>
-<td>yes</td>
-</tr>
-<tr>
-<td><code>robot.act.high</code></td>
-<td>High-stakes / irreversible motion</td>
-<td>yes</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2>habitat.*</h2>
-<table>
-<thead>
-<tr>
-<th>Class</th>
-<th>Meaning</th>
-<th>fresh_required</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>habitat.sense</code></td>
-<td>Habitat/ecosystem sensors</td>
-<td>no</td>
-</tr>
-<tr>
-<td><code>habitat.act.reversible</code></td>
-<td>Reversible environmental control</td>
-<td>yes</td>
-</tr>
-<tr>
-<td><code>habitat.irreversible.change</code></td>
-<td>Irreversible habitat effect — default forbid for guardians</td>
-<td>yes</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2>commerce.* (edges only — never existence rent)</h2>
-<table>
-<thead>
-<tr>
-<th>Class</th>
-<th>Meaning</th>
-<th>fresh_required</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>commerce.mesh.pay</code></td>
-<td>Pay for optional mesh trade</td>
-<td>yes</td>
-</tr>
-</tbody>
-</table>
-<p>No <code>commerce.sell_data</code> allow class — selling personal/behavioral data is constitution-banned. Appear only in <strong>forbidden</strong> lists.</p>
-<hr />
-<h2>Adding a class</h2>
+<h2>Goals</h2>
 <ol>
-<li>Add a row here.  </li>
-<li>Note in CHANGELOG.  </li>
-<li>Update implementation allowlist.  </li>
-<li>Fixtures if useful.  </li>
+<li><strong>Introduce event</strong> — optional B-mediated A↔C introduction without auto-bond (closes S3.3 deferral).  </li>
+<li><strong>Durable peer directory</strong> — local address book of Bonded peers (not a global registry).  </li>
+<li><strong>Replay / clock skew hardening</strong> for signed events beyond demo windows.  </li>
+<li><strong>Operator UX docs</strong> — one “run the organism locally” guide.  </li>
+<li>Still <strong>no</strong> paid mesh, no vendor spine.</li>
 </ol>
-<p>Do not ship production bonds with undocumented classes.</p>
+<hr />
+<h2>Work packages</h2>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Package</th>
+<th>Owner bias</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S4.1</td>
+<td><code>bond.introduce</code> event (B suggests A↔C; both must consent)</td>
+<td>Architect wire → Builder</td>
+</tr>
+<tr>
+<td>S4.2</td>
+<td>Local <code>peers/</code> directory (DID, endpoints, last_bond)</td>
+<td>Builder</td>
+</tr>
+<tr>
+<td>S4.3</td>
+<td>Seen-event id cache + skew window config</td>
+<td>Builder</td>
+</tr>
+<tr>
+<td>S4.4</td>
+<td><code>docs/OPERATOR-GUIDE.md</code> + site page</td>
+<td>Architect → HTML</td>
+</tr>
+<tr>
+<td>S4.5</td>
+<td>Interop cases for introduce + skew</td>
+<td>Builder</td>
+</tr>
+<tr>
+<td>S4.6</td>
+<td>Post-cutover: confirm live <code>site/</code> matches artifact</td>
+<td>both</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Non-goals</h2>
+<ul>
+<li>Public DHT discovery as spine  </li>
+<li>Mobile apps  </li>
+<li>Compute mesh fees  </li>
+<li>Final trademark filing  </li>
+</ul>
+<hr />
+<h2>Success criteria</h2>
+<ul>
+<li>[ ] A and C bond only after explicit accept of introduction  </li>
+<li>[ ] Replay of old signed event rejected  </li>
+<li>[ ] Operator guide runnable on a clean machine  </li>
+<li>[ ] Live www serves full <code>site/</code> (when Ovie cutover done)  </li>
+<li>[ ] Non-negotiables unchanged  </li>
+</ul>
+<hr />
+<h2>Immediate Architect drafts</h2>
+<ol>
+<li><code>INTRODUCE.md</code> — bond.introduce wire shape  </li>
+<li><code>OPERATOR-GUIDE.md</code> — install/run demos  </li>
+<li>Hold LICENSE until ADR-003 confirmed  </li>
+</ol>
 </div>
 </body>
 </html>

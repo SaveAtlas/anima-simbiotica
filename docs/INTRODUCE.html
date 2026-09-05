@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Dual-process bond (S2.1) — ANIMA</title>
+<title>bond.introduce (S4.1) — ANIMA</title>
 <style>
 :root { --bg:#0c1210; --fg:#e6ebe7; --muted:#9aab9f; --line:#243028; --accent:#7d9e86; }
 body { margin:0; font-family: Georgia, serif; background:var(--bg); color:var(--fg); line-height:1.65; font-size:1.1rem; }
@@ -31,87 +31,35 @@ ol { padding-left: 1.25rem; }
 <body>
 <div class="wrap">
 <nav><a href="../index.html">← ANIMA home</a> · <a href="CONSTITUTION.html">Constitution</a> · <a href="PROTOCOL.html">Protocol</a> · <a href="REUSE-VS-INVENT.html">Reuse vs invent</a> · <a href="EVENT-AND-CONSENT.html">Event &amp; Consent</a> · <a href="FEDERATION.html">Federation</a> · <a href="GUARDIANSHIP.html">Guardianship</a> · <a href="NODE-BINDING.html">NodeBinding</a> · <a href="REVOKE-NODE.html">Revoke node</a> · <a href="SIGNED-EVENTS.html">Signed events</a> · <a href="A2A-MCP-MAPPING.html">A2A/MCP</a> · <a href="EXPORT-AND-EXIT.html">Export &amp; exit</a> · <a href="COMPUTE-MESH.html">Compute mesh</a> · <a href="THREAT-MODEL.html">Threat model</a> · <a href="ACTION-CLASSES.html">Action classes</a> · <a href="GLOSSARY.html">Glossary</a> · <a href="ARCHITECTURE-OVERVIEW.html">Architecture</a> · <a href="STEWARDSHIP.html">Stewardship</a> · <a href="HABITAT-VERTICAL.html">Habitat</a> · <a href="ANIMAL-VERTICAL.html">Animal</a> · <a href="INTEROP-TESTS.html">Interop tests</a> · <a href="SITE-HOSTING.html">Site hosting</a> · <a href="AGENT-CARD.html">Agent card</a> · <a href="VERSIONING.html">Versioning</a> · <a href="CHANGELOG.html">Changelog</a> · <a href="ROADMAP.html">Roadmap</a> · <a href="MEMORY-CUSTODY.html">Memory custody</a> · <a href="FIRST-SLICE-STATUS.html">First slice</a> · <a href="SECOND-SLICE.html">Second slice</a> · <a href="SECOND-SLICE-STATUS.html">Second slice status</a> · <a href="DUAL-PROCESS-BOND.html">Dual-process bond</a> · <a href="THIRD-SLICE.html">Third slice</a> · <a href="THIRD-SLICE-STATUS.html">Third slice status</a> · <a href="CHALLENGE-AND-FRESH.html">Challenge &amp; fresh</a> · <a href="THREE-PARTY-FEDERATION.html">Three-party fed</a> · <a href="FOURTH-SLICE.html">Fourth slice</a> · <a href="INTRODUCE.html">Introduce</a> · <a href="OPERATOR-GUIDE.html">Operator guide</a> · <a href="adr/ADR-001-being-vs-node-keys.html">ADR-001</a> · <a href="adr/ADR-002-deny-unknown-action-class.html">ADR-002</a> · <a href="adr/ADR-003-license-defaults.html">ADR-003</a> · <a href="adr/ADR-004-dual-process-data-dirs.html">ADR-004</a></nav>
-<h1>Dual-process bond (S2.1) — sequence</h1>
-<p><strong>Companions:</strong> <code>SECOND-SLICE.md</code>, <code>FEDERATION.md</code>, <code>SIGNED-EVENTS.md</code>, <code>EVENT-AND-CONSENT.md</code><br />
-<strong>Goal:</strong> Two <code>refnode</code> processes (not one-process sim) complete offer → accept → exit with signed events.</p>
+<h1>bond.introduce (S4.1)</h1>
+<p><strong>Companions:</strong> <code>THREE-PARTY-FEDERATION.md</code>, <code>FEDERATION.md</code>, <code>FOURTH-SLICE.md</code><br />
+<strong>Rule:</strong> Introduction is a hint with consent — never an automatic transitive bond.</p>
 <hr />
-<h2>1. Topology (v0)</h2>
-<pre><code>Process A (party A)          Process B (party B)
-  BeingId_A / NodeId_A         BeingId_B / NodeId_B
-  listen :7401                 listen :7402
-       \                         /
-        \____ exchange JSON ____/
-         (HTTP POST /anima/event
-          or file-drop adapter)
-</code></pre>
-<p>Transport is an <strong>adapter</strong> (<code>adapters/transport/</code>). Spine still owns identity, consent, bond, verify.</p>
-<p>Recommended v0 transport: loopback HTTP JSON POST — boring, inspectable, no vendor.</p>
-<hr />
-<h2>2. Message sequence</h2>
+<h2>Sequence</h2>
 <ol>
-<li><strong>A</strong> <code>bond.offer</code> → signed event; persist Bond <code>status=offered</code>; POST to B.  </li>
-<li><strong>B</strong> verify sig + NodeBinding; persist; emit <code>bond.accept</code> signed; create grants; POST to A.  </li>
-<li><strong>A</strong> verify; set Bond <code>active</code>; ack optional.  </li>
-<li>Either party <code>bond.exit</code> signed → peer verifies → ExportBundle local → grants revoked.</li>
+<li>A bonded to B; B bonded to C.  </li>
+<li>B emits <code>bond.introduce</code> (signed) to A and/or C naming the other party + capability card URL.  </li>
+<li>A may <code>bond.offer</code> to C (or C to A) using the hint.  </li>
+<li>Normal offer/accept/exit applies. No introduce → no implied A–C bond.</li>
 </ol>
-<p>Fail closed on bad sig, unknown <code>action_class</code>, missing/revoked binding.</p>
 <hr />
-<h2>3. CLI sketch</h2>
-<pre><code class="language-bash"># terminal 1
-python3 -m refnode serve --party A --port 7401 --peer http://127.0.0.1:7402
-
-# terminal 2
-python3 -m refnode serve --party B --port 7402 --peer http://127.0.0.1:7401
-
-# terminal 3
-python3 -m refnode bond-offer --to B
-python3 -m refnode bond-exit  --bond &lt;id&gt;
+<h2>Event payload</h2>
+<pre><code class="language-json">{
+  &quot;kind&quot;: &quot;bond.introduce&quot;,
+  &quot;payload&quot;: {
+    &quot;introducer&quot;: &quot;did:key:z...B&quot;,
+    &quot;party_a&quot;: &quot;did:key:z...A&quot;,
+    &quot;party_c&quot;: &quot;did:key:z...C&quot;,
+    &quot;card_url_a&quot;: &quot;http://127.0.0.1:7411/card&quot;,
+    &quot;card_url_c&quot;: &quot;http://127.0.0.1:7413/card&quot;,
+    &quot;note&quot;: &quot;optional human context&quot;
+  }
+}
 </code></pre>
-<p>Exact flags are Builder’s; semantics above are normative for v0.</p>
+<p>Verify introducer sig; confirm introducer has active bonds to both parties before treating hint as trusted.</p>
 <hr />
-<h2>4. What must not happen</h2>
-<ul>
-<li>Bond code importing cloud agent SDKs  </li>
-<li>Skipping verify because “localhost”  </li>
-<li>Shared single keystore for A and B  </li>
-</ul>
-<p>A and B use <strong>separate</strong> data dirs (<code>REFNODE_HOME</code> or <code>--data</code>).</p>
-<hr />
-<h2>5. Test checklist</h2>
-<table>
-<thead>
-<tr>
-<th>ID</th>
-<th>Test</th>
-<th>Status</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>D1</td>
-<td>Offer/accept across two processes</td>
-<td>✅ <code>dual-bond-demo</code></td>
-</tr>
-<tr>
-<td>D2</td>
-<td>Tampered event rejected by B</td>
-<td>✅ fail-closed</td>
-</tr>
-<tr>
-<td>D3</td>
-<td>Exit produces two local exports</td>
-<td>✅ A+B exports</td>
-</tr>
-<tr>
-<td>D4</td>
-<td>Kill transport adapter → local tick still works</td>
-<td>✅ <code>./run.sh</code> spine-only</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2>6. Habitat (S2.4) note</h2>
-<p>After D1 green, seed <code>fixtures/guardian-link-ecosystem.json</code> into a <code>habitat-demo</code> similar to <code>guardian-demo</code> (sense allow / irreversible deny).</p>
+<h2>Builder demo</h2>
+<p><code>python3 -m refnode introduce-demo</code> / <code>./run.sh introduce-demo</code> — three parties; after A–B and B–C, B introduces; A offers to C; accept; prove prior three-party-demo still has no A–C without this path.</p>
 </div>
 </body>
 </html>

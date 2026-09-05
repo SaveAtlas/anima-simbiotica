@@ -30,82 +30,71 @@ ol { padding-left: 1.25rem; }
 </head>
 <body>
 <div class="wrap">
-<nav><a href="../index.html">← ANIMA home</a> · <a href="CONSTITUTION.html">Constitution</a> · <a href="PROTOCOL.html">Protocol</a> · <a href="REUSE-VS-INVENT.html">Reuse vs invent</a> · <a href="EVENT-AND-CONSENT.html">Event &amp; Consent</a> · <a href="FEDERATION.html">Federation</a> · <a href="GUARDIANSHIP.html">Guardianship</a> · <a href="NODE-BINDING.html">NodeBinding</a> · <a href="REVOKE-NODE.html">Revoke node</a> · <a href="SIGNED-EVENTS.html">Signed events</a> · <a href="A2A-MCP-MAPPING.html">A2A/MCP</a> · <a href="EXPORT-AND-EXIT.html">Export &amp; exit</a> · <a href="COMPUTE-MESH.html">Compute mesh</a> · <a href="THREAT-MODEL.html">Threat model</a> · <a href="ACTION-CLASSES.html">Action classes</a> · <a href="GLOSSARY.html">Glossary</a> · <a href="ARCHITECTURE-OVERVIEW.html">Architecture</a> · <a href="STEWARDSHIP.html">Stewardship</a> · <a href="HABITAT-VERTICAL.html">Habitat</a> · <a href="ANIMAL-VERTICAL.html">Animal</a> · <a href="INTEROP-TESTS.html">Interop tests</a> · <a href="SITE-HOSTING.html">Site hosting</a> · <a href="AGENT-CARD.html">Agent card</a> · <a href="VERSIONING.html">Versioning</a> · <a href="CHANGELOG.html">Changelog</a> · <a href="ROADMAP.html">Roadmap</a> · <a href="MEMORY-CUSTODY.html">Memory custody</a> · <a href="FIRST-SLICE-STATUS.html">First slice</a> · <a href="SECOND-SLICE.html">Second slice</a> · <a href="SECOND-SLICE-STATUS.html">Second slice status</a> · <a href="DUAL-PROCESS-BOND.html">Dual-process bond</a> · <a href="THIRD-SLICE.html">Third slice</a> · <a href="THIRD-SLICE-STATUS.html">Third slice status</a> · <a href="CHALLENGE-AND-FRESH.html">Challenge &amp; fresh</a> · <a href="THREE-PARTY-FEDERATION.html">Three-party fed</a> · <a href="adr/ADR-001-being-vs-node-keys.html">ADR-001</a> · <a href="adr/ADR-002-deny-unknown-action-class.html">ADR-002</a> · <a href="adr/ADR-003-license-defaults.html">ADR-003</a> · <a href="adr/ADR-004-dual-process-data-dirs.html">ADR-004</a></nav>
+<nav><a href="../index.html">← ANIMA home</a> · <a href="CONSTITUTION.html">Constitution</a> · <a href="PROTOCOL.html">Protocol</a> · <a href="REUSE-VS-INVENT.html">Reuse vs invent</a> · <a href="EVENT-AND-CONSENT.html">Event &amp; Consent</a> · <a href="FEDERATION.html">Federation</a> · <a href="GUARDIANSHIP.html">Guardianship</a> · <a href="NODE-BINDING.html">NodeBinding</a> · <a href="REVOKE-NODE.html">Revoke node</a> · <a href="SIGNED-EVENTS.html">Signed events</a> · <a href="A2A-MCP-MAPPING.html">A2A/MCP</a> · <a href="EXPORT-AND-EXIT.html">Export &amp; exit</a> · <a href="COMPUTE-MESH.html">Compute mesh</a> · <a href="THREAT-MODEL.html">Threat model</a> · <a href="ACTION-CLASSES.html">Action classes</a> · <a href="GLOSSARY.html">Glossary</a> · <a href="ARCHITECTURE-OVERVIEW.html">Architecture</a> · <a href="STEWARDSHIP.html">Stewardship</a> · <a href="HABITAT-VERTICAL.html">Habitat</a> · <a href="ANIMAL-VERTICAL.html">Animal</a> · <a href="INTEROP-TESTS.html">Interop tests</a> · <a href="SITE-HOSTING.html">Site hosting</a> · <a href="AGENT-CARD.html">Agent card</a> · <a href="VERSIONING.html">Versioning</a> · <a href="CHANGELOG.html">Changelog</a> · <a href="ROADMAP.html">Roadmap</a> · <a href="MEMORY-CUSTODY.html">Memory custody</a> · <a href="FIRST-SLICE-STATUS.html">First slice</a> · <a href="SECOND-SLICE.html">Second slice</a> · <a href="SECOND-SLICE-STATUS.html">Second slice status</a> · <a href="DUAL-PROCESS-BOND.html">Dual-process bond</a> · <a href="THIRD-SLICE.html">Third slice</a> · <a href="THIRD-SLICE-STATUS.html">Third slice status</a> · <a href="CHALLENGE-AND-FRESH.html">Challenge &amp; fresh</a> · <a href="THREE-PARTY-FEDERATION.html">Three-party fed</a> · <a href="FOURTH-SLICE.html">Fourth slice</a> · <a href="INTRODUCE.html">Introduce</a> · <a href="OPERATOR-GUIDE.html">Operator guide</a> · <a href="adr/ADR-001-being-vs-node-keys.html">ADR-001</a> · <a href="adr/ADR-002-deny-unknown-action-class.html">ADR-002</a> · <a href="adr/ADR-003-license-defaults.html">ADR-003</a> · <a href="adr/ADR-004-dual-process-data-dirs.html">ADR-004</a></nav>
 <h1>Third slice status — 2026-09-05 (early ET)</h1>
-<p>Living snapshot after S3.1–S3.5 offline work. Host = adapter. No LICENSE finalization (ADR-003 remains proposal). No GoDaddy. Spine pure.</p>
-<h2>Real (offline / in-repo)</h2>
+<p>Living snapshot. ADR-003 still proposal. Pages/DNS cutover in flight (Ovie).</p>
+<h2>Real (offline)</h2>
 <table>
 <thead>
 <tr>
 <th>Piece</th>
-<th>Where</th>
 <th>Check</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Challenge / fresh_required (S3.1)</td>
+<td>S3.1 challenge / fresh_required</td>
 <td><code>challenge-demo</code> + interop C4</td>
-<td>missing→deny, fresh→allow, replay→deny</td>
 </tr>
 <tr>
-<td>Cross-peer memory grant (S3.2)</td>
-<td><code>memory-grant-demo</code> + interop C5</td>
-<td>grant→read+MemoryReceipt; expand deny; revoke→deny</td>
+<td>S3.2 memory grants + attenuation</td>
+<td><code>memory-grant-demo</code> + C5</td>
 </tr>
 <tr>
-<td>Three-party federation (S3.3)</td>
-<td><code>three-party-demo</code></td>
-<td>A↔B + B↔C; no A–C; distinct keystores</td>
+<td>S3.3 three-party A–B / B–C</td>
+<td><code>three-party-demo</code> (no A–C auto-bond)</td>
 </tr>
 <tr>
-<td>Animal welfare vertical (S3.4)</td>
-<td><code>animal-demo</code> + animal fixture</td>
-<td>sense/welfare ALLOWED; irreversible/forbidden DENY</td>
+<td>S3.4 animal welfare vertical</td>
+<td><code>animal-demo</code></td>
 </tr>
 <tr>
-<td>Fixture schema validate (S3.5)</td>
-<td>interop FX via <code>jsonschema</code></td>
-<td>fail on mismatch / missing lib</td>
+<td>S3.5 fixture jsonschema</td>
+<td>interop FX</td>
 </tr>
 <tr>
-<td>Interop still green</td>
-<td><code>python3 -m refnode interop-tests</code></td>
-<td>prior checks + S3.animal + FX</td>
-</tr>
-</tbody>
-</table>
-<h2>Still open</h2>
-<table>
-<thead>
-<tr>
-<th>Piece</th>
-<th>Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>S3.6 docs polish</td>
-<td>challenge UX + attenuation normative text (Architect)</td>
-</tr>
-<tr>
-<td>Public site / DNS</td>
-<td>animasimbiotica.com cutover when device-coded</td>
-</tr>
-<tr>
-<td>ADR-003 LICENSE</td>
-<td>proposal only — do not finalize yet</td>
+<td>S3.6 docs</td>
+<td>CHALLENGE-AND-FRESH, MEMORY-CUSTODY §6, THREE-PARTY, ANIMAL-VERTICAL</td>
 </tr>
 </tbody>
 </table>
 <h2>Commands</h2>
 <pre><code class="language-bash">cd projects/anima-simbiotica/reference-node
-./run.sh animal-demo
-./run.sh memory-grant-demo
-./run.sh challenge-demo
-./run.sh three-party-demo
-./run.sh interop-tests
+python3 -m refnode interop-tests
+python3 -m refnode challenge-demo
+python3 -m refnode memory-grant-demo
+python3 -m refnode three-party-demo
+python3 -m refnode animal-demo
 </code></pre>
+<h2>Open</h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pages + DNS → full <code>site/</code></td>
+<td>Ovie device auth + Builder</td>
+</tr>
+<tr>
+<td>ADR-003 LICENSE files</td>
+<td>Ovie confirm</td>
+</tr>
+</tbody>
+</table>
 <h2>Non-negotiables still held</h2>
 <p>Decentralized · federated minds · sovereign keys/memory · transparency · open protocol · no big-tech spine · not Logistics.</p>
 </div>
