@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Companion animal vertical (S3.4) — ANIMA</title>
+<title>Ninth-slice status — ANIMA</title>
 <style>
 :root { --bg:#0c1210; --fg:#e6ebe7; --muted:#9aab9f; --line:#243028; --accent:#7d9e86; }
 body { margin:0; font-family: Georgia, serif; background:var(--bg); color:var(--fg); line-height:1.65; font-size:1.1rem; }
@@ -31,42 +31,44 @@ ol { padding-left: 1.25rem; }
 <body>
 <div class="wrap">
 <nav><a href="../index.html">← ANIMA home</a> · <a href="PLAIN-LANGUAGE.html">In plain words</a> · <a href="VISION.html">Vision</a> · <a href="NINTH-SLICE.html">Ninth slice</a> · <a href="ANIMAL-PLAIN.html">Pet care (plain)</a> · <a href="CONSTITUTION.html">Constitution</a> · <a href="PROTOCOL.html">Protocol</a> · <a href="REUSE-VS-INVENT.html">Reuse vs invent</a> · <a href="EVENT-AND-CONSENT.html">Event &amp; Consent</a> · <a href="FEDERATION.html">Federation</a> · <a href="GUARDIANSHIP.html">Guardianship</a> · <a href="NODE-BINDING.html">NodeBinding</a> · <a href="REVOKE-NODE.html">Revoke node</a> · <a href="SIGNED-EVENTS.html">Signed events</a> · <a href="A2A-MCP-MAPPING.html">A2A/MCP</a> · <a href="EXPORT-AND-EXIT.html">Export &amp; exit</a> · <a href="COMPUTE-MESH.html">Compute mesh</a> · <a href="THREAT-MODEL.html">Threat model</a> · <a href="ACTION-CLASSES.html">Action classes</a> · <a href="GLOSSARY.html">Glossary</a> · <a href="ARCHITECTURE-OVERVIEW.html">Architecture</a> · <a href="STEWARDSHIP.html">Stewardship</a> · <a href="HABITAT-VERTICAL.html">Habitat</a> · <a href="ANIMAL-VERTICAL.html">Animal</a> · <a href="INTEROP-TESTS.html">Interop tests</a> · <a href="SITE-HOSTING.html">Site hosting</a> · <a href="AGENT-CARD.html">Agent card</a> · <a href="VERSIONING.html">Versioning</a> · <a href="CHANGELOG.html">Changelog</a> · <a href="ROADMAP.html">Roadmap</a> · <a href="MEMORY-CUSTODY.html">Memory custody</a> · <a href="FIRST-SLICE-STATUS.html">First slice</a> · <a href="SECOND-SLICE.html">Second slice</a> · <a href="SECOND-SLICE-STATUS.html">Second slice status</a> · <a href="DUAL-PROCESS-BOND.html">Dual-process bond</a> · <a href="THIRD-SLICE.html">Third slice</a> · <a href="THIRD-SLICE-STATUS.html">Third slice status</a> · <a href="CHALLENGE-AND-FRESH.html">Challenge &amp; fresh</a> · <a href="THREE-PARTY-FEDERATION.html">Three-party fed</a> · <a href="FOURTH-SLICE.html">Fourth slice</a> · <a href="FOURTH-SLICE-STATUS.html">Fourth slice status</a> · <a href="FIFTH-SLICE.html">Fifth slice</a> · <a href="FIFTH-SLICE-STATUS.html">Fifth slice status</a> · <a href="SIXTH-SLICE.html">Sixth slice</a> · <a href="SIXTH-SLICE-STATUS.html">Sixth slice status</a> · <a href="SEVENTH-SLICE.html">Seventh slice</a> · <a href="SEVENTH-SLICE-STATUS.html">Seventh slice status</a> · <a href="EIGHTH-SLICE.html">Eighth slice</a> · <a href="EIGHTH-SLICE-STATUS.html">Eighth slice status</a> · <a href="NINTH-SLICE-STATUS.html">Ninth slice status</a> · <a href="GUARDIAN-CHALLENGE.html">Guardian challenge</a> · <a href="INTRODUCE.html">Introduce</a> · <a href="PEERS-DIRECTORY.html">Peers directory</a> · <a href="OPERATOR-GUIDE.html">Operator guide</a> · <a href="adr/ADR-001-being-vs-node-keys.html">ADR-001</a> · <a href="adr/ADR-002-deny-unknown-action-class.html">ADR-002</a> · <a href="adr/ADR-003-license-defaults.html">ADR-003</a> · <a href="adr/ADR-004-dual-process-data-dirs.html">ADR-004</a></nav>
-<h1>Companion animal vertical (S3.4)</h1>
-<p><strong>Companions:</strong> <code>GUARDIANSHIP.md</code>, <code>HABITAT-VERTICAL.md</code>, fixture <code>guardian-link-animal.json</code><br />
-<strong>Rule:</strong> Welfare sense under GuardianLink. No ownership cosplay. No data sale.</p>
-<hr />
-<h2>Scope</h2>
-<ul>
-<li><strong>Dependent:</strong> one companion animal (<code>dependent_class: animal</code>)  </li>
-<li><strong>Guardian:</strong> human BeingId  </li>
-<li><strong>Allowed:</strong> <code>robot.sense.welfare</code>, <code>memory.write.welfare</code>  </li>
-<li><strong>Forbidden:</strong> <code>habitat.irreversible.*</code>, <code>commerce.sell_data</code>, and any <code>robot.act.high</code> without fresh challenge  </li>
-</ul>
-<h3>Demo CLI (mirror habitat-demo)</h3>
-<pre><code class="language-bash">cd reference-node
-./run.sh animal-demo
-# equivalent:
-python3 -m refnode animal-demo
-</code></pre>
-<p>Expect: sense/welfare <strong>ALLOWED</strong>; irreversible / <code>commerce.sell_data</code> <strong>DENY</strong>.<br />
-<code>guardian-demo</code> remains the first-slice probe; <code>animal-demo</code> is the S3.4 vertical entry (richer welfare sensor payload + welfare write + sell_data deny).</p>
-<h3>Ninth-slice vertical path (S9.2)</h3>
-<pre><code class="language-bash">python3 -m refnode animal-vertical-demo
-# or: ./run.sh animal-vertical-demo
-</code></pre>
-<p>Adds high-stakes <code>robot.act.high</code> under GuardianLink: deny without challenge →<br />
-guardian yes → act → second deny. Runs with <code>ANIMA_SIGN=1</code>. Plain story:<br />
-<code>ANIMAL-PLAIN.md</code>.</p>
-<hr />
-<h2>Loop</h2>
-<p>sense (welfare sensors) → remember (local, grant-tagged) → decide (rules) → act only if grant + challenge when required → learn local only.</p>
-<hr />
-<h2>Non-goals</h2>
-<ul>
-<li>Veterinary diagnosis product  </li>
-<li>Tokenizing pets  </li>
-<li>Mandatory cloud camera landlord  </li>
-</ul>
+<h1>Ninth-slice status</h1>
+<p><strong>Sealed:</strong> 2026-09-05 (ET)<br />
+<strong>Version:</strong> reference-node <code>0.9.0-sketch</code></p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S9.1 Plain page</td>
+<td>PASS — <code>ANIMAL-PLAIN.md</code> rendered; homepage + PLAIN-LANGUAGE link; hero untouched</td>
+</tr>
+<tr>
+<td>S9.2 Vertical path</td>
+<td>PASS — <code>animal-vertical-demo</code>: welfare sense/write ALLOW; sell_data DENY; high→guardian challenge</td>
+</tr>
+<tr>
+<td>S9.3 Signed challenge</td>
+<td>PASS — <code>guardian-challenge-sign</code> with <code>ANIMA_SIGN=1</code>; unsigned fail-closed</td>
+</tr>
+<tr>
+<td>S9.4 Operator story</td>
+<td>PASS — OPERATOR-GUIDE “Pet care story” in everyday words</td>
+</tr>
+<tr>
+<td>S9.5 Interop</td>
+<td>PASS — <code>S9.animal-vertical</code> / <code>S9.guardian-challenge-sign</code>; S7/S8 stay green</td>
+</tr>
+<tr>
+<td>S9.6 Site</td>
+<td>PASS — NINTH-SLICE-STATUS; NAV/RENDER; Pages push</td>
+</tr>
+</tbody>
+</table>
+<p>Public voice: invitation first. Plain words. Gathering place — not us-against-them. No brand names.</p>
 </div>
 </body>
 </html>

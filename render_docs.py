@@ -84,6 +84,7 @@ NAV_ITEMS = [
     ("SEVENTH-SLICE-STATUS", "Seventh slice status"),
     ("EIGHTH-SLICE", "Eighth slice"),
     ("EIGHTH-SLICE-STATUS", "Eighth slice status"),
+    ("NINTH-SLICE-STATUS", "Ninth slice status"),
     ("GUARDIAN-CHALLENGE", "Guardian challenge"),
     ("INTRODUCE", "Introduce"),
     ("PEERS-DIRECTORY", "Peers directory"),
@@ -140,6 +141,7 @@ RENDER = [
     "SEVENTH-SLICE-STATUS",
     "EIGHTH-SLICE",
     "EIGHTH-SLICE-STATUS",
+    "NINTH-SLICE-STATUS",
     "GUARDIAN-CHALLENGE",
     "INTRODUCE",
     "PEERS-DIRECTORY",
@@ -288,7 +290,6 @@ def update_index() -> None:
     # Replace the links div contents
     new_links = """            <div class="links">
         <a href="docs/PLAIN-LANGUAGE.html">In plain words (start here)</a>
-        <a href="docs/CONSTITUTION.html">Constitution (v0.1)</a>
         <a href="docs/PROTOCOL.html">Protocol principles (v0)</a>
         <a href="docs/ARCHITECTURE-OVERVIEW.html">Architecture overview</a>
         <a href="docs/REUSE-VS-INVENT.html">Reuse vs invent</a>
