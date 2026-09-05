@@ -37,6 +37,10 @@ ol { padding-left: 1.25rem; }
 # (stem, nav label) — order for shared nav
 NAV_ITEMS = [
     ("PLAIN-LANGUAGE", "In plain words"),
+    ("THREE-BEING-DAY-PLAIN", "Three beings, one day"),
+    ("THIRTEENTH-SLICE", "Thirteenth slice"),
+    ("THIRTEENTH-SLICE-STATUS", "Thirteenth slice status"),
+    ("AI-BEING", "AI as a being"),
     ("PHONE-PRESENCE", "Phone presence"),
     ("PRESENCE-SHELL", "Presence shell"),
     ("TWELFTH-SLICE", "Twelfth slice"),
