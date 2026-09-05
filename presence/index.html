@@ -7,11 +7,11 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="ANIMA" />
-  <meta name="description" content="ANIMA — a living place for daily life with people, AIs, and robots. Not a feed, chat, bank, or workplace. Open on your phone; no store required." />
+  <meta name="description" content="ANIMA — everything-layer for humans, AIs, and robots. Open the world on your phone; all of life inside; no store required." />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="icons/icon-192.png" />
-  <title>ANIMA — living place</title>
+  <title>ANIMA — everything</title>
   <style>
     :root {
       --bg: #070b09;
@@ -24,6 +24,7 @@
       --glow: rgba(107, 207, 142, 0.32);
       --safe-b: env(safe-area-inset-bottom, 0px);
       --safe-t: env(safe-area-inset-top, 0px);
+      --warn: #d4a574;
     }
     * { box-sizing: border-box; }
     html, body { margin: 0; min-height: 100%; }
@@ -36,7 +37,7 @@
       color: var(--fg);
       line-height: 1.55;
       font-size: 1.05rem;
-      padding: calc(1.15rem + var(--safe-t)) 1.1rem calc(5.75rem + var(--safe-b));
+      padding: calc(1.15rem + var(--safe-t)) 1.1rem calc(6.4rem + var(--safe-b));
       max-width: 26rem;
       margin: 0 auto;
     }
@@ -50,7 +51,7 @@
     }
     h1 {
       font-weight: 500;
-      font-size: clamp(1.7rem, 6.8vw, 2.15rem);
+      font-size: clamp(1.55rem, 6.4vw, 2.05rem);
       line-height: 1.18;
       letter-spacing: -0.025em;
       margin: 0 0 0.7rem;
@@ -59,13 +60,25 @@
     .lede {
       font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
       color: var(--muted);
-      margin: 0 0 1.4rem;
-      font-size: 0.95rem;
+      margin: 0 0 0.85rem;
+      font-size: 0.92rem;
       line-height: 1.5;
     }
+    .scale {
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 0.84rem;
+      color: var(--muted);
+      margin: 0 0 1.15rem;
+      padding: 0.75rem 0.85rem;
+      border-radius: 0.85rem;
+      border: 1px solid var(--line);
+      background: rgba(14, 22, 18, 0.55);
+    }
+    .scale strong { color: var(--accent); font-weight: 600; }
+    .scale a { color: var(--accent); font-weight: 600; }
     .chip-row {
       display: flex; flex-wrap: wrap; gap: 0.4rem;
-      margin: 0 0 1.55rem;
+      margin: 0 0 1.4rem;
       font-family: ui-sans-serif, system-ui, sans-serif;
     }
     .chip {
@@ -86,6 +99,13 @@
       color: var(--muted);
       font-weight: 600;
       margin: 0 0 0.6rem;
+      display: flex; align-items: baseline; justify-content: space-between; gap: 0.5rem;
+    }
+    h2 .count {
+      letter-spacing: 0;
+      text-transform: none;
+      font-weight: 500;
+      color: var(--accent);
     }
     .being {
       background: var(--card);
@@ -107,6 +127,14 @@
       font-size: 0.9rem;
       font-family: ui-sans-serif, system-ui, sans-serif;
     }
+    .kind {
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin: 0 0 0.25rem !important;
+    }
     .row {
       display: flex; align-items: center; justify-content: space-between;
       gap: 0.75rem;
@@ -126,10 +154,52 @@
       border-color: rgba(107, 207, 142, 0.35);
       background: linear-gradient(160deg, rgba(61, 143, 106, 0.18), rgba(14, 22, 18, 0.9));
     }
-    .slot-empty {
-      border-style: dashed;
-      opacity: 0.95;
+    .slot-empty { border-style: dashed; opacity: 0.95; }
+    .actions-inline {
+      display: flex; flex-wrap: wrap; gap: 0.45rem;
+      margin: 0.35rem 0 1rem;
+      font-family: ui-sans-serif, system-ui, sans-serif;
     }
+    .actions-inline button {
+      appearance: none;
+      border: 1px solid var(--line);
+      background: rgba(14, 22, 18, 0.8);
+      color: var(--fg);
+      border-radius: 999px;
+      padding: 0.55rem 0.95rem;
+      font-size: 0.86rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .actions-inline button.primary {
+      background: linear-gradient(135deg, var(--accent2), var(--accent));
+      color: #061008;
+      border-color: transparent;
+    }
+    .node-box {
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin: 0 0 1rem;
+      padding: 0.75rem 0.85rem;
+      border-radius: 0.85rem;
+      border: 1px dashed var(--line);
+    }
+    .node-box label { display: block; margin-bottom: 0.35rem; color: var(--muted); }
+    .node-box input {
+      width: 100%;
+      margin: 0 0 0.5rem;
+      padding: 0.55rem 0.65rem;
+      border-radius: 0.55rem;
+      border: 1px solid var(--line);
+      background: #0a100d;
+      color: var(--fg);
+      font-size: 0.86rem;
+    }
+    .node-status { margin: 0.35rem 0 0; font-size: 0.78rem; }
+    .node-status.ok { color: var(--accent); }
+    .node-status.warn { color: var(--warn); }
+    .node-status.muted { color: var(--muted); }
     .hint {
       font-family: ui-sans-serif, system-ui, sans-serif;
       font-size: 0.86rem;
@@ -140,21 +210,26 @@
     }
     .foot {
       position: fixed; left: 0; right: 0; bottom: 0;
-      padding: 0.7rem 1rem calc(0.7rem + var(--safe-b));
+      padding: 0.55rem 0.75rem calc(0.55rem + var(--safe-b));
       background: rgba(7, 11, 9, 0.94);
       border-top: 1px solid var(--line);
       backdrop-filter: blur(12px);
+      z-index: 20;
     }
     .foot-inner {
       max-width: 26rem; margin: 0 auto;
-      display: flex; gap: 0.55rem;
+      display: grid; grid-template-columns: 1fr 1fr 1.15fr;
+      gap: 0.4rem;
       font-family: ui-sans-serif, system-ui, sans-serif;
     }
-    .foot a {
-      flex: 1; text-align: center; text-decoration: none;
-      padding: 0.88rem 0.6rem; border-radius: 0.9rem;
-      font-weight: 600; font-size: 0.92rem;
+    .foot a, .foot button {
+      text-align: center; text-decoration: none;
+      padding: 0.82rem 0.35rem; border-radius: 0.85rem;
+      font-weight: 600; font-size: 0.86rem;
       border: 1px solid transparent;
+      cursor: pointer;
+      appearance: none;
+      font-family: inherit;
     }
     .go {
       background: linear-gradient(135deg, var(--accent2), var(--accent));
@@ -177,12 +252,101 @@
     }
     .install.show { display: block; }
     .install strong { color: var(--fg); }
+    .sheet {
+      position: fixed; inset: 0; z-index: 40;
+      display: none; align-items: flex-end; justify-content: center;
+      background: rgba(0,0,0,0.55);
+      padding: 1rem 0.75rem calc(0.75rem + var(--safe-b));
+    }
+    .sheet.open { display: flex; }
+    .sheet-panel {
+      width: min(26rem, 100%);
+      background: #0e1612;
+      border: 1px solid var(--line);
+      border-radius: 1.15rem 1.15rem 0.9rem 0.9rem;
+      padding: 1.1rem 1rem 1rem;
+      max-height: min(78vh, 36rem);
+      overflow: auto;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+    }
+    .sheet-panel h3 {
+      margin: 0 0 0.35rem;
+      font-size: 1.05rem;
+      font-family: Georgia, Palatino, serif;
+      font-weight: 500;
+    }
+    .sheet-panel .sub {
+      color: var(--muted);
+      font-size: 0.86rem;
+      margin: 0 0 0.9rem;
+    }
+    .sheet-panel label {
+      display: block;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0.55rem 0 0.3rem;
+    }
+    .sheet-panel input, .sheet-panel select, .sheet-panel textarea {
+      width: 100%;
+      padding: 0.65rem 0.7rem;
+      border-radius: 0.6rem;
+      border: 1px solid var(--line);
+      background: #0a100d;
+      color: var(--fg);
+      font-size: 0.95rem;
+      font-family: inherit;
+    }
+    .sheet-panel textarea { min-height: 4.5rem; resize: vertical; }
+    .check {
+      display: flex; align-items: center; gap: 0.5rem;
+      margin: 0.85rem 0 0.4rem;
+      font-size: 0.9rem;
+      color: var(--fg);
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .check input { width: auto; }
+    .sheet-actions {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0.5rem; margin-top: 1rem;
+    }
+    .sheet-actions button {
+      appearance: none; border: none; border-radius: 0.85rem;
+      padding: 0.9rem 0.6rem; font-weight: 700; font-size: 0.95rem; cursor: pointer;
+    }
+    .sheet-actions .cancel {
+      background: transparent; color: var(--muted); border: 1px solid var(--line);
+    }
+    .sheet-actions .submit {
+      background: linear-gradient(135deg, var(--accent2), var(--accent));
+      color: #061008;
+    }
+    #toast {
+      position: fixed; left: 50%; bottom: calc(5.2rem + var(--safe-b));
+      transform: translateX(-50%) translateY(12px);
+      background: #12201a; color: var(--fg);
+      border: 1px solid var(--accent2);
+      padding: 0.65rem 0.95rem; border-radius: 999px;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 0.82rem; opacity: 0; pointer-events: none;
+      transition: opacity 0.2s, transform 0.2s; z-index: 50;
+      max-width: 90%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .linkish {
+      background: none; border: none; color: var(--accent);
+      font: inherit; cursor: pointer; padding: 0; text-decoration: underline;
+      text-underline-offset: 0.15em;
+    }
   </style>
 </head>
 <body>
   <p class="mark">Anima Simbiotica</p>
   <h1>Like Earth is Earth — ANIMA is everything.</h1>
-  <p class="lede">All of life for humans, AIs, and robots — one open habitat. Bigger than any super-app. Gravity, not cages.</p>
+  <p class="lede">Open the world — humans, AIs, and robots as beings. Care, share, invite, decide. All of life inside; nothing essential left outside.</p>
+  <p class="scale"><strong>Bigger than a super-app.</strong> Chat platforms showed one app can hold daily life for humans. ANIMA aims past that: every kind of mind, open ground, gravity not cages. <a href="../docs/VISION.html">Vision</a></p>
 
   <div class="chip-row" aria-label="Who lives here">
     <span class="chip"><strong>You</strong></span>
@@ -206,56 +370,96 @@
     </div>
   </section>
 
-  <section aria-labelledby="care">
-    <h2 id="care">People, pets &amp; places today</h2>
-    <div class="being">
-      <div class="row">
-        <div>
-          <h3>Watershed garden</h3>
-          <p>Moisture ok · flow quiet · resting well</p>
-        </div>
-        <span class="pulse" title="sensing" aria-hidden="true"></span>
-      </div>
+  <section aria-labelledby="day">
+    <h2 id="day">Today’s life stream <span class="count"><span id="dayCount">0</span> cards</span></h2>
+    <div class="actions-inline">
+      <button type="button" class="primary" id="btnInvite">Invite helper</button>
+      <button type="button" id="btnShare">Share</button>
+      <button type="button" id="btnAsk">Ask me</button>
     </div>
-    <div class="being">
-      <div class="row">
-        <div>
-          <h3>Companion in your care</h3>
-          <p>Rest ok · gentle day · welfare watched with love</p>
-        </div>
-        <span class="pulse" title="sensing" aria-hidden="true"></span>
-      </div>
-    </div>
+    <div id="dayStream"></div>
   </section>
 
   <section aria-labelledby="helpers">
-    <h2 id="helpers">Your twin &amp; helpers</h2>
-    <div class="being slot-empty">
-      <h3>Your twin</h3>
-      <p>Invite a continuing self — voice, memory, presence — under your keys. Any twin product can plug in here as a peer. The habitat stays wider than any one app.</p>
-    </div>
-    <div class="being">
-      <h3>Helpers you invited</h3>
-      <p>AIs, robots, care tools, place sensors — neighbors when you welcome them. Demo: local care node · offline-first.</p>
-    </div>
+    <h2 id="helpers">Twin &amp; helpers</h2>
+    <div id="peerList"></div>
   </section>
 
-  <p class="hint">Share what matters when you choose. Serious or irreversible steps wait for a clear yes — that’s Ask me.</p>
+  <p class="hint">This is a world door, not a brochure. Share what matters. Serious steps wait for a clear yes — Ask me. Helpers arrive as peers you invite.</p>
+
+  <div class="node-box">
+    <label for="nodeBase">Optional refnode base URL</label>
+    <input id="nodeBase" type="url" placeholder="http://127.0.0.1:7401" autocomplete="off" />
+    <button type="button" class="linkish" id="btnSaveNode">Save node hook</button>
+    · <button type="button" class="linkish" id="btnResetDemo">Reset day demo</button>
+    <p class="node-status muted" id="nodeStatus">Ask me · demo mode</p>
+  </div>
 
   <div class="install" id="installHint">
-    <strong>Pin this place to your home screen</strong><br />
+    <strong>Pin this world to your home screen</strong><br />
     Safari: Share → Add to Home Screen.<br />
     Chrome / Android: menu → Install app or Add to Home screen.<br />
     App stores are optional forever — this link is the door.
   </div>
 
-  <nav class="foot" aria-label="Living place">
+  <nav class="foot" aria-label="World actions">
     <div class="foot-inner">
       <a class="soft" href="../index.html">World door</a>
-      <a class="go" href="challenge.html">Ask me</a>
+      <button type="button" class="soft" id="btnShareFoot">Share</button>
+      <button type="button" class="go" id="btnAskFoot">Ask me</button>
     </div>
   </nav>
 
+  <div class="sheet" id="inviteSheet" aria-hidden="true" role="dialog" aria-label="Invite a helper">
+    <div class="sheet-panel">
+      <h3>Invite into your world</h3>
+      <p class="sub">Generic peer card — twin, AI, robot, or care tool. No product chrome. The habitat stays bigger than any one helper.</p>
+      <form id="inviteForm">
+        <label for="inviteKind">Kind of being</label>
+        <select id="inviteKind">
+          <option value="twin">Twin / continuing self</option>
+          <option value="ai">AI helper</option>
+          <option value="robot">Robot</option>
+          <option value="helper">Care tool / other</option>
+        </select>
+        <label for="inviteLabel">Name</label>
+        <input id="inviteLabel" maxlength="64" placeholder="e.g. Garden walker" />
+        <label for="inviteNote">Note</label>
+        <textarea id="inviteNote" maxlength="180" placeholder="Why they’re here · what they may sense"></textarea>
+        <div class="sheet-actions">
+          <button type="button" class="cancel" data-close="inviteSheet">Cancel</button>
+          <button type="submit" class="submit">Invite</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="sheet" id="shareSheet" aria-hidden="true" role="dialog" aria-label="Share">
+    <div class="sheet-panel">
+      <h3>Share what matters</h3>
+      <p class="sub">Local life-event sketch. Optional grant stays attenuated — never expand, local-first.</p>
+      <form id="shareForm">
+        <label for="shareWhat">What to pass</label>
+        <textarea id="shareWhat" maxlength="240" placeholder="A care note, a place reading, a memory slice…"></textarea>
+        <label for="shareScope">Scope</label>
+        <select id="shareScope">
+          <option value="care">Care</option>
+          <option value="place">Place</option>
+          <option value="welfare">Welfare</option>
+          <option value="memory">Memory slice</option>
+        </select>
+        <label class="check"><input type="checkbox" id="shareGrant" checked /> Attach grant sketch (attenuated)</label>
+        <div class="sheet-actions">
+          <button type="button" class="cancel" data-close="shareSheet">Cancel</button>
+          <button type="submit" class="submit">Share</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <script src="presence.js"></script>
   <script>
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("./sw.js").catch(function () {});
@@ -266,6 +470,16 @@
       var standalone = window.matchMedia("(display-mode: standalone)").matches
         || window.navigator.standalone === true;
       if (narrow && !standalone) el.classList.add("show");
+      var footAsk = document.getElementById("btnAskFoot");
+      if (footAsk) footAsk.addEventListener("click", function () {
+        document.getElementById("btnAsk").click();
+      });
+      // second Share button in footer shares id with header — rebind via query
+      document.querySelectorAll("#btnShare, .foot .soft").forEach(function () {});
+      var shareFoot = document.getElementById("btnShareFoot");
+      if (shareFoot) shareFoot.addEventListener("click", function () {
+        document.getElementById("btnShare").click();
+      });
     })();
   </script>
 </body>

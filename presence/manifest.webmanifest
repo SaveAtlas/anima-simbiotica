@@ -1,7 +1,7 @@
 {
-  "name": "ANIMA — living place",
+  "name": "ANIMA — everything",
   "short_name": "ANIMA",
-  "description": "A living place for daily life with people, AIs, and robots. Not a feed, chat, bank, or workplace. No store required.",
+  "description": "Everything-layer for humans, AIs, and robots. All of life inside; bigger than any super-app. No store required.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

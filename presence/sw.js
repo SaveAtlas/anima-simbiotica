@@ -1,10 +1,12 @@
 /* ANIMA presence — light service worker (offline shell cache) */
-const CACHE = "anima-presence-v0.11";
+const CACHE = "anima-presence-v0.12";
 const SHELL = [
   "./",
   "./index.html",
   "./challenge.html",
+  "./presence.js",
   "./manifest.json",
+  "./manifest.webmanifest",
   "./icons/icon-192.png",
   "./icons/icon-512.png"
 ];

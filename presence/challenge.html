@@ -168,7 +168,7 @@
     <div class="result" id="result" role="status" aria-live="polite"></div>
   </div>
 
-  <a class="back" href="index.html">← Back to living place</a>
+  <a class="back" href="index.html">← Back to your world</a>
 
   <script>
     if ("serviceWorker" in navigator) {
@@ -179,10 +179,33 @@
       var label = params.get("label");
       var prompt = params.get("prompt");
       var action = params.get("action");
+      var node = params.get("node") || "";
+      try {
+        if (node) localStorage.setItem("anima-refnode-base", node);
+        else node = localStorage.getItem("anima-refnode-base") || "";
+      } catch (e) {}
+      node = (node || "").replace(/\/$/, "");
       if (label) document.getElementById("label").textContent = label;
       if (prompt) document.getElementById("prompt").textContent = prompt;
       if (action) document.getElementById("actionClass").textContent = action;
       var actionClass = (action || "habitat.irreversible.change");
+      var modeLine = document.getElementById("modeLine");
+      var mode = "demo";
+      if (node) {
+        modeLine.textContent = "Mode: probing node " + node + " …";
+        fetch(node + "/anima/health", { method: "GET", mode: "cors" })
+          .then(function (r) {
+            if (!r.ok) throw new Error("health");
+            mode = "node";
+            modeLine.textContent = "Mode: node hook · " + node + " · Yes/No posts a challenge sketch";
+          })
+          .catch(function () {
+            mode = "demo";
+            modeLine.textContent = "Mode: demo · node unreachable · local sketch only";
+          });
+      } else {
+        modeLine.textContent = "Mode: demo · set ?node= or presence node URL to hook refnode";
+      }
 
       var yes = document.getElementById("btnYes");
       var no = document.getElementById("btnNo");
@@ -190,21 +213,51 @@
       function decide(allow) {
         yes.disabled = true;
         no.disabled = true;
-        out.className = "result show " + (allow ? "allow" : "deny");
-        out.textContent = allow
-          ? "Yes recorded (demo). On a live node this becomes a signed guardian allow — then the care step can run once."
-          : "No recorded (demo). The step stays blocked. A new challenge can ask again later.";
+        var record = {
+          decision: allow ? "allow" : "deny",
+          action_class: actionClass,
+          at: new Date().toISOString(),
+          mode: mode,
+          kind: "consent.challenge.response.sketch",
+        };
         try {
-          localStorage.setItem(
-            "anima-presence-last-challenge",
-            JSON.stringify({
-              decision: allow ? "allow" : "deny",
-              action_class: actionClass,
-              at: new Date().toISOString(),
-              mode: "demo",
-            })
-          );
+          localStorage.setItem("anima-presence-last-challenge", JSON.stringify(record));
         } catch (e) {}
+        function finish(extra) {
+          out.className = "result show " + (allow ? "allow" : "deny");
+          out.textContent = allow
+            ? ("Yes recorded (" + mode + "). " + (extra || "Care step may run once when a live grant is bound."))
+            : ("No recorded (" + mode + "). " + (extra || "The step stays blocked."));
+        }
+        if (mode === "node" && node) {
+          var envelope = {
+            kind: "consent.challenge.response",
+            event_id: "chal-" + Math.random().toString(36).slice(2, 10),
+            emitted_at: record.at,
+            payload: {
+              decision: record.decision,
+              action_class: actionClass,
+              fresh: true,
+              source: "presence-ask-me",
+            },
+            source: "presence-shell",
+            mode: "sketch",
+          };
+          fetch(node + "/anima/event", {
+            method: "POST",
+            mode: "cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(envelope),
+          })
+            .then(function (r) {
+              finish(r.ok ? "Posted challenge response sketch to node." : "Node returned " + r.status + "; kept local sketch.");
+            })
+            .catch(function () {
+              finish("Node post failed; kept local sketch.");
+            });
+        } else {
+          finish("On a live node this becomes a signed guardian allow.");
+        }
       }
       yes.addEventListener("click", function () { decide(true); });
       no.addEventListener("click", function () { decide(false); });
