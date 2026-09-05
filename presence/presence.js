@@ -1,4 +1,4 @@
-/* ANIMA presence — day stream, invite, share, Ask-me→node (S12) */
+/* ANIMA presence — day stream, invite, share, Ask-me→node (S12); three-being day (S13) */
 (function () {
   "use strict";
 
@@ -424,7 +424,29 @@
     if (el) el.textContent = text;
   }
 
+
+  var _livePaused = false;
+  function liveTickThree() {
+    if (_livePaused) return;
+    var h = document.getElementById("statusHuman");
+    var a = document.getElementById("statusAI");
+    var r = document.getElementById("statusRobot");
+    if (!h || !a || !r) return;
+    // Only refresh idle baseline statuses (do not clobber an in-flight script)
+    if (h.textContent.indexOf("Ask me ready") >= 0 || h.textContent.indexOf("Present ·") === 0) {
+      var t = new Date();
+      var clock = t.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+      if (h.textContent.indexOf("Ask me ready") >= 0 || h.textContent.indexOf("live") >= 0)
+        h.textContent = "Present · Ask me ready · live " + clock;
+      if (a.textContent.indexOf("Ready to remember") >= 0 || a.textContent.indexOf("live") >= 0)
+        a.textContent = "Ready to remember under grant · live " + clock;
+      if (r.textContent.indexOf("Ready to sense") >= 0 || r.textContent.indexOf("live") >= 0)
+        r.textContent = "Ready to sense · wait for yes · live " + clock;
+    }
+  }
+
   function runThreeBeingDay() {
+    _livePaused = true;
     var log = document.getElementById("threeScriptLog");
     if (log) log.innerHTML = "";
     function line(msg) {
@@ -452,6 +474,7 @@
             setStatus("statusHuman", "Present · day shared");
             line("5 · Robot acts · three beings, one day — PASS");
             toast("Three beings, one day — shared.");
+            setTimeout(function () { _livePaused = false; }, 1500);
             var state = loadState();
             state.day.unshift({
               id: uid("day-s13"),
@@ -476,6 +499,8 @@
 
   document.addEventListener("DOMContentLoaded", function () {
     bindThreeDay();
+    liveTickThree();
+    setInterval(liveTickThree, 4000);
     var state = loadState();
     var nodeInput = document.getElementById("nodeBase");
     if (nodeInput) {
