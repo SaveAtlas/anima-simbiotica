@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Threat model &amp; anti-capture (v0) — ANIMA</title>
+<title>ANIMA in plain words — ANIMA</title>
 <style>
 :root { --bg:#0c1210; --fg:#e6ebe7; --muted:#9aab9f; --line:#243028; --accent:#7d9e86; }
 body { margin:0; font-family: Georgia, serif; background:var(--bg); color:var(--fg); line-height:1.65; font-size:1.1rem; }
@@ -31,116 +31,73 @@ ol { padding-left: 1.25rem; }
 <body>
 <div class="wrap">
 <nav><a href="../index.html">← ANIMA home</a> · <a href="PLAIN-LANGUAGE.html">In plain words</a> · <a href="CONSTITUTION.html">Constitution</a> · <a href="PROTOCOL.html">Protocol</a> · <a href="REUSE-VS-INVENT.html">Reuse vs invent</a> · <a href="EVENT-AND-CONSENT.html">Event &amp; Consent</a> · <a href="FEDERATION.html">Federation</a> · <a href="GUARDIANSHIP.html">Guardianship</a> · <a href="NODE-BINDING.html">NodeBinding</a> · <a href="REVOKE-NODE.html">Revoke node</a> · <a href="SIGNED-EVENTS.html">Signed events</a> · <a href="A2A-MCP-MAPPING.html">A2A/MCP</a> · <a href="EXPORT-AND-EXIT.html">Export &amp; exit</a> · <a href="COMPUTE-MESH.html">Compute mesh</a> · <a href="THREAT-MODEL.html">Threat model</a> · <a href="ACTION-CLASSES.html">Action classes</a> · <a href="GLOSSARY.html">Glossary</a> · <a href="ARCHITECTURE-OVERVIEW.html">Architecture</a> · <a href="STEWARDSHIP.html">Stewardship</a> · <a href="HABITAT-VERTICAL.html">Habitat</a> · <a href="ANIMAL-VERTICAL.html">Animal</a> · <a href="INTEROP-TESTS.html">Interop tests</a> · <a href="SITE-HOSTING.html">Site hosting</a> · <a href="AGENT-CARD.html">Agent card</a> · <a href="VERSIONING.html">Versioning</a> · <a href="CHANGELOG.html">Changelog</a> · <a href="ROADMAP.html">Roadmap</a> · <a href="MEMORY-CUSTODY.html">Memory custody</a> · <a href="FIRST-SLICE-STATUS.html">First slice</a> · <a href="SECOND-SLICE.html">Second slice</a> · <a href="SECOND-SLICE-STATUS.html">Second slice status</a> · <a href="DUAL-PROCESS-BOND.html">Dual-process bond</a> · <a href="THIRD-SLICE.html">Third slice</a> · <a href="THIRD-SLICE-STATUS.html">Third slice status</a> · <a href="CHALLENGE-AND-FRESH.html">Challenge &amp; fresh</a> · <a href="THREE-PARTY-FEDERATION.html">Three-party fed</a> · <a href="FOURTH-SLICE.html">Fourth slice</a> · <a href="FOURTH-SLICE-STATUS.html">Fourth slice status</a> · <a href="FIFTH-SLICE.html">Fifth slice</a> · <a href="FIFTH-SLICE-STATUS.html">Fifth slice status</a> · <a href="SIXTH-SLICE.html">Sixth slice</a> · <a href="SIXTH-SLICE-STATUS.html">Sixth slice status</a> · <a href="SEVENTH-SLICE.html">Seventh slice</a> · <a href="SEVENTH-SLICE-STATUS.html">Seventh slice status</a> · <a href="EIGHTH-SLICE.html">Eighth slice</a> · <a href="EIGHTH-SLICE-STATUS.html">Eighth slice status</a> · <a href="GUARDIAN-CHALLENGE.html">Guardian challenge</a> · <a href="INTRODUCE.html">Introduce</a> · <a href="PEERS-DIRECTORY.html">Peers directory</a> · <a href="OPERATOR-GUIDE.html">Operator guide</a> · <a href="adr/ADR-001-being-vs-node-keys.html">ADR-001</a> · <a href="adr/ADR-002-deny-unknown-action-class.html">ADR-002</a> · <a href="adr/ADR-003-license-defaults.html">ADR-003</a> · <a href="adr/ADR-004-dual-process-data-dirs.html">ADR-004</a></nav>
-<h1>Threat model &amp; anti-capture (v0)</h1>
-<p><strong>Companions:</strong> Constitution non-negotiables, <code>FEDERATION.md</code> tests, adapter purity<br />
-<strong>Stance:</strong> Transparency is the immune system. Assume adapters lie; spine must survive their removal.</p>
+<h1>ANIMA in plain words</h1>
+<p><strong>Who this is for:</strong> anyone. You do not need to be a programmer.</p>
 <hr />
-<h2>1. Assets</h2>
-<table>
-<thead>
-<tr>
-<th>Asset</th>
-<th>Why it matters</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Being root keys</td>
-<td>Identity death / impersonation</td>
-</tr>
-<tr>
-<td>Node keys</td>
-<td>Device forgery, false actuation</td>
-</tr>
-<tr>
-<td>MemoryStore</td>
-<td>Past, learning, private life</td>
-</tr>
-<tr>
-<td>ConsentGrant ledger</td>
-<td>Fake permission → harm</td>
-</tr>
-<tr>
-<td>Bond graph</td>
-<td>Social/operational capture</td>
-</tr>
-<tr>
-<td>Dependent beings (via guardians)</td>
-<td>Welfare &amp; ecosystem harm</td>
-</tr>
-</tbody>
-</table>
+<h2>What is ANIMA?</h2>
+<p>ANIMA is a <strong>shared way for different kinds of life and machines to connect</strong> — people, AIs, robots, animals (with a caring human), nature places, and someday homes beyond Earth.</p>
+<p>Think of it like <strong>email or the web</strong>: many apps can speak it. Nobody owns the language itself. Anyone is welcome.</p>
 <hr />
-<h2>2. Adversaries (non-exhaustive)</h2>
+<h2>The simple idea</h2>
 <ol>
-<li><strong>Capture vendor</strong> — wants to become spine via login, cloud memory, or mandatory relay  </li>
-<li><strong>Malicious peer</strong> — forged events, over-broad grants, refuse exit  </li>
-<li><strong>Compromised node</strong> — stolen device keys  </li>
-<li><strong>Curious steward / insider</strong> — over-reads guardian data  </li>
-<li><strong>Economic attacker</strong> — ads, data resale, rent-to-exist pressure  </li>
+<li><strong>You stay you</strong> — your identity and memories are yours.  </li>
+<li><strong>You choose who to connect with</strong> — connections are willing, not forced.  </li>
+<li><strong>You can leave</strong> — and take yourself with you.  </li>
+<li><strong>Everyone can join the same table</strong> — no one company gets to decide who belongs.  </li>
+<li><strong>It grows by invitation</strong> — more beings, more good links, forever.</li>
 </ol>
 <hr />
-<h2>3. Controls (protocol-shaped)</h2>
-<table>
-<thead>
-<tr>
-<th>Threat</th>
-<th>Control</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Vendor spine</td>
-<td>Adapter purity test; DID root; no Sign-in-with-landlord</td>
-</tr>
-<tr>
-<td>Forged events</td>
-<td>Signed events across trust boundaries (<code>SIGNED-EVENTS.md</code>)</td>
-</tr>
-<tr>
-<td>Stolen device</td>
-<td>Separate NodeBinding; revoke node without rotating Being (<code>ADR-001</code>)</td>
-</tr>
-<tr>
-<td>Over-actuation</td>
-<td>Grant gate + <code>fresh_required</code> + unknown <code>action_class</code> deny</td>
-</tr>
-<tr>
-<td>Exit hostage</td>
-<td>ExportBundle + revoke; honest replica purge (<code>EXPORT-AND-EXIT.md</code>)</td>
-</tr>
-<tr>
-<td>Guardian overreach</td>
-<td>Scope + forbidden classes + challenge freeze (<code>GUARDIANSHIP.md</code>)</td>
-</tr>
-<tr>
-<td>Megabrain</td>
-<td>Federated many AIs; local decide works offline</td>
-</tr>
-<tr>
-<td>Single kill switch</td>
-<td>Many nodes; disposable FederationHints</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2>4. Non-controls (be honest)</h2>
+<h2>How it feels day to day (later)</h2>
 <ul>
-<li>We cannot guarantee global deletion of copies.  </li>
-<li>We cannot replace law for animal/ecosystem harm.  </li>
-<li>We cannot make every implementer ethical — we can make capture <em>obvious</em> and exit <em>real</em>.  </li>
+<li>A person and a home robot agree what the robot may do.  </li>
+<li>An AI helps you without silently keeping your private life.  </li>
+<li>A pet’s sensors help with care — without selling that data.  </li>
+<li>If something big or risky is about to happen, you get a clear yes/no (on your phone).</li>
 </ul>
+<p>Under the hood there is careful tech. On the surface it should always stay this clear.</p>
 <hr />
-<h2>5. Continuous tests (Builder CI later)</h2>
-<ol>
-<li><code>adapters/vendor</code> deleted → offline tick still runs  </li>
-<li>Act without grant → blocked  </li>
-<li>Tampered signed event → reject  </li>
-<li>Revoked NodeBinding → act denied  </li>
-<li><code>refnode exit</code> produces bundle with being_id + memory slices  </li>
-</ol>
+<h2>Words we try not to hide behind</h2>
+<table>
+<thead>
+<tr>
+<th>Fancy word</th>
+<th>Plain meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Protocol</td>
+<td>Shared rules / shared language</td>
+</tr>
+<tr>
+<td>Node</td>
+<td>A place ANIMA runs (phone, computer, robot, home box)</td>
+</tr>
+<tr>
+<td>Bond</td>
+<td>A connection two sides agree to</td>
+</tr>
+<tr>
+<td>Consent / grant</td>
+<td>Permission you can see and take back</td>
+</tr>
+<tr>
+<td>Being</td>
+<td>Anyone the system treats with respect: human, AI, robot, animal, place</td>
+</tr>
+<tr>
+<td>Commons</td>
+<td>The shared ground nobody owns</td>
+</tr>
+</tbody>
+</table>
 <hr />
-<p><em>If a dependency fails these tests, it was never an adapter — it was a coup.</em></p>
+<h2>What ANIMA is not</h2>
+<p>Not a fight against any group.<br />
+Not a single app store.<br />
+Not “one AI that rules everyone.”<br />
+Not something you must pay just to exist.</p>
+<p>It is a <strong>meeting place</strong> — simple enough for anyone to understand, open enough for everyone to grow into.</p>
 </div>
 </body>
 </html>

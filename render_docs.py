@@ -36,6 +36,7 @@ ol { padding-left: 1.25rem; }
 
 # (stem, nav label) — order for shared nav
 NAV_ITEMS = [
+    ("PLAIN-LANGUAGE", "In plain words"),
     ("CONSTITUTION", "Constitution"),
     ("PROTOCOL", "Protocol"),
     ("REUSE-VS-INVENT", "Reuse vs invent"),
@@ -88,6 +89,7 @@ NAV_ITEMS = [
 
 # Docs to render from markdown (flat under docs/)
 RENDER = [
+    "PLAIN-LANGUAGE",
     "CONSTITUTION",
     "PROTOCOL",
     "REUSE-VS-INVENT",
@@ -279,6 +281,7 @@ def update_index() -> None:
     text = index.read_text(encoding="utf-8")
     # Replace the links div contents
     new_links = """            <div class="links">
+        <a href="docs/PLAIN-LANGUAGE.html">In plain words (start here)</a>
         <a href="docs/CONSTITUTION.html">Constitution (v0.1)</a>
         <a href="docs/PROTOCOL.html">Protocol principles (v0)</a>
         <a href="docs/ARCHITECTURE-OVERVIEW.html">Architecture overview</a>

@@ -1,13 +1,9 @@
-# Homepage truth copy — animasimbiotica.com
+# Homepage copy — plain language first
 
-**Tone:** Invitation. Gathering place. Not “us against them.”
+**Tone:** Invitation. Gathering. Simple enough for anyone. Not us-against-them. Not engineer jargon on the hero.
 
-**Hero:** The place life meets — humans, AIs, robots, animals, ecosystems, habitats.
-**Sub:** One open protocol so everyone can connect without a single gatekeeper of the commons.
-**Beings chips:** Humans · AIs · Robots · Animals · Ecosystems · Habitats
-**CTAs:** Run a node · Constitution · Architecture
-**Loop band:** sense → remember → decide → act → learn
-**Cards:** your keys & past · many minds together · consent so meeting stays willing · adapters welcome, commons free
-**Rest:** what ANIMA is (gathering) · non-negotiables framed as how everyone stays welcome forever · money on edges only
-
-Do not name specific companies or brands on the homepage.
+**Hero:** A shared place for people, AIs, robots, animals, and nature to meet.
+**Lede:** One simple shared language… You are welcome. Nobody owns the table.
+**Primary CTA:** Try it on your computer → OPERATOR-GUIDE (keep guide getting simpler over time)
+**Secondary:** In plain words → PLAIN-LANGUAGE.html ; Full rules → CONSTITUTION
+**Cards / promises:** everyday words only on the homepage; technical docs stay linked below.
