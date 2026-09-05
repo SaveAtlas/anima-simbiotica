@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#070b09" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="ANIMA" />
+  <meta name="description" content="ANIMA — a living place for daily life with people, AIs, and robots. Not a feed, chat, bank, or workplace. Open on your phone; no store required." />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <title>ANIMA — living place</title>
+  <style>
+    :root {
+      --bg: #070b09;
+      --fg: #eef3ef;
+      --muted: #8fa396;
+      --line: #1c2a22;
+      --accent: #6bcf8e;
+      --accent2: #3d8f6a;
+      --card: rgba(14, 22, 18, 0.88);
+      --glow: rgba(107, 207, 142, 0.32);
+      --safe-b: env(safe-area-inset-bottom, 0px);
+      --safe-t: env(safe-area-inset-top, 0px);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      font-family: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, serif;
+      background:
+        radial-gradient(ellipse 95% 48% at 50% -12%, rgba(61, 143, 106, 0.28), transparent 58%),
+        radial-gradient(ellipse 50% 35% at 100% 70%, rgba(107, 207, 142, 0.07), transparent 50%),
+        var(--bg);
+      color: var(--fg);
+      line-height: 1.55;
+      font-size: 1.05rem;
+      padding: calc(1.15rem + var(--safe-t)) 1.1rem calc(5.75rem + var(--safe-b));
+      max-width: 26rem;
+      margin: 0 auto;
+    }
+    .mark {
+      font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      font-size: 0.66rem;
+      color: var(--accent);
+      margin: 0 0 0.85rem;
+    }
+    h1 {
+      font-weight: 500;
+      font-size: clamp(1.7rem, 6.8vw, 2.15rem);
+      line-height: 1.18;
+      letter-spacing: -0.025em;
+      margin: 0 0 0.7rem;
+      text-shadow: 0 0 32px var(--glow);
+    }
+    .lede {
+      font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+      color: var(--muted);
+      margin: 0 0 1.4rem;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .chip-row {
+      display: flex; flex-wrap: wrap; gap: 0.4rem;
+      margin: 0 0 1.55rem;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+    }
+    .chip {
+      font-size: 0.76rem;
+      padding: 0.32rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(14, 22, 18, 0.75);
+      color: var(--muted);
+    }
+    .chip strong { color: var(--accent); font-weight: 600; }
+    section { margin: 0 0 1.35rem; }
+    h2 {
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 600;
+      margin: 0 0 0.6rem;
+    }
+    .being {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 1.05rem;
+      padding: 0.95rem 1rem;
+      margin: 0 0 0.55rem;
+      box-shadow: 0 0 24px rgba(61, 143, 106, 0.06);
+    }
+    .being h3 {
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      margin: 0 0 0.2rem;
+      font-size: 0.98rem;
+      font-weight: 600;
+    }
+    .being p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+    }
+    .row {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 0.75rem;
+    }
+    .pulse {
+      width: 0.5rem; height: 0.5rem; border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px var(--glow);
+      flex-shrink: 0;
+      animation: breathe 3.2s ease-in-out infinite;
+    }
+    @keyframes breathe {
+      0%, 100% { opacity: 0.55; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.15); }
+    }
+    .you {
+      border-color: rgba(107, 207, 142, 0.35);
+      background: linear-gradient(160deg, rgba(61, 143, 106, 0.18), rgba(14, 22, 18, 0.9));
+    }
+    .slot-empty {
+      border-style: dashed;
+      opacity: 0.95;
+    }
+    .hint {
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 0.86rem;
+      color: var(--muted);
+      border-left: 2px solid var(--accent2);
+      padding-left: 0.8rem;
+      margin: 0.35rem 0 1.1rem;
+    }
+    .foot {
+      position: fixed; left: 0; right: 0; bottom: 0;
+      padding: 0.7rem 1rem calc(0.7rem + var(--safe-b));
+      background: rgba(7, 11, 9, 0.94);
+      border-top: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+    .foot-inner {
+      max-width: 26rem; margin: 0 auto;
+      display: flex; gap: 0.55rem;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+    }
+    .foot a {
+      flex: 1; text-align: center; text-decoration: none;
+      padding: 0.88rem 0.6rem; border-radius: 0.9rem;
+      font-weight: 600; font-size: 0.92rem;
+      border: 1px solid transparent;
+    }
+    .go {
+      background: linear-gradient(135deg, var(--accent2), var(--accent));
+      color: #061008;
+      box-shadow: 0 0 20px var(--glow);
+    }
+    .soft {
+      background: transparent; color: var(--fg);
+      border-color: var(--line);
+    }
+    .install {
+      display: none;
+      margin-top: 0.25rem;
+      padding: 0.9rem 1rem;
+      border-radius: 0.95rem;
+      border: 1px dashed var(--line);
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+    .install.show { display: block; }
+    .install strong { color: var(--fg); }
+  </style>
+</head>
+<body>
+  <p class="mark">Anima Simbiotica</p>
+  <h1>You’re home in the living place.</h1>
+  <p class="lede">All of daily life — people, AIs, robots, pets, and places — in one warm habitat. Not a feed, chat, bank, or workplace. Open the link; you’re in. No store gate.</p>
+
+  <div class="chip-row" aria-label="Who lives here">
+    <span class="chip"><strong>You</strong></span>
+    <span class="chip">People</span>
+    <span class="chip">AIs</span>
+    <span class="chip">Robots</span>
+    <span class="chip">Pets</span>
+    <span class="chip">Places</span>
+  </div>
+
+  <section aria-labelledby="you">
+    <h2 id="you">You</h2>
+    <div class="being you">
+      <div class="row">
+        <div>
+          <h3>Still you</h3>
+          <p>Your story, your keys, your memory — leave anytime with yourself intact.</p>
+        </div>
+        <span class="pulse" title="present" aria-hidden="true"></span>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="care">
+    <h2 id="care">People, pets &amp; places today</h2>
+    <div class="being">
+      <div class="row">
+        <div>
+          <h3>Watershed garden</h3>
+          <p>Moisture ok · flow quiet · resting well</p>
+        </div>
+        <span class="pulse" title="sensing" aria-hidden="true"></span>
+      </div>
+    </div>
+    <div class="being">
+      <div class="row">
+        <div>
+          <h3>Companion in your care</h3>
+          <p>Rest ok · gentle day · welfare watched with love</p>
+        </div>
+        <span class="pulse" title="sensing" aria-hidden="true"></span>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="helpers">
+    <h2 id="helpers">Your twin &amp; helpers</h2>
+    <div class="being slot-empty">
+      <h3>Your twin</h3>
+      <p>Invite a continuing self — voice, memory, presence — under your keys. Any twin product can plug in here as a peer. The habitat stays wider than any one app.</p>
+    </div>
+    <div class="being">
+      <h3>Helpers you invited</h3>
+      <p>AIs, robots, care tools, place sensors — neighbors when you welcome them. Demo: local care node · offline-first.</p>
+    </div>
+  </section>
+
+  <p class="hint">Share what matters when you choose. Serious or irreversible steps wait for a clear yes — that’s Ask me.</p>
+
+  <div class="install" id="installHint">
+    <strong>Pin this place to your home screen</strong><br />
+    Safari: Share → Add to Home Screen.<br />
+    Chrome / Android: menu → Install app or Add to Home screen.<br />
+    App stores are optional forever — this link is the door.
+  </div>
+
+  <nav class="foot" aria-label="Living place">
+    <div class="foot-inner">
+      <a class="soft" href="../index.html">World door</a>
+      <a class="go" href="challenge.html">Ask me</a>
+    </div>
+  </nav>
+
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("./sw.js").catch(function () {});
+    }
+    (function () {
+      var el = document.getElementById("installHint");
+      var narrow = window.matchMedia("(max-width: 720px)").matches;
+      var standalone = window.matchMedia("(display-mode: standalone)").matches
+        || window.navigator.standalone === true;
+      if (narrow && !standalone) el.classList.add("show");
+    })();
+  </script>
+</body>
+</html>
