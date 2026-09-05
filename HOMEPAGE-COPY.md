@@ -1,9 +1,9 @@
-# Homepage copy — plain language first
+# Homepage — living ecosystem (not constitution-first)
 
-**Tone:** Invitation. Gathering. Simple enough for anyone. Not us-against-them. Not engineer jargon on the hero.
+**Tone:** A place to live and meet. Warm. Simple. Infinitum-adjacent presence energy — beings, memory, connection — without copying Infinitum product branding into ANIMA as a company app.
 
-**Hero:** A shared place for people, AIs, robots, animals, and nature to meet.
-**Lede:** One simple shared language… You are welcome. Nobody owns the table.
-**Primary CTA:** Try it on your computer → OPERATOR-GUIDE (keep guide getting simpler over time)
-**Secondary:** In plain words → PLAIN-LANGUAGE.html ; Full rules → CONSTITUTION
-**Cards / promises:** everyday words only on the homepage; technical docs stay linked below.
+**Hero:** A living place for people, AIs, and robots to meet and depend on each other.
+**Lede:** Share, help, grow ties — one open ecosystem. Live here. Leave with yourself anytime.
+**CTAs:** Enter the idea (plain words) · Try on your computer · For builders
+**Do not** lead with Constitution. Keep full rules linked low or as “how the world works” later.
+**Never** us-against-them. Never brand-name companies.
