@@ -49,7 +49,7 @@ ol { padding-left: 1.25rem; }
 python3 -m refnode animal-demo
 </code></pre>
 <p>Expect: sense/welfare <strong>ALLOWED</strong>; irreversible / <code>commerce.sell_data</code> <strong>DENY</strong>.<br />
-<code>guardian-demo</code> remains the first-slice probe; <code>animal-demo</code> is the S3.4 vertical entry (richer welfare payload, same GuardianLink fixture).</p>
+<code>guardian-demo</code> remains the first-slice probe; <code>animal-demo</code> is the S3.4 vertical entry (richer welfare sensor payload + welfare write + sell_data deny).</p>
 <hr />
 <h2>Loop</h2>
 <p>sense (welfare sensors) → remember (local, grant-tagged) → decide (rules) → act only if grant + challenge when required → learn local only.</p>
