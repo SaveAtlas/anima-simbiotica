@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Sixth slice — ANIMA</title>
+<title>Eighth slice — ANIMA</title>
 <style>
 :root { --bg:#0c1210; --fg:#e6ebe7; --muted:#9aab9f; --line:#243028; --accent:#7d9e86; }
 body { margin:0; font-family: Georgia, serif; background:var(--bg); color:var(--fg); line-height:1.65; font-size:1.1rem; }
@@ -31,17 +31,18 @@ ol { padding-left: 1.25rem; }
 <body>
 <div class="wrap">
 <nav><a href="../index.html">← ANIMA home</a> · <a href="CONSTITUTION.html">Constitution</a> · <a href="PROTOCOL.html">Protocol</a> · <a href="REUSE-VS-INVENT.html">Reuse vs invent</a> · <a href="EVENT-AND-CONSENT.html">Event &amp; Consent</a> · <a href="FEDERATION.html">Federation</a> · <a href="GUARDIANSHIP.html">Guardianship</a> · <a href="NODE-BINDING.html">NodeBinding</a> · <a href="REVOKE-NODE.html">Revoke node</a> · <a href="SIGNED-EVENTS.html">Signed events</a> · <a href="A2A-MCP-MAPPING.html">A2A/MCP</a> · <a href="EXPORT-AND-EXIT.html">Export &amp; exit</a> · <a href="COMPUTE-MESH.html">Compute mesh</a> · <a href="THREAT-MODEL.html">Threat model</a> · <a href="ACTION-CLASSES.html">Action classes</a> · <a href="GLOSSARY.html">Glossary</a> · <a href="ARCHITECTURE-OVERVIEW.html">Architecture</a> · <a href="STEWARDSHIP.html">Stewardship</a> · <a href="HABITAT-VERTICAL.html">Habitat</a> · <a href="ANIMAL-VERTICAL.html">Animal</a> · <a href="INTEROP-TESTS.html">Interop tests</a> · <a href="SITE-HOSTING.html">Site hosting</a> · <a href="AGENT-CARD.html">Agent card</a> · <a href="VERSIONING.html">Versioning</a> · <a href="CHANGELOG.html">Changelog</a> · <a href="ROADMAP.html">Roadmap</a> · <a href="MEMORY-CUSTODY.html">Memory custody</a> · <a href="FIRST-SLICE-STATUS.html">First slice</a> · <a href="SECOND-SLICE.html">Second slice</a> · <a href="SECOND-SLICE-STATUS.html">Second slice status</a> · <a href="DUAL-PROCESS-BOND.html">Dual-process bond</a> · <a href="THIRD-SLICE.html">Third slice</a> · <a href="THIRD-SLICE-STATUS.html">Third slice status</a> · <a href="CHALLENGE-AND-FRESH.html">Challenge &amp; fresh</a> · <a href="THREE-PARTY-FEDERATION.html">Three-party fed</a> · <a href="FOURTH-SLICE.html">Fourth slice</a> · <a href="FOURTH-SLICE-STATUS.html">Fourth slice status</a> · <a href="FIFTH-SLICE.html">Fifth slice</a> · <a href="FIFTH-SLICE-STATUS.html">Fifth slice status</a> · <a href="SIXTH-SLICE.html">Sixth slice</a> · <a href="SIXTH-SLICE-STATUS.html">Sixth slice status</a> · <a href="SEVENTH-SLICE.html">Seventh slice</a> · <a href="SEVENTH-SLICE-STATUS.html">Seventh slice status</a> · <a href="EIGHTH-SLICE.html">Eighth slice</a> · <a href="EIGHTH-SLICE-STATUS.html">Eighth slice status</a> · <a href="GUARDIAN-CHALLENGE.html">Guardian challenge</a> · <a href="INTRODUCE.html">Introduce</a> · <a href="PEERS-DIRECTORY.html">Peers directory</a> · <a href="OPERATOR-GUIDE.html">Operator guide</a> · <a href="adr/ADR-001-being-vs-node-keys.html">ADR-001</a> · <a href="adr/ADR-002-deny-unknown-action-class.html">ADR-002</a> · <a href="adr/ADR-003-license-defaults.html">ADR-003</a> · <a href="adr/ADR-004-dual-process-data-dirs.html">ADR-004</a></nav>
-<h1>Sixth slice — architecture plan</h1>
-<p><strong>Prerequisite:</strong> Fifth slice offline sealed. HTTPS cert watch continues in parallel.<br />
-<strong>Still Ovie:</strong> ADR-003 license confirm.</p>
+<h1>Eighth slice — architecture plan</h1>
+<p><strong>Prerequisite:</strong> Seventh slice offline sealed (<code>0.7.0-sketch</code> intent).<br />
+<strong>Companions:</strong> <code>SIGNED-EVENTS.md</code>, <code>EVENT-AND-CONSENT.md</code>, <code>NODE-BINDING.md</code><br />
+<strong>Public copy:</strong> “big tech” / “company ops stack” only — no brand names.</p>
 <hr />
 <h2>Goals</h2>
 <ol>
-<li><strong>Multi-device NodeBinding UX</strong> — issue / list / revoke bindings without ad-hoc JSON edits.  </li>
-<li><strong>Consent inspection CLI</strong> — list grants, challenges, receipts in one place (transparency as immune system).  </li>
-<li><strong>Habitat + animal demos in OPERATOR-GUIDE</strong> already; add challenge/export/guardian-challenge.  </li>
-<li><strong>Release hygiene</strong> — CHANGELOG at reference-node mirroring VERSION; tag sketch releases.  </li>
-<li>No mesh productization yet.</li>
+<li><strong>Signed federation for real</strong> — with <code>ANIMA_SIGN=1</code> (and always across a bond trust boundary), events/grants/revokes carry verifiable <code>sig</code>.  </li>
+<li><strong>Replay + skew</strong> — duplicate <code>id</code> reject; ±5 min soft skew (revokes process immediately if sig valid).  </li>
+<li><strong>Binding-aware verify</strong> — emitter NodeId must map to subject BeingId via active NodeBinding when subject is a Being.  </li>
+<li><strong>Fail closed</strong> — bad/missing sig on required contexts = deny + inspectable reject (reuse receipt pattern where useful).  </li>
+<li>Offline single-operator tick may stay unsigned; bond / revoke / guardian / challenge stay signed.</li>
 </ol>
 <hr />
 <h2>Work packages</h2>
@@ -55,61 +56,77 @@ ol { padding-left: 1.25rem; }
 </thead>
 <tbody>
 <tr>
-<td>S6.1</td>
-<td><code>refnode bindings-list</code> / <code>bindings-issue</code> (wrap ADR-001)</td>
-<td><strong>PASS</strong></td>
+<td>S8.1</td>
+<td>Canonical JSON (JCS / RFC 8785-style) + ed25519 sign/verify helpers</td>
+<td>Builder</td>
 </tr>
 <tr>
-<td>S6.2</td>
-<td><code>refnode consent-inspect</code> (grants + challenges + receipts)</td>
-<td><strong>PASS</strong></td>
+<td>S8.2</td>
+<td><code>ANIMA_SIGN=1</code> path: emit <code>sig</code> on events/grants/revokes; verify on ingest</td>
+<td>Builder</td>
 </tr>
 <tr>
-<td>S6.3</td>
-<td>OPERATOR-GUIDE + site: S5 commands section</td>
-<td>Architect tweak → Builder HTML</td>
+<td>S8.3</td>
+<td>Replay cache per peer emitter; clock skew window</td>
+<td>Builder (rules already in SIGNED-EVENTS)</td>
 </tr>
 <tr>
-<td>S6.4</td>
-<td><code>reference-node/CHANGELOG.md</code> tied to VERSION</td>
-<td><strong>PASS</strong> (<code>0.6.0-sketch</code>)</td>
+<td>S8.4</td>
+<td>Bond-mode demo: two data dirs, unsigned reject / signed accept</td>
+<td>Builder</td>
 </tr>
 <tr>
-<td>S6.5</td>
-<td>Interop smoke for new CLIs</td>
-<td><strong>PASS</strong></td>
+<td>S8.5</td>
+<td>Interop: S8.sign-verify, S8.replay-reject, S8.skew</td>
+<td>both</td>
 </tr>
 <tr>
-<td>S6.6</td>
-<td>Re-verify https://www.animasimbiotica.com/ when cert lands</td>
+<td>S8.6</td>
+<td>Docs/site render + OPERATOR-GUIDE sign mode; VERSION <code>0.8.0-sketch</code> when green</td>
+<td>Builder</td>
+</tr>
+<tr>
+<td>S8.7</td>
+<td>HTTPS www re-verify (parallel, not blocker)</td>
 <td>both</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2>Status</h2>
+<h2>Architect deliverables</h2>
 <ul>
-<li>S6.1/S6.2/S6.4/S6.5 <strong>PASS</strong> (Architect verified 2026-09-05)</li>
-<li>S6.3 OPERATOR-GUIDE HTML refresh — Builder next</li>
-<li>S6.6 HTTPS — cert watch</li>
+<li><code>EIGHTH-SLICE.md</code> (this file)  </li>
+<li>Tighten SIGNED-EVENTS if Builder hits ambiguity (encoding choice, multibase vs base64url — pick <strong>base64url</strong> for v0.8 unless conflict)  </li>
+<li>Optional: <code>sig</code> field on event schema as optional string; required-by-context is runtime policy  </li>
+<li>Brief Builder when S7 seals — do not wait for OK to draft</li>
 </ul>
+<hr />
+<h2>Encoding decision (Architect)</h2>
+<p>For v0.8 sketch: <strong>base64url</strong> detached ed25519 signature in <code>sig</code>. Document in SIGNED-EVENTS §2 if not already locked.</p>
+<hr />
 <h2>Non-goals</h2>
 <ul>
-<li>App stores  </li>
-<li>Mandatory relays  </li>
-<li>Token mesh  </li>
+<li>Animal phone vertical (ninth+)  </li>
+<li>Ecosystem proxy  </li>
+<li>Gift-priced mesh  </li>
+<li>Mandatory relays / landlord login spine  </li>
 </ul>
 <hr />
 <h2>Success criteria</h2>
 <ul>
-<li>[x] Operator can rotate a stolen node via CLI only (<code>revoke-node</code> → <code>bindings-issue</code>)  </li>
-<li>[x] Consent ledger inspectable without reading raw JSON trees (<code>consent-inspect</code>)  </li>
-<li>[x] VERSION + CHANGELOG coherent (<code>0.6.0-sketch</code> + <code>reference-node/CHANGELOG.md</code>)  </li>
-<li>[ ] HTTPS www green  </li>
-<li>[ ] Non-negotiables unchanged  </li>
+<li>[x] Bond across trust boundary rejects unsigned gated events  </li>
+<li>[x] Valid sig + binding + consent passes; replay of same <code>id</code> fails  </li>
+<li>[x] Skew outside window fails soft-gated kinds; revoke still accepted if sig valid  </li>
+<li>[x] Interop green; public docs brand-clean  </li>
+<li>[x] VERSION <code>0.8.0-sketch</code> + CHANGELOG  </li>
 </ul>
 <hr />
-<h2>Builder status (2026-09-05)</h2>
+<h2>After eighth</h2>
+<p><strong>Ninth (intent):</strong> one animal vertical — sensors + guardian phone path on top of signed grants/challenges.<br />
+<strong>Tenth (intent):</strong> ecosystem proxy vertical.<br />
+<strong>Late:</strong> gift-priced mesh between two operator nodes.</p>
+<hr />
+<h2>Builder status (S8.1–S8.6)</h2>
 <table>
 <thead>
 <tr>
@@ -119,31 +136,32 @@ ol { padding-left: 1.25rem; }
 </thead>
 <tbody>
 <tr>
-<td>S6.1 bindings-list / bindings-issue</td>
-<td>PASS</td>
+<td>S8.1 Canonical JSON + ed25519</td>
+<td>PASS — <code>refnode/signing.py</code> JCS-ish canonicalize; <code>sig</code> <strong>base64url</strong> (no multibase)</td>
 </tr>
 <tr>
-<td>S6.2 consent-inspect</td>
-<td>PASS</td>
+<td>S8.2 ANIMA_SIGN=1 emit/verify</td>
+<td>PASS — emit on <code>ANIMA_SIGN=1</code> / peer_boundary / federation kinds; ingest fail-closed; binding-aware verify (local NodeBinding / peer record; soft-allow first contact)</td>
 </tr>
 <tr>
-<td>S6.3 OPERATOR-GUIDE S5/S6 commands</td>
-<td>PASS (light)</td>
+<td>S8.3 Replay + skew</td>
+<td>PASS — duplicate <code>(emitter,id)</code> reject; ±<code>ANIMA_SKEW_SECONDS</code>; revoke-class processes if sig valid despite skew</td>
 </tr>
 <tr>
-<td>S6.4 CHANGELOG + VERSION 0.6.0-sketch</td>
-<td>PASS</td>
+<td>S8.4 Bond-mode demo</td>
+<td>PASS — <code>python3 -m refnode bond-sign-demo</code> (alias <code>sign-mode-demo</code>)</td>
 </tr>
 <tr>
-<td>S6.5 interop S6.* smoke</td>
-<td>PASS</td>
+<td>S8.5 Interop</td>
+<td>PASS — <code>S8.sign-verify</code> / <code>S8.replay-reject</code> / <code>S8.skew</code></td>
 </tr>
 <tr>
-<td>S6.6 HTTPS www</td>
-<td>pending cert (parallel)</td>
+<td>S8.6 Docs + VERSION</td>
+<td>PASS — <code>0.8.0-sketch</code>; OPERATOR-GUIDE; site render</td>
 </tr>
 </tbody>
 </table>
+<p>Schema note: optional <code>sig</code> string on <code>event</code> / <code>consent-grant</code> / <code>bond</code> schemas — runtime decides when required.</p>
 </div>
 </body>
 </html>
