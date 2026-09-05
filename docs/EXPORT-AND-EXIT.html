@@ -63,12 +63,19 @@ ol { padding-left: 1.25rem; }
     &quot;guardian_links&quot;: []
   },
   &quot;integrity&quot;: {
-    &quot;manifest_hash&quot;: null,
-    &quot;sig_being&quot;: null
+    &quot;manifest_hash&quot;: &quot;&lt;sha256 hex of contents&gt;&quot;,
+    &quot;sig_being&quot;: &quot;&lt;base64url ed25519 Being sig&gt;&quot;
   },
   &quot;note&quot;: &quot;Operator may omit slices they choose not to take; peers must not omit what exit_terms promised.&quot;
 }
 </code></pre>
+<h3>Integrity (S5.2)</h3>
+<p>On <code>bond.exit</code> / export, the reference-node fills:</p>
+<ol>
+<li><code>integrity.manifest_hash</code> — SHA-256 hex of canonical JSON of <code>contents</code></li>
+<li><code>integrity.sig_being</code> — Being ed25519 signature (base64url) over the canonical ExportBundle with <code>sig_being</code> omitted</li>
+</ol>
+<p>Verify with <code>refnode.bond.verify_export_bundle(bundle, being_public_key)</code>. Tampering <code>contents</code> (or the sig) fails closed.</p>
 <h3>Memory slices</h3>
 <p>Each slice is a portable object with <code>data_class</code>, <code>created_at</code>, <code>source_node</code>, and bytes or content-addressed pointer. Prefer local files in v0 (<code>remember/store</code> dump) over mandatory IPFS.</p>
 <hr />

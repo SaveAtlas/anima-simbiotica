@@ -34,7 +34,14 @@ ol { padding-left: 1.25rem; }
 <h1>Docs changelog</h1>
 <h2>2026-09-05</h2>
 <ul>
-<li>S4.3 seen-event cache + clock skew PASS: <code>refnode/seen.py</code> bounded <code>(emitter, event_id)</code> under <code>{REFNODE_HOME}/seen/</code> (max 10k, prune oldest); inbound verify replay→sig→skew before apply; <code>ANIMA_SKEW_SECONDS</code> (default 300); <code>python3 -m refnode replay-demo</code>; interop S4.replay / S4.skew</li>
+<li>S5.1 package hygiene: <code>reference-node/VERSION</code> (0.5.0-sketch) synced to <code>refnode.__version__</code>; <code>python3 -m refnode version</code>; README Quickstart → OPERATOR-GUIDE + interop-tests</li>
+<li>S5.2 ExportBundle attestation: exit fills <code>integrity.manifest_hash</code> + Being-signed <code>integrity.sig_being</code>; <code>verify_export_bundle</code> (tamper fails); EXPORT-AND-EXIT note</li>
+<li>
+<p>S5.3 <code>guardian-challenge-demo</code> PASS: high-stakes under GuardianLink → deny without challenge → Guardian Being-signed allow → act → second deny; <code>python3 -m refnode guardian-challenge-demo</code>; interop S5.export-sig / S5.guardian-challenge</p>
+</li>
+<li>
+<p>S4.3 seen-event cache + clock skew PASS: <code>refnode/seen.py</code> bounded <code>(emitter, event_id)</code> under <code>{REFNODE_HOME}/seen/</code> (max 10k, prune oldest); inbound verify replay→sig→skew before apply; <code>ANIMA_SKEW_SECONDS</code> (default 300); <code>python3 -m refnode replay-demo</code>; interop S4.replay / S4.skew</p>
+</li>
 <li>S4.2 local peers directory PASS: <code>refnode/peers.py</code> PeerRecords under <code>{REFNODE_HOME}/peers/&lt;safe-being-id&gt;.json</code>; upsert on bond.accept (bonded) + trusted bond.introduce (introduced); stale on exit; CLI <code>python3 -m refnode peers-list</code>; introduce-demo / three-party-demo leave PeerRecords; interop S4.peers</li>
 </ul>
 <h2>2026-09-04</h2>

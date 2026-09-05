@@ -35,6 +35,16 @@ ol { padding-left: 1.25rem; }
 <p><strong>Companions:</strong> <code>CHALLENGE-AND-FRESH.md</code>, <code>GUARDIANSHIP.md</code>, <code>ANIMAL-VERTICAL.md</code></p>
 <p>When a grant carries <code>guardian_link</code> <strong>and</strong> <code>fresh_required</code> (or action_class is high-stakes), <code>consent.challenge.response</code> must be signed by the <strong>Guardian Being</strong> (issuer), not only the node.</p>
 <p>Demo sketch: <code>python3 -m refnode guardian-challenge-demo</code> — attempt <code>robot.act.high</code> under animal guardian grant → deny without challenge → guardian allow → act → second deny.</p>
+<h3>Sequence</h3>
+<ol>
+<li>Seed animal <code>GuardianLink</code> + <code>ConsentGrant</code> (<code>robot.act.high</code>, <code>fresh_required</code>, <code>guardian_link</code>).</li>
+<li><code>act</code> without challenge → <strong>deny</strong>.</li>
+<li>Node issues <code>consent.challenge</code>; <strong>Guardian Being</strong> signs <code>consent.challenge.response</code> (<code>decision=allow</code>).</li>
+<li><code>act</code> → <strong>allow</strong> (nonce consumed).</li>
+<li>Second <code>act</code> without new challenge → <strong>deny</strong> (fresh).</li>
+</ol>
+<pre><code class="language-bash">python3 -m refnode guardian-challenge-demo
+</code></pre>
 </div>
 </body>
 </html>

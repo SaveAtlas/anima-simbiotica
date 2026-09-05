@@ -72,6 +72,12 @@ python3 -m refnode animal-demo
 # optional: ANIMA_SKEW_SECONDS=300 (default)
 </code></pre>
 <p>Seen ids live under <code>{REFNODE_HOME}/seen/</code> (max 10k entries).</p>
+<h2>Fifth-slice (S5.1–S5.3)</h2>
+<pre><code class="language-bash">python3 -m refnode version
+python3 -m refnode guardian-challenge-demo
+python3 -m refnode interop-tests
+</code></pre>
+<p>Export on bond.exit carries Being-signed <code>integrity.sig_being</code> (see EXPORT-AND-EXIT).</p>
 <h2>Isolation (ADR-004)</h2>
 <pre><code class="language-bash">REFNODE_HOME=/tmp/anima-a python3 -m refnode serve --party A --port 7401 --peer http://127.0.0.1:7402
 REFNODE_HOME=/tmp/anima-b python3 -m refnode serve --party B --port 7402 --peer http://127.0.0.1:7401
