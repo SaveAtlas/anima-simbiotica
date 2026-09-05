@@ -29,7 +29,7 @@
 
   function seedState() {
     var state = {
-      version: "0.13.0-sketch",
+      version: "0.12.0-sketch",
       you: { label: "Still you", note: "Your keys, memory, and leave path — intact." },
       day: [
         {
