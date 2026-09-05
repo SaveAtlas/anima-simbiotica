@@ -69,6 +69,17 @@ ol { padding-left: 1.25rem; }
 <li><code>introduce-demo</code> / <code>three-party-demo</code> should leave PeerRecords  </li>
 <li>CLI optional: <code>python3 -m refnode peers-list</code></li>
 </ul>
+<hr />
+<h2>CLI (Builder)</h2>
+<pre><code class="language-bash">cd reference-node
+python3 -m refnode peers-list
+# aliases: peers | list-peers
+# honor REFNODE_HOME / --data DIR
+REFNODE_HOME=data/party-intro-a python3 -m refnode peers-list
+</code></pre>
+<p><code>introduce-demo</code> and <code>three-party-demo</code> leave <code>PeerRecord</code> JSON under each party's <code>peers/</code>.<br />
+Disposable <code>introduce-*.json</code> hints remain separate from PeerRecords.</p>
+<p><strong>Builder status (S4.2):</strong> <code>refnode/peers.py</code> — upsert on <code>bond.accept</code> (bonded) and trusted <code>bond.introduce</code> (introduced); mark <code>stale</code> on bond exit when no remaining active bond.</p>
 </div>
 </body>
 </html>

@@ -56,13 +56,17 @@ python3 -m refnode memory-grant-demo
 python3 -m refnode three-party-demo
 python3 -m refnode animal-demo
 </code></pre>
-<h2>Fourth-slice (S4.1)</h2>
+<h2>Fourth-slice (S4.1–S4.2)</h2>
 <pre><code class="language-bash">python3 -m refnode introduce-demo
 # equivalent:
 ./run.sh introduce-demo
 </code></pre>
 <p>B introduces A↔C after A–B and B–C bonds; A must still <code>bond.offer</code> / accept with C.<br />
 <code>three-party-demo</code> remains the no-auto-bond baseline.</p>
+<p>Local peers directory (not a global registry):</p>
+<pre><code class="language-bash">REFNODE_HOME=data/party-intro-a python3 -m refnode peers-list
+</code></pre>
+<p>After introduce-demo, each <code>data/party-intro-*/peers/</code> holds <code>PeerRecord</code> JSON (DID + endpoints + last_bond).</p>
 <h2>Isolation (ADR-004)</h2>
 <pre><code class="language-bash">REFNODE_HOME=/tmp/anima-a python3 -m refnode serve --party A --port 7401 --peer http://127.0.0.1:7402
 REFNODE_HOME=/tmp/anima-b python3 -m refnode serve --party B --port 7402 --peer http://127.0.0.1:7401
