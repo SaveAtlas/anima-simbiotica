@@ -2,7 +2,7 @@
 (function () {
   "use strict";
 
-  var STORE_KEY = "anima-presence-v12";
+  var STORE_KEY = "anima-presence-v13";
   var NODE_KEY = "anima-refnode-base";
 
   function uid(prefix) {
@@ -29,7 +29,7 @@
 
   function seedState() {
     var state = {
-      version: "0.12.0-sketch",
+      version: "0.13.0-sketch",
       you: { label: "Still you", note: "Your keys, memory, and leave path — intact." },
       day: [
         {
@@ -418,7 +418,64 @@
       });
   }
 
+  
+  function setStatus(id, text) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = text;
+  }
+
+  function runThreeBeingDay() {
+    var log = document.getElementById("threeScriptLog");
+    if (log) log.innerHTML = "";
+    function line(msg) {
+      if (!log) return;
+      var li = document.createElement("li");
+      li.textContent = msg;
+      log.appendChild(li);
+    }
+    setStatus("statusRobot", "Sensing…");
+    line("1 · Robot senses the place");
+    setTimeout(function () {
+      setStatus("statusRobot", "Sensed · moisture ok · path clear");
+      setStatus("statusAI", "Remembering under grant…");
+      line("2 · AI remembers the reading for later care");
+      setTimeout(function () {
+        setStatus("statusAI", "Remembered · under your grant");
+        setStatus("statusHuman", "Ask me — waiting for your yes");
+        line("3 · Human Ask me before the robot acts");
+        setTimeout(function () {
+          setStatus("statusHuman", "You said yes · water once");
+          line("4 · Human allows — water once, then report");
+          setStatus("statusRobot", "Acting under your yes…");
+          setTimeout(function () {
+            setStatus("statusRobot", "Acted · watered · reported");
+            setStatus("statusHuman", "Present · day shared");
+            line("5 · Robot acts · three beings, one day — PASS");
+            toast("Three beings, one day — shared.");
+            var state = loadState();
+            state.day.unshift({
+              id: uid("day-s13"),
+              kind: "helper",
+              title: "Three beings · one day",
+              body: "Robot sensed · AI remembered · you said yes · robot acted",
+              tone: "care",
+              at: nowIso(),
+            });
+            saveState(state);
+            renderDay(state);
+          }, 700);
+        }, 700);
+      }, 700);
+    }, 500);
+  }
+
+  function bindThreeDay() {
+    var btn = document.getElementById("btnThreeDay");
+    if (btn) btn.addEventListener("click", runThreeBeingDay);
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
+    bindThreeDay();
     var state = loadState();
     var nodeInput = document.getElementById("nodeBase");
     if (nodeInput) {

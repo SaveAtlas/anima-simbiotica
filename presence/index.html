@@ -363,6 +363,14 @@
       opacity: 1;
       transform: translateX(-50%) translateY(0);
     }
+
+    .three-grid { display: grid; gap: 0.65rem; margin: 0.5rem 0 1rem; }
+    @media (min-width: 520px) { .three-grid { grid-template-columns: repeat(3, 1fr); } }
+    .sub-plain { font-size: 0.92rem; opacity: 0.85; margin: 0.25rem 0 0.75rem; }
+    .h2-row { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; flex-wrap: wrap; }
+    button.tiny { font: inherit; font-size: 0.8rem; padding: 0.35rem 0.65rem; border-radius: 999px; border: 1px solid rgba(255,255,255,0.25); background: rgba(255,255,255,0.08); color: inherit; cursor: pointer; }
+    .script-log { margin: 0.5rem 0 1.25rem; padding-left: 1.2rem; font-size: 0.88rem; opacity: 0.9; }
+    .script-log li { margin: 0.25rem 0; }
   </style>
 </head>
 <body>
@@ -395,6 +403,39 @@
         <span class="pulse" title="present" aria-hidden="true"></span>
       </div>
     </div>
+  </section>
+
+
+  <section aria-labelledby="three">
+    <div class="h2-row">
+      <h2 id="three">Today · three beings</h2>
+      <button type="button" id="btnThreeDay" class="tiny">Run today’s script</button>
+    </div>
+    <p class="sub-plain">Human, AI, and robot in one day — care, share, Ask me, act. Same habitat.</p>
+    <div class="three-grid" id="threeBeings">
+      <article class="being kind-person" data-role="human">
+        <div class="row"><div>
+          <p class="kind">Human</p>
+          <h3>You</h3>
+          <p id="statusHuman">Present · Ask me ready</p>
+        </div><span class="pulse" aria-hidden="true"></span></div>
+      </article>
+      <article class="being kind-ai" data-role="ai">
+        <div class="row"><div>
+          <p class="kind">AI</p>
+          <h3>Helper mind</h3>
+          <p id="statusAI">Ready to remember under grant</p>
+        </div><span class="pulse" aria-hidden="true"></span></div>
+      </article>
+      <article class="being kind-robot" data-role="robot">
+        <div class="row"><div>
+          <p class="kind">Robot</p>
+          <h3>Body in the world</h3>
+          <p id="statusRobot">Ready to sense · wait for yes to act</p>
+        </div><span class="pulse" aria-hidden="true"></span></div>
+      </article>
+    </div>
+    <ol class="script-log" id="threeScriptLog" aria-live="polite"></ol>
   </section>
 
   <section aria-labelledby="day">
