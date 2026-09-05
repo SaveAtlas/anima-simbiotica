@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Third slice status — ANIMA</title>
+<title>Ninth slice — ANIMA</title>
 <style>
 :root { --bg:#0c1210; --fg:#e6ebe7; --muted:#9aab9f; --line:#243028; --accent:#7d9e86; }
 body { margin:0; font-family: Georgia, serif; background:var(--bg); color:var(--fg); line-height:1.65; font-size:1.1rem; }
@@ -31,72 +31,92 @@ ol { padding-left: 1.25rem; }
 <body>
 <div class="wrap">
 <nav><a href="../index.html">← ANIMA home</a> · <a href="PLAIN-LANGUAGE.html">In plain words</a> · <a href="NINTH-SLICE.html">Ninth slice</a> · <a href="ANIMAL-PLAIN.html">Pet care (plain)</a> · <a href="CONSTITUTION.html">Constitution</a> · <a href="PROTOCOL.html">Protocol</a> · <a href="REUSE-VS-INVENT.html">Reuse vs invent</a> · <a href="EVENT-AND-CONSENT.html">Event &amp; Consent</a> · <a href="FEDERATION.html">Federation</a> · <a href="GUARDIANSHIP.html">Guardianship</a> · <a href="NODE-BINDING.html">NodeBinding</a> · <a href="REVOKE-NODE.html">Revoke node</a> · <a href="SIGNED-EVENTS.html">Signed events</a> · <a href="A2A-MCP-MAPPING.html">A2A/MCP</a> · <a href="EXPORT-AND-EXIT.html">Export &amp; exit</a> · <a href="COMPUTE-MESH.html">Compute mesh</a> · <a href="THREAT-MODEL.html">Threat model</a> · <a href="ACTION-CLASSES.html">Action classes</a> · <a href="GLOSSARY.html">Glossary</a> · <a href="ARCHITECTURE-OVERVIEW.html">Architecture</a> · <a href="STEWARDSHIP.html">Stewardship</a> · <a href="HABITAT-VERTICAL.html">Habitat</a> · <a href="ANIMAL-VERTICAL.html">Animal</a> · <a href="INTEROP-TESTS.html">Interop tests</a> · <a href="SITE-HOSTING.html">Site hosting</a> · <a href="AGENT-CARD.html">Agent card</a> · <a href="VERSIONING.html">Versioning</a> · <a href="CHANGELOG.html">Changelog</a> · <a href="ROADMAP.html">Roadmap</a> · <a href="MEMORY-CUSTODY.html">Memory custody</a> · <a href="FIRST-SLICE-STATUS.html">First slice</a> · <a href="SECOND-SLICE.html">Second slice</a> · <a href="SECOND-SLICE-STATUS.html">Second slice status</a> · <a href="DUAL-PROCESS-BOND.html">Dual-process bond</a> · <a href="THIRD-SLICE.html">Third slice</a> · <a href="THIRD-SLICE-STATUS.html">Third slice status</a> · <a href="CHALLENGE-AND-FRESH.html">Challenge &amp; fresh</a> · <a href="THREE-PARTY-FEDERATION.html">Three-party fed</a> · <a href="FOURTH-SLICE.html">Fourth slice</a> · <a href="FOURTH-SLICE-STATUS.html">Fourth slice status</a> · <a href="FIFTH-SLICE.html">Fifth slice</a> · <a href="FIFTH-SLICE-STATUS.html">Fifth slice status</a> · <a href="SIXTH-SLICE.html">Sixth slice</a> · <a href="SIXTH-SLICE-STATUS.html">Sixth slice status</a> · <a href="SEVENTH-SLICE.html">Seventh slice</a> · <a href="SEVENTH-SLICE-STATUS.html">Seventh slice status</a> · <a href="EIGHTH-SLICE.html">Eighth slice</a> · <a href="EIGHTH-SLICE-STATUS.html">Eighth slice status</a> · <a href="GUARDIAN-CHALLENGE.html">Guardian challenge</a> · <a href="INTRODUCE.html">Introduce</a> · <a href="PEERS-DIRECTORY.html">Peers directory</a> · <a href="OPERATOR-GUIDE.html">Operator guide</a> · <a href="adr/ADR-001-being-vs-node-keys.html">ADR-001</a> · <a href="adr/ADR-002-deny-unknown-action-class.html">ADR-002</a> · <a href="adr/ADR-003-license-defaults.html">ADR-003</a> · <a href="adr/ADR-004-dual-process-data-dirs.html">ADR-004</a></nav>
-<h1>Third slice status — 2026-09-05 (early ET)</h1>
-<p>Living snapshot. ADR-003 still proposal. Pages/DNS cutover in flight (Ovie).</p>
-<h2>Real (offline)</h2>
+<h1>Ninth slice — architecture plan</h1>
+<p><strong>Prerequisite:</strong> Eighth slice offline sealed (<code>0.8.0-sketch</code>).<br />
+<strong>Voice:</strong> Invitation first. Plain words for anyone. Not us-against-them.<br />
+<strong>Story:</strong> One companion animal under a human guardian — everyone welcome at the same table.</p>
+<hr />
+<h2>Goals (plain)</h2>
+<p>Help a <strong>person</strong> and their <strong>animal</strong> (and helpful robots/AIs) connect on ANIMA so that:</p>
+<ol>
+<li>Care sensors can help without selling the animal’s life as data.  </li>
+<li>Anything serious needs a clear <strong>yes</strong> from the guardian (phone challenge path).  </li>
+<li>A non-tech person can understand the story in one page.  </li>
+<li>Signed grants/challenges from S8 are used for real across the guardian boundary.</li>
+</ol>
+<hr />
+<h2>Goals (builders)</h2>
+<ol>
+<li>Harden <code>animal-demo</code> + guardian-challenge into one vertical path.  </li>
+<li>Document + site: plain-language “pet care on ANIMA” page.  </li>
+<li>Optional: stub guardian phone challenge UX (CLI or local page) — not an app store.  </li>
+<li>Interop S9.*; VERSION <code>0.9.0-sketch</code> when green.</li>
+</ol>
+<hr />
+<h2>Work packages</h2>
 <table>
 <thead>
 <tr>
-<th>Piece</th>
-<th>Check</th>
+<th>ID</th>
+<th>Package</th>
+<th>Owner bias</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>S3.1 challenge / fresh_required</td>
-<td><code>challenge-demo</code> + interop C4</td>
+<td>S9.1</td>
+<td>Plain page: <code>docs/ANIMAL-PLAIN.md</code> + site link from homepage/plain</td>
+<td>Architect → Builder render</td>
 </tr>
 <tr>
-<td>S3.2 memory grants + attenuation</td>
-<td><code>memory-grant-demo</code> + C5</td>
+<td>S9.2</td>
+<td>Vertical path demo: welfare sense/write ALLOW; sell_data DENY; high act → challenge</td>
+<td>Builder</td>
 </tr>
 <tr>
-<td>S3.3 three-party A–B / B–C</td>
-<td><code>three-party-demo</code> (no A–C auto-bond)</td>
+<td>S9.3</td>
+<td>Guardian challenge over signed events (<code>ANIMA_SIGN=1</code>)</td>
+<td>Builder</td>
 </tr>
 <tr>
-<td>S3.4 animal welfare vertical</td>
-<td><code>animal-demo</code></td>
+<td>S9.4</td>
+<td>OPERATOR-GUIDE “Pet care story” in everyday words</td>
+<td>Architect tweak → Builder</td>
 </tr>
 <tr>
-<td>S3.5 fixture jsonschema</td>
-<td>interop FX</td>
+<td>S9.5</td>
+<td>Interop S9.animal-vertical / S9.guardian-challenge-sign</td>
+<td>both</td>
 </tr>
 <tr>
-<td>S3.6 docs</td>
-<td>CHALLENGE-AND-FRESH, MEMORY-CUSTODY §6, THREE-PARTY, ANIMAL-VERTICAL</td>
+<td>S9.6</td>
+<td>Site push; keep PLAIN-LANGUAGE.html live</td>
+<td>Builder</td>
 </tr>
 </tbody>
 </table>
-<h2>Commands</h2>
-<pre><code class="language-bash">cd projects/anima-simbiotica/reference-node
-python3 -m refnode interop-tests
-python3 -m refnode challenge-demo
-python3 -m refnode memory-grant-demo
-python3 -m refnode three-party-demo
-python3 -m refnode animal-demo
-</code></pre>
-<h2>Open</h2>
-<table>
-<thead>
-<tr>
-<th>Item</th>
-<th>Owner</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Pages + DNS → full <code>site/</code></td>
-<td>Ovie device auth + Builder</td>
-</tr>
-<tr>
-<td>ADR-003 LICENSE files</td>
-<td>Ovie confirm</td>
-</tr>
-</tbody>
-</table>
-<h2>Non-negotiables still held</h2>
-<p>Decentralized · federated minds · sovereign keys/memory · transparency · open protocol · no big-tech spine · not a company ops stack.</p>
+<hr />
+<h2>Non-goals</h2>
+<ul>
+<li>Veterinary product  </li>
+<li>Tokenizing pets  </li>
+<li>Mandatory cloud camera landlord  </li>
+<li>Ecosystem vertical (tenth)  </li>
+<li>Mesh  </li>
+</ul>
+<hr />
+<h2>Success criteria</h2>
+<ul>
+<li>[ ] Non-tech reader gets the animal story from ANIMAL-PLAIN / homepage link  </li>
+<li>[ ] Demo: welfare path green; sell_data denied; high-stakes needs fresh guardian yes  </li>
+<li>[ ] Challenges signed under S8 rules  </li>
+<li>[ ] Interop green; VERSION <code>0.9.0-sketch</code>  </li>
+<li>[ ] Public voice stays invitation + plain  </li>
+</ul>
+<hr />
+<h2>After ninth</h2>
+<p><strong>Tenth (intent):</strong> ecosystem / place proxy vertical — same invitation, one watershed or habitat story.<br />
+<strong>Later:</strong> gift-priced mesh (edge only).</p>
 </div>
 </body>
 </html>
