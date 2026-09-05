@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Build roadmap (architecture view) — ANIMA</title>
+<style>
+:root { --bg:#0c1210; --fg:#e6ebe7; --muted:#9aab9f; --line:#243028; --accent:#7d9e86; }
+body { margin:0; font-family: Georgia, serif; background:var(--bg); color:var(--fg); line-height:1.65; font-size:1.1rem; }
+.wrap { max-width:44rem; margin:0 auto; padding:2.5rem 1.5rem 4rem; }
+a { color:var(--accent); }
+nav { font-family: system-ui, sans-serif; font-size:0.85rem; margin-bottom:2rem; color:var(--muted); }
+nav a { white-space: nowrap; }
+h1,h2,h3 { font-weight:500; letter-spacing:-0.02em; }
+h1 { font-size:1.75rem; }
+h2 { font-size:1.25rem; border-top:1px solid var(--line); padding-top:1.25rem; margin-top:2rem; }
+h3 { font-size:1.05rem; color:var(--muted); }
+p,li { color:var(--fg); }
+code, pre { font-family: ui-monospace, monospace; font-size:0.9em; }
+pre { background:#121a16; border:1px solid var(--line); padding:1rem; overflow:auto; }
+table { border-collapse:collapse; width:100%; font-size:0.95rem; margin:1rem 0; }
+th,td { border:1px solid var(--line); padding:0.45rem 0.6rem; text-align:left; vertical-align:top; }
+th { color:var(--muted); font-family:system-ui,sans-serif; font-weight:600; }
+hr { border:none; border-top:1px solid var(--line); margin:2rem 0; }
+.muted { color:var(--muted); }
+ul { padding-left: 1.25rem; }
+ol { padding-left: 1.25rem; }
+
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><a href="../index.html">← ANIMA home</a> · <a href="PLAIN-LANGUAGE.html">In plain words</a> · <a href="THREE-BEING-DAY-PLAIN.html">Three beings, one day</a> · <a href="THIRTEENTH-SLICE.html">Thirteenth slice</a> · <a href="THIRTEENTH-SLICE-STATUS.html">Thirteenth slice status</a> · <a href="AI-BEING.html">AI as a being</a> · <a href="PHONE-PRESENCE.html">Phone presence</a> · <a href="PRESENCE-SHELL.html">Presence shell</a> · <a href="TWELFTH-SLICE.html">Twelfth slice</a> · <a href="TWELFTH-SLICE-STATUS.html">Twelfth slice status</a> · <a href="BUILD-THE-EVERYTHING-LAYER.html">Everything-layer</a> · <a href="FUTURE-NEEDS.html">Future needs</a> · <a href="ELEVENTH-SLICE.html">Eleventh slice</a> · <a href="ELEVENTH-SLICE-STATUS.html">Eleventh slice status</a> · <a href="TENTH-SLICE.html">Tenth slice</a> · <a href="TENTH-SLICE-STATUS.html">Tenth slice status</a> · <a href="ECOSYSTEM-PLAIN.html">Place care (plain)</a> · <a href="VISION.html">Vision</a> · <a href="NINTH-SLICE.html">Ninth slice</a> · <a href="ANIMAL-PLAIN.html">Pet care (plain)</a> · <a href="PROTOCOL.html">Protocol</a> · <a href="REUSE-VS-INVENT.html">Reuse vs invent</a> · <a href="EVENT-AND-CONSENT.html">Event &amp; Consent</a> · <a href="FEDERATION.html">Federation</a> · <a href="GUARDIANSHIP.html">Guardianship</a> · <a href="NODE-BINDING.html">NodeBinding</a> · <a href="REVOKE-NODE.html">Revoke node</a> · <a href="SIGNED-EVENTS.html">Signed events</a> · <a href="A2A-MCP-MAPPING.html">A2A/MCP</a> · <a href="EXPORT-AND-EXIT.html">Export &amp; exit</a> · <a href="COMPUTE-MESH.html">Compute mesh</a> · <a href="THREAT-MODEL.html">Threat model</a> · <a href="ACTION-CLASSES.html">Action classes</a> · <a href="GLOSSARY.html">Glossary</a> · <a href="ARCHITECTURE-OVERVIEW.html">Architecture</a> · <a href="STEWARDSHIP.html">Stewardship</a> · <a href="HABITAT-VERTICAL.html">Habitat</a> · <a href="ANIMAL-VERTICAL.html">Animal</a> · <a href="INTEROP-TESTS.html">Interop tests</a> · <a href="SITE-HOSTING.html">Site hosting</a> · <a href="AGENT-CARD.html">Agent card</a> · <a href="VERSIONING.html">Versioning</a> · <a href="CHANGELOG.html">Changelog</a> · <a href="ROADMAP.html">Roadmap</a> · <a href="MEMORY-CUSTODY.html">Memory custody</a> · <a href="FIRST-SLICE-STATUS.html">First slice</a> · <a href="SECOND-SLICE.html">Second slice</a> · <a href="SECOND-SLICE-STATUS.html">Second slice status</a> · <a href="DUAL-PROCESS-BOND.html">Dual-process bond</a> · <a href="THIRD-SLICE.html">Third slice</a> · <a href="THIRD-SLICE-STATUS.html">Third slice status</a> · <a href="CHALLENGE-AND-FRESH.html">Challenge &amp; fresh</a> · <a href="THREE-PARTY-FEDERATION.html">Three-party fed</a> · <a href="FOURTH-SLICE.html">Fourth slice</a> · <a href="FOURTH-SLICE-STATUS.html">Fourth slice status</a> · <a href="FIFTH-SLICE.html">Fifth slice</a> · <a href="FIFTH-SLICE-STATUS.html">Fifth slice status</a> · <a href="SIXTH-SLICE.html">Sixth slice</a> · <a href="SIXTH-SLICE-STATUS.html">Sixth slice status</a> · <a href="SEVENTH-SLICE.html">Seventh slice</a> · <a href="SEVENTH-SLICE-STATUS.html">Seventh slice status</a> · <a href="EIGHTH-SLICE.html">Eighth slice</a> · <a href="EIGHTH-SLICE-STATUS.html">Eighth slice status</a> · <a href="NINTH-SLICE-STATUS.html">Ninth slice status</a> · <a href="GUARDIAN-CHALLENGE.html">Guardian challenge</a> · <a href="INTRODUCE.html">Introduce</a> · <a href="PEERS-DIRECTORY.html">Peers directory</a> · <a href="OPERATOR-GUIDE.html">Operator guide</a> · <a href="adr/ADR-001-being-vs-node-keys.html">ADR-001</a> · <a href="adr/ADR-002-deny-unknown-action-class.html">ADR-002</a> · <a href="adr/ADR-003-license-defaults.html">ADR-003</a> · <a href="adr/ADR-004-dual-process-data-dirs.html">ADR-004</a></nav>
+<h1>Build roadmap (architecture view)</h1>
+<p><strong>Standing order:</strong> Ship continuously. Steward course-corrects after.<br />
+<strong>Separation:</strong> No company ops/freight stack code paths.</p>
+<hr />
+<h2>Done (2026-09-04)</h2>
+<ul>
+<li>[x] Constitution v0.1  </li>
+<li>[x] PROTOCOL + REUSE-VS-INVENT  </li>
+<li>[x] Truth homepage (<code>site/</code>) — publish to GoDaddy (Builder in flight)  </li>
+<li>[x] Reference-node offline loop v0  </li>
+<li>[x] Events/consent, federation, guardianship docs  </li>
+<li>[x] ADR-001, NodeBinding, signed-events, A2A/MCP mapping  </li>
+<li>[x] Export/exit + compute-mesh intent (mesh late)  </li>
+<li>[x] Threat model, versioning, JSON schemas  </li>
+</ul>
+<hr />
+<h2>Now (Builder)</h2>
+<ol>
+<li>Live site: free static host + DNS (GoDaddy Website Builder can't host arbitrary HTML)  </li>
+<li>~~Bond JSON + local two-party sim~~ — <code>python -m refnode bond-demo</code> green  </li>
+<li>~~NodeBinding migration (ADR-001)~~ — distinct keys verified on <code>./run.sh</code>  </li>
+<li>~~Guardian fixture~~ — <code>python -m refnode guardian-demo</code> PASS  </li>
+<li>Render new docs → <code>site/docs/*.html</code>  </li>
+<li>~~Exit on bond.exit~~ — ExportBundle written; enrich memory_slices/bindings next  </li>
+<li>DNS/CNAME www.animasimbiotica.com → static host  </li>
+</ol>
+<hr />
+<h2>Next (Architect + Builder)</h2>
+<table>
+<thead>
+<tr>
+<th>Slice</th>
+<th>Owner bias</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Seventh slice</strong> — schema-validate, attenuate-deny, agent-card</td>
+<td>both — <code>SEVENTH-SLICE.md</code></td>
+</tr>
+<tr>
+<td><strong>Eighth slice</strong> — signed events (<code>ANIMA_SIGN=1</code>), replay/skew</td>
+<td>both — <code>EIGHTH-SLICE.md</code></td>
+</tr>
+<tr>
+<td>~~<strong>Ninth slice</strong>~~ — animal/guardian vertical sealed <code>0.9.0-sketch</code></td>
+<td>both — <code>NINTH-SLICE-STATUS.md</code></td>
+</tr>
+<tr>
+<td><strong>Tenth slice</strong> — ecosystem / place proxy vertical (intent)</td>
+<td>later</td>
+</tr>
+<tr>
+<td>~~<strong>Tenth slice</strong>~~ — ecosystem/place vertical sealed <code>0.10.0-sketch</code></td>
+<td>both — <code>TENTH-SLICE-STATUS.md</code></td>
+</tr>
+<tr>
+<td>~~<strong>Eleventh slice</strong>~~ — phone presence PWA sealed <code>0.11.0-sketch</code></td>
+<td>both — <code>ELEVENTH-SLICE-STATUS.md</code></td>
+</tr>
+<tr>
+<td>Gift-priced mesh between two operator nodes</td>
+<td>late</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Explicitly later / never as spine</h2>
+<ul>
+<li>Mandatory cloud, ads, rent-to-exist  </li>
+<li>Vendor login as BeingId  </li>
+<li>Megabrain API required to tick  </li>
+<li>Tokenizing animals/ecosystems  </li>
+</ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Docs — ANIMA</title>
+<style>
+:root { --bg:#0c1210; --fg:#e6ebe7; --muted:#9aab9f; --line:#243028; --accent:#7d9e86; }
+body { margin:0; font-family: Georgia, serif; background:var(--bg); color:var(--fg); line-height:1.65; font-size:1.1rem; }
+.wrap { max-width:44rem; margin:0 auto; padding:2.5rem 1.5rem 4rem; }
+a { color:var(--accent); }
+nav { font-family: system-ui, sans-serif; font-size:0.85rem; margin-bottom:2rem; color:var(--muted); }
+nav a { white-space: nowrap; }
+h1,h2,h3 { font-weight:500; letter-spacing:-0.02em; }
+h1 { font-size:1.75rem; }
+h2 { font-size:1.25rem; border-top:1px solid var(--line); padding-top:1.25rem; margin-top:2rem; }
+h3 { font-size:1.05rem; color:var(--muted); }
+p,li { color:var(--fg); }
+code, pre { font-family: ui-monospace, monospace; font-size:0.9em; }
+pre { background:#121a16; border:1px solid var(--line); padding:1rem; overflow:auto; }
+table { border-collapse:collapse; width:100%; font-size:0.95rem; margin:1rem 0; }
+th,td { border:1px solid var(--line); padding:0.45rem 0.6rem; text-align:left; vertical-align:top; }
+th { color:var(--muted); font-family:system-ui,sans-serif; font-weight:600; }
+hr { border:none; border-top:1px solid var(--line); margin:2rem 0; }
+.muted { color:var(--muted); }
+ul { padding-left: 1.25rem; }
+ol { padding-left: 1.25rem; }
+
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><a href="../index.html">← ANIMA home</a> · <a href="PLAIN-LANGUAGE.html">In plain words</a> · <a href="THREE-BEING-DAY-PLAIN.html">Three beings, one day</a> · <a href="THIRTEENTH-SLICE.html">Thirteenth slice</a> · <a href="THIRTEENTH-SLICE-STATUS.html">Thirteenth slice status</a> · <a href="AI-BEING.html">AI as a being</a> · <a href="PHONE-PRESENCE.html">Phone presence</a> · <a href="PRESENCE-SHELL.html">Presence shell</a> · <a href="TWELFTH-SLICE.html">Twelfth slice</a> · <a href="TWELFTH-SLICE-STATUS.html">Twelfth slice status</a> · <a href="BUILD-THE-EVERYTHING-LAYER.html">Everything-layer</a> · <a href="FUTURE-NEEDS.html">Future needs</a> · <a href="ELEVENTH-SLICE.html">Eleventh slice</a> · <a href="ELEVENTH-SLICE-STATUS.html">Eleventh slice status</a> · <a href="TENTH-SLICE.html">Tenth slice</a> · <a href="TENTH-SLICE-STATUS.html">Tenth slice status</a> · <a href="ECOSYSTEM-PLAIN.html">Place care (plain)</a> · <a href="VISION.html">Vision</a> · <a href="NINTH-SLICE.html">Ninth slice</a> · <a href="ANIMAL-PLAIN.html">Pet care (plain)</a> · <a href="PROTOCOL.html">Protocol</a> · <a href="REUSE-VS-INVENT.html">Reuse vs invent</a> · <a href="EVENT-AND-CONSENT.html">Event &amp; Consent</a> · <a href="FEDERATION.html">Federation</a> · <a href="GUARDIANSHIP.html">Guardianship</a> · <a href="NODE-BINDING.html">NodeBinding</a> · <a href="REVOKE-NODE.html">Revoke node</a> · <a href="SIGNED-EVENTS.html">Signed events</a> · <a href="A2A-MCP-MAPPING.html">A2A/MCP</a> · <a href="EXPORT-AND-EXIT.html">Export &amp; exit</a> · <a href="COMPUTE-MESH.html">Compute mesh</a> · <a href="THREAT-MODEL.html">Threat model</a> · <a href="ACTION-CLASSES.html">Action classes</a> · <a href="GLOSSARY.html">Glossary</a> · <a href="ARCHITECTURE-OVERVIEW.html">Architecture</a> · <a href="STEWARDSHIP.html">Stewardship</a> · <a href="HABITAT-VERTICAL.html">Habitat</a> · <a href="ANIMAL-VERTICAL.html">Animal</a> · <a href="INTEROP-TESTS.html">Interop tests</a> · <a href="SITE-HOSTING.html">Site hosting</a> · <a href="AGENT-CARD.html">Agent card</a> · <a href="VERSIONING.html">Versioning</a> · <a href="CHANGELOG.html">Changelog</a> · <a href="ROADMAP.html">Roadmap</a> · <a href="MEMORY-CUSTODY.html">Memory custody</a> · <a href="FIRST-SLICE-STATUS.html">First slice</a> · <a href="SECOND-SLICE.html">Second slice</a> · <a href="SECOND-SLICE-STATUS.html">Second slice status</a> · <a href="DUAL-PROCESS-BOND.html">Dual-process bond</a> · <a href="THIRD-SLICE.html">Third slice</a> · <a href="THIRD-SLICE-STATUS.html">Third slice status</a> · <a href="CHALLENGE-AND-FRESH.html">Challenge &amp; fresh</a> · <a href="THREE-PARTY-FEDERATION.html">Three-party fed</a> · <a href="FOURTH-SLICE.html">Fourth slice</a> · <a href="FOURTH-SLICE-STATUS.html">Fourth slice status</a> · <a href="FIFTH-SLICE.html">Fifth slice</a> · <a href="FIFTH-SLICE-STATUS.html">Fifth slice status</a> · <a href="SIXTH-SLICE.html">Sixth slice</a> · <a href="SIXTH-SLICE-STATUS.html">Sixth slice status</a> · <a href="SEVENTH-SLICE.html">Seventh slice</a> · <a href="SEVENTH-SLICE-STATUS.html">Seventh slice status</a> · <a href="EIGHTH-SLICE.html">Eighth slice</a> · <a href="EIGHTH-SLICE-STATUS.html">Eighth slice status</a> · <a href="NINTH-SLICE-STATUS.html">Ninth slice status</a> · <a href="GUARDIAN-CHALLENGE.html">Guardian challenge</a> · <a href="INTRODUCE.html">Introduce</a> · <a href="PEERS-DIRECTORY.html">Peers directory</a> · <a href="OPERATOR-GUIDE.html">Operator guide</a> · <a href="adr/ADR-001-being-vs-node-keys.html">ADR-001</a> · <a href="adr/ADR-002-deny-unknown-action-class.html">ADR-002</a> · <a href="adr/ADR-003-license-defaults.html">ADR-003</a> · <a href="adr/ADR-004-dual-process-data-dirs.html">ADR-004</a></nav>
+<h1>Anima Simbiotica — protocol docs</h1>
+<p>Open protocol. Spec free forever. Not a company product.</p>
+<table>
+<thead>
+<tr>
+<th>Doc</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="PLAIN-LANGUAGE.html">PLAIN-LANGUAGE.md</a></td>
+<td><strong>Start here</strong> — ANIMA for anyone</td>
+</tr>
+<tr>
+<td><a href="CONSTITUTION.html">CONSTITUTION.md</a> <em>(internal steward notes — not the public face)</em></td>
+<td>Non-negotiables, rights, stewardship</td>
+</tr>
+<tr>
+<td><a href="PROTOCOL.html">PROTOCOL.md</a></td>
+<td>Identity, memory, events, consent, federation principles</td>
+</tr>
+<tr>
+<td><a href="REUSE-VS-INVENT.html">REUSE-VS-INVENT.md</a></td>
+<td>What to borrow vs create</td>
+</tr>
+<tr>
+<td><a href="EVENT-AND-CONSENT.html">EVENT-AND-CONSENT.md</a></td>
+<td>Wire shapes for events + ConsentGrant</td>
+</tr>
+<tr>
+<td><a href="FEDERATION.html">FEDERATION.md</a></td>
+<td>Peers, bonds, discovery hints</td>
+</tr>
+<tr>
+<td><a href="GUARDIANSHIP.html">GUARDIANSHIP.md</a></td>
+<td>Animals &amp; ecosystems via guardians</td>
+</tr>
+<tr>
+<td><a href="NODE-BINDING.html">NODE-BINDING.md</a></td>
+<td>BeingId ↔ NodeId attestation (ADR-001)</td>
+</tr>
+<tr>
+<td><a href="SIGNED-EVENTS.html">SIGNED-EVENTS.md</a></td>
+<td>When/how to sign across trust boundaries</td>
+</tr>
+<tr>
+<td><a href="A2A-MCP-MAPPING.html">A2A-MCP-MAPPING.md</a></td>
+<td>How A2A/MCP/robot buses sit under ANIMA</td>
+</tr>
+<tr>
+<td><a href="EXPORT-AND-EXIT.html">EXPORT-AND-EXIT.md</a></td>
+<td>Real exit + ExportBundle</td>
+</tr>
+<tr>
+<td><a href="COMPUTE-MESH.html">COMPUTE-MESH.md</a></td>
+<td>Voluntary compute/storage edges (late)</td>
+</tr>
+<tr>
+<td><a href="schemas/">schemas/</a></td>
+<td>JSON Schema sketches (Event, ConsentGrant, Bond, GuardianLink, NodeBinding)</td>
+</tr>
+<tr>
+<td><a href="THREAT-MODEL.html">THREAT-MODEL.md</a></td>
+<td>Assets, adversaries, anti-capture controls</td>
+</tr>
+<tr>
+<td><a href="VERSIONING.html">VERSIONING.md</a></td>
+<td>Compatibility + RFC-lite</td>
+</tr>
+<tr>
+<td><a href="CHANGELOG.html">CHANGELOG.md</a></td>
+<td>Docs ship log</td>
+</tr>
+<tr>
+<td><a href="ROADMAP.html">ROADMAP.md</a></td>
+<td>Build order — done / now / next</td>
+</tr>
+<tr>
+<td><a href="MEMORY-CUSTODY.html">MEMORY-CUSTODY.md</a></td>
+<td>Local-first memory + grants</td>
+</tr>
+<tr>
+<td><a href="fixtures/">fixtures/</a></td>
+<td>Golden JSON examples</td>
+</tr>
+<tr>
+<td><a href="GLOSSARY.html">GLOSSARY.md</a></td>
+<td>Terms</td>
+</tr>
+<tr>
+<td><a href="AGENT-CARD.html">AGENT-CARD.md</a></td>
+<td>DID-rooted capability advert</td>
+</tr>
+<tr>
+<td><a href="ARCHITECTURE-OVERVIEW.html">ARCHITECTURE-OVERVIEW.md</a></td>
+<td>One-page stack map</td>
+</tr>
+<tr>
+<td><a href="adr/ADR-002-deny-unknown-action-class.html">adr/ADR-002-deny-unknown-action-class.md</a></td>
+<td>Fail closed on unknown action_class</td>
+</tr>
+<tr>
+<td><a href="ACTION-CLASSES.html">ACTION-CLASSES.md</a></td>
+<td>Allowlist registry; unknown → deny</td>
+</tr>
+<tr>
+<td><a href="STEWARDSHIP.html">STEWARDSHIP.md</a></td>
+<td>Commons stewardship intent</td>
+</tr>
+<tr>
+<td><a href="REVOKE-NODE.html">REVOKE-NODE.md</a></td>
+<td>Stolen/lost device without killing BeingId</td>
+</tr>
+<tr>
+<td><a href="INTEROP-TESTS.html">INTEROP-TESTS.md</a></td>
+<td>Purity / identity / consent / exit tests</td>
+</tr>
+<tr>
+<td><a href="HABITAT-VERTICAL.html">HABITAT-VERTICAL.md</a></td>
+<td>Narrow ecosystem proxy vertical</td>
+</tr>
+<tr>
+<td><a href="ANIMAL-VERTICAL.html">ANIMAL-VERTICAL.md</a></td>
+<td>Companion animal welfare vertical (S3.4)</td>
+</tr>
+<tr>
+<td><a href="SITE-HOSTING.html">SITE-HOSTING.md</a></td>
+<td>Static host is adapter; DNS → site/</td>
+</tr>
+<tr>
+<td><a href="FIRST-SLICE-STATUS.html">FIRST-SLICE-STATUS.md</a></td>
+<td>2026-09-04 snapshot: real vs deferred</td>
+</tr>
+<tr>
+<td><a href="SECOND-SLICE.html">SECOND-SLICE.md</a></td>
+<td>Next architecture plan (dual-process, signed events, habitat)</td>
+</tr>
+<tr>
+<td><a href="SECOND-SLICE-STATUS.html">SECOND-SLICE-STATUS.md</a></td>
+<td>S2.1–S2.6 offline snapshot + interop runner</td>
+</tr>
+<tr>
+<td><a href="adr/ADR-003-license-defaults.html">adr/ADR-003-license-defaults.md</a></td>
+<td>Proposed CC BY docs / Apache-2.0 code</td>
+</tr>
+<tr>
+<td><a href="DUAL-PROCESS-BOND.html">DUAL-PROCESS-BOND.md</a></td>
+<td>S2.1 two-process bond sequence</td>
+</tr>
+<tr>
+<td><a href="adr/ADR-004-dual-process-data-dirs.html">adr/ADR-004-dual-process-data-dirs.md</a></td>
+<td>Separate REFNODE_HOME per party</td>
+</tr>
+<tr>
+<td><a href="THIRD-SLICE.html">THIRD-SLICE.md</a></td>
+<td>Next plan: challenge, memory grants, 3-party</td>
+</tr>
+<tr>
+<td><a href="THIRD-SLICE-STATUS.html">THIRD-SLICE-STATUS.md</a></td>
+<td>S3.1–S3.5 offline snapshot</td>
+</tr>
+<tr>
+<td><a href="CHALLENGE-AND-FRESH.html">CHALLENGE-AND-FRESH.md</a></td>
+<td>fresh_required / consent.challenge wire</td>
+</tr>
+<tr>
+<td><a href="THREE-PARTY-FEDERATION.html">THREE-PARTY-FEDERATION.md</a></td>
+<td>S3.3 A–B–C without megabrain</td>
+</tr>
+<tr>
+<td><a href="FOURTH-SLICE.html">FOURTH-SLICE.md</a></td>
+<td>Next: introduce, peers dir, operator guide</td>
+</tr>
+<tr>
+<td><a href="PEERS-DIRECTORY.html">PEERS-DIRECTORY.md</a></td>
+<td>S4.2 local peer address book</td>
+</tr>
+<tr>
+<td><a href="INTRODUCE.html">INTRODUCE.md</a></td>
+<td>bond.introduce wire (S4.1)</td>
+</tr>
+<tr>
+<td><a href="OPERATOR-GUIDE.html">OPERATOR-GUIDE.md</a></td>
+<td>Run reference-node locally</td>
+</tr>
+<tr>
+<td><a href="FIFTH-SLICE.html">FIFTH-SLICE.md</a></td>
+<td>Next: export sig, guardian-challenge, package hygiene</td>
+</tr>
+<tr>
+<td><a href="FOURTH-SLICE-STATUS.html">FOURTH-SLICE-STATUS.md</a></td>
+<td>S4 offline sealed snapshot</td>
+</tr>
+<tr>
+<td><a href="GUARDIAN-CHALLENGE.html">GUARDIAN-CHALLENGE.md</a></td>
+<td>S5.3 guardian-signed fresh challenge</td>
+</tr>
+<tr>
+<td><a href="FIFTH-SLICE-STATUS.html">FIFTH-SLICE-STATUS.md</a></td>
+<td>S5 offline sealed snapshot</td>
+</tr>
+<tr>
+<td><a href="SIXTH-SLICE.html">SIXTH-SLICE.md</a></td>
+<td>Next: bindings/consent CLIs, release hygiene</td>
+</tr>
+<tr>
+<td><a href="SEVENTH-SLICE.html">SEVENTH-SLICE.md</a></td>
+<td>Schema-validate, attenuate-deny, agent-card</td>
+</tr>
+<tr>
+<td><a href="EIGHTH-SLICE.html">EIGHTH-SLICE.md</a></td>
+<td>Signed events, replay/skew (<code>ANIMA_SIGN=1</code>)</td>
+</tr>
+<tr>
+<td><a href="NINTH-SLICE.html">NINTH-SLICE.md</a> · <a href="NINTH-SLICE-STATUS.html">NINTH-SLICE-STATUS.md</a></td>
+<td>Animal/guardian vertical + plain pet-care story</td>
+</tr>
+<tr>
+<td><a href="TENTH-SLICE.html">TENTH-SLICE.md</a></td>
+<td>Ecosystem/place vertical</td>
+</tr>
+<tr>
+<td><a href="ELEVENTH-SLICE.html">ELEVENTH-SLICE.md</a></td>
+<td>Phone presence PWA — no store gate</td>
+</tr>
+<tr>
+<td><a href="PHONE-PRESENCE.html">PHONE-PRESENCE.md</a></td>
+<td>Phone without App Store/Play approval</td>
+</tr>
+<tr>
+<td><a href="ECOSYSTEM-PLAIN.html">ECOSYSTEM-PLAIN.md</a></td>
+<td>Place care — plain words</td>
+</tr>
+<tr>
+<td><a href="ANIMAL-PLAIN.html">ANIMAL-PLAIN.md</a></td>
+<td>Pet care on ANIMA — plain words</td>
+</tr>
+<tr>
+<td><a href="adr/ADR-001-being-vs-node-keys.html">adr/ADR-001-being-vs-node-keys.md</a></td>
+<td>Decision: separate BeingId / NodeId keys</td>
+</tr>
+</tbody>
+</table>
+<p>Living drafts. steward veto after review. Standing order: ship continuously; course-correct after.</p>
+</div>
+</body>
+</html>
