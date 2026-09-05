@@ -104,6 +104,7 @@ NAV_ITEMS = [
 # Docs to render from markdown (flat under docs/)
 RENDER = [
     "PLAIN-LANGUAGE",
+    "THREE-BEING-DAY-PLAIN",
     "SENSE-AND-FABRIC",
     "AI-BEING",
     "THIRTEENTH-SLICE",
