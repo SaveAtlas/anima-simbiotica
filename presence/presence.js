@@ -2,7 +2,7 @@
 (function () {
   "use strict";
 
-  var STORE_KEY = "anima-presence-v13";
+  var STORE_KEY = "anima-presence-v12";
   var NODE_KEY = "anima-refnode-base";
 
   function uid(prefix) {
